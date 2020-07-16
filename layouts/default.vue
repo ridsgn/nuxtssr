@@ -1,7 +1,7 @@
 <template>
   <div>
-    <the-nav></the-nav>
-    <nuxt></nuxt>
+    <!-- <v-header></v-header> -->
+    <nuxt />
   </div>
 </template>
 
@@ -10,7 +10,7 @@ import TheNav from "@/components/TheNav.vue";
 
 export default {
   components: {
-    TheNav
+    "v-header": TheNav
   }
 };
 </script>

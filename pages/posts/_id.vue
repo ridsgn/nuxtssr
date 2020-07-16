@@ -6,39 +6,47 @@
         {{ post.content }}
       </p>
     </article>
+    <aside>
+      <h3>Posts you might enjoy</h3>
+      <ul>
+        <li v-for="related in relatedPosts" :key="related.id">
+          <nuxt-link :to="{ name: 'posts-id', params: { id: related.id } }">
+            {{ related.title }}
+          </nuxt-link>
+        </li>
+      </ul>
+    </aside>
   </div>
 </template>
 
 <script>
 export default {
-  data() {
+  head() {
     return {
-      id: this.$route.params.id,
-      posts: [
+      title: this.post.title,
+      meta: [
         {
-          id: "balut",
-          title: "What is Balut ?",
-          content:
-            "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Consequunturest culpa illo reiciendis. Asperiores eius officiis amet nemo voluptatum deserunt a quidem, officia exercitationem, adipisci voluptatem reiciendis, aliquid fuga! Non."
+          name: "twitter:title",
+          content: this.post.title
         },
         {
-          id: "whereIsIt",
-          title: "What is Basefamsenfa ?",
-          content:
-            "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Consequunturest culpa illo reiciendis. Asperiores eius officiis amet nemo voluptatum deserunt a quidem, officia exercitationem, adipisci voluptatem reiciendis, aliquid fuga! Non."
-        },
-        {
-          id: "how",
-          title: "What is Bapueef ?",
-          content:
-            "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Consequunturest culpa illo reiciendis. Asperiores eius officiis amet nemo voluptatum deserunt a quidem, officia exercitationem, adipisci voluptatem reiciendis, aliquid fuga! Non."
+          name: "twitter:description",
+          content: this.post.content
         }
       ]
     };
   },
+  data() {
+    return {
+      id: this.$route.params.id
+    };
+  },
   computed: {
     post() {
-      return this.posts.find(post => post.id === this.id);
+      return this.$store.state.posts.all.find(post => post.id === this.id);
+    },
+    relatedPosts() {
+      return this.$store.state.posts.all.filter(post => post.id !== this.id);
     }
   }
 };
