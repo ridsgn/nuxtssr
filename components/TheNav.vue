@@ -1,5 +1,5 @@
 <template>
-  <div class="fixed bg-main top-0 w-full">
+  <div class="bg-main top-0 w-full">
     <header class="border-b">
       <div
         class="container mx-auto flex flex-row items-center justify-between px-4 py-3"
@@ -130,16 +130,24 @@
         class="container mx-auto flex flex-row items-center justify-between px-4"
       >
         <div class="flex flex-col lg:flex-row items-start">
-          <ul class="flex space-x-8 mt-6 lg:mt-0">
-            <li class="py-2 border-b-2 border-tertiary-500">
-              <nuxt-link :to="{ name: 'index' }">Home</nuxt-link>
+          <ul class="flex space-x-8 mt-6 lg:mt-0 py-2">
+            <li>
+              <nuxt-link :to="{ name: 'index' }" class="py-2">Home</nuxt-link>
             </li>
-            <li class="py-2 hover:text-tertiary-500"><a href="#">Store</a></li>
-            <li class="py-2 hover:text-tertiary-500"><a href="#">Vendor</a></li>
-            <li class="py-2 hover:text-tertiary-500"><a href="#">Events</a></li>
-            <li class="py-2 hover:text-tertiary-500"><a href="#">Blog</a></li>
-            <li class="py-2 hover:text-tertiary-500">
-              <a href="#">Get Our App</a>
+            <li>
+              <a class="py-2" href="#">Store</a>
+            </li>
+            <li>
+              <nuxt-link class="py-2" to="/vendors">Vendor</nuxt-link>
+            </li>
+            <li>
+              <a class="py-2" href="#">Events</a>
+            </li>
+            <li>
+              <a class="py-2" href="#">Blog</a>
+            </li>
+            <li>
+              <a class="py-2" href="#">Get Our App</a>
             </li>
           </ul>
         </div>
@@ -158,4 +166,8 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style scoped>
+.nuxt-link-active {
+  @apply border-b-2 border-tertiary-500;
+}
+</style>
