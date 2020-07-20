@@ -1,5 +1,5 @@
 <template>
-  <component :is="type" :href="href" :to="to" @click="onClick">
+  <component :is="type" :href="href" :to="to">
     <div class="button flex items-center justify-center">
       <slot />
     </div>
@@ -9,10 +9,6 @@
 <script>
 export default {
   props: {
-    onClick: {
-      type: Function,
-      default: true
-    },
     href: {
       type: String,
       default: null

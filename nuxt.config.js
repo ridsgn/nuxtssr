@@ -35,6 +35,9 @@ export default {
   ** https://nuxtjs.org/guide/plugins
   */
   plugins: [
+    './plugins/mixins/user.js',
+    './plugins/axios.js',
+    './plugins/mixins/validation.js'
   ],
   /*
   ** Auto import components
@@ -53,17 +56,43 @@ export default {
   */
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
+    '@nuxtjs/auth',
     '@nuxtjs/axios',
   ],
   /*
   ** Axios module configuration
   ** See https://axios.nuxtjs.org/options
   */
-  axios: {},
+  axios: {
+    baseURL: "http://localhost:8000/api"
+  },
   /*
   ** Build configuration
   ** See https://nuxtjs.org/api/configuration-build/
   */
   build: {
+  },
+
+  auth: {
+    strategies: {
+      local: {
+        endpoints: {
+          login: {
+            url: 'login',
+            method: 'post',
+            propertyName: 'meta.token'
+          },
+          user: {
+            url: 'user',
+            method: 'get',
+            propertyName: 'data'
+          },
+          logout: {
+            url: 'logout',
+            method: 'post'
+          }
+        }
+      }  
+    }
   }
 }

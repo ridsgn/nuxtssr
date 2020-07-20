@@ -46,7 +46,7 @@
               </svg>
             </div>
           </div>
-          <div class="ml-6">
+          <div class="ml-4">
             <button
               class="p-1 border-2 border-transparent text-gray-400 rounded-full hover:text-paragraph focus:outline-none focus:text-white focus:bg-gray-300 transition duration-150 ease-in-out"
               aria-label="Cart"
@@ -67,10 +67,9 @@
               </svg>
             </button>
           </div>
-          <div class="ml-4 relative">
+          <div class="ml-4 relative" v-if="authenticated">
             <button
               @click="isAva = !isAva"
-              @blur="isAva = false"
               id="user-menu"
               aria-label="User Menu"
               aria-haspopup="true"
@@ -104,7 +103,7 @@
                     href="#"
                     class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out"
                     role="menuitem"
-                    >Your Profile</a
+                    >{{ user.name }}</a
                   >
                   <a
                     href="#"
@@ -113,14 +112,18 @@
                     >Settings</a
                   >
                   <a
-                    href="#"
-                    class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out"
+                    @click.prevent="logout"
                     role="menuitem"
-                    >Sign out</a
+                    class="block w-full text-left px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out cursor-pointer"
                   >
+                    Sign out
+                  </a>
                 </div>
               </div>
             </transition>
+          </div>
+          <div class="ml-4 cursor-pointer" v-else>
+            <v-button class="text-sm" to="/login">Sign In</v-button>
           </div>
         </div>
       </div>
@@ -157,11 +160,22 @@
 </template>
 
 <script>
+import TheButton from "@/components/TheButton.vue";
+
 export default {
+  components: {
+    "v-button": TheButton
+  },
   data() {
     return {
       isAva: false
     };
+  },
+  methods: {
+    logout() {
+      this.$auth.logout();
+      this.isAva = false;
+    }
   }
 };
 </script>
