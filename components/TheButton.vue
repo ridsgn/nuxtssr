@@ -1,6 +1,6 @@
 <template>
   <component :is="type" :href="href" :to="to">
-    <div class="button flex items-center justify-center">
+    <div class="button inline-flex items-center justify-center">
       <slot />
     </div>
   </component>
@@ -29,6 +29,6 @@ export default {
 
 <style scoped>
 .button {
-  @apply w-16 h-8 rounded-md bg-secondary-500;
+  @apply h-8 p-2 rounded bg-secondary-500;
 }
 </style>

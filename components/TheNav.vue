@@ -1,9 +1,7 @@
 <template>
   <div class="bg-main top-0 w-full">
     <header class="border-b">
-      <div
-        class="container mx-auto flex flex-row items-center justify-between px-4 py-3"
-      >
+      <div class="container mx-auto flex flex-row items-center justify-between px-4 py-3">
         <div class="flex flex-row items-start">
           <a class="block md:hidden" href="#">
             <svg
@@ -23,11 +21,7 @@
             </svg>
           </a>
           <a class="hidden md:block" href="/">
-            <h1
-              class="w-40 flex font-semibold text-xl sm:text-2xl text-highlight"
-            >
-              Happy Life
-            </h1>
+            <h1 class="w-40 flex font-semibold text-xl sm:text-2xl text-highlight">Happy Life</h1>
           </a>
         </div>
         <div class="flex items-center mt-0">
@@ -103,21 +97,17 @@
                     href="#"
                     class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out"
                     role="menuitem"
-                    >{{ user.name }}</a
-                  >
+                  >{{ user.name }}</a>
                   <a
                     href="#"
                     class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out"
                     role="menuitem"
-                    >Settings</a
-                  >
+                  >Settings</a>
                   <a
                     @click.prevent="logout"
                     role="menuitem"
                     class="block w-full text-left px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out cursor-pointer"
-                  >
-                    Sign out
-                  </a>
+                  >Sign out</a>
                 </div>
               </div>
             </transition>
@@ -129,28 +119,26 @@
       </div>
     </header>
     <nav class="shadow hidden lg:block">
-      <div
-        class="container mx-auto flex flex-row items-center justify-between px-4"
-      >
+      <div class="container mx-auto flex flex-row items-center justify-between px-4">
         <div class="flex flex-col lg:flex-row items-start">
-          <ul class="flex space-x-8 mt-6 lg:mt-0 py-2">
+          <ul class="flex space-x-8 mt-6 lg:mt-0 py-2 -mb-px text-sm">
             <li>
-              <nuxt-link :to="{ name: 'index' }" class="py-2">Home</nuxt-link>
+              <nuxt-link :to="{ name: 'index' }" class="py-2 hover:text-tertiary-500" exact>Home</nuxt-link>
             </li>
             <li>
-              <a class="py-2" href="#">Store</a>
+              <nuxt-link class="py-2 hover:text-tertiary-500" to="#store">Store</nuxt-link>
             </li>
             <li>
-              <nuxt-link class="py-2" to="/vendors">Vendor</nuxt-link>
+              <nuxt-link class="py-2 hover:text-tertiary-500" to="/vendors">Vendor</nuxt-link>
             </li>
             <li>
-              <a class="py-2" href="#">Events</a>
+              <nuxt-link class="py-2 hover:text-tertiary-500" to="#events">Events</nuxt-link>
             </li>
             <li>
-              <a class="py-2" href="#">Blog</a>
+              <nuxt-link class="py-2 hover:text-tertiary-500" to="#blog">Blog</nuxt-link>
             </li>
             <li>
-              <a class="py-2" href="#">Get Our App</a>
+              <nuxt-link class="py-2 hover:text-tertiary-500" to="#app">Get Our App</nuxt-link>
             </li>
           </ul>
         </div>

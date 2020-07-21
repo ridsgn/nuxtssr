@@ -1,25 +1,17 @@
 <template>
-  <div
-    class="card container mx-auto bg-white max-w-sm h-card w-card rounded-lg shadow-lg"
-  >
+  <div class="card container mx-auto bg-white max-w-sm h-card w-card rounded-lg shadow-lg">
     <div class="container mx-auto p-6">
       <div class="flex flex-col items-center">
-        <div
-          class="flex items-center justify-center w-28 h-28 rounded-full bg-secondary-50"
-        >
+        <div class="flex items-center justify-center w-28 h-28 rounded-full bg-secondary-50">
           <a href="#">
             <img class="w-24 h-24 rounded-full" :src="vendor.img" alt="pic" />
           </a>
         </div>
         <div class="flex flex-col justify-center items-center mt-5">
-          <h1
-            class="font-monts font-semibold text-lg truncate tracking-tight text-secondary-500"
-          >
-            <a href="#">{{ vendor.title }}</a>
+          <h1 class="font-monts font-semibold text-lg truncate tracking-tight text-secondary-500">
+            <nuxt-link :to="{ name: 'vendors-id', params: { id:'2' } }">{{ vendor.title }}</nuxt-link>
           </h1>
-          <ul
-            class="flex items-center justify-center font-monts font-normal text-xs"
-          >
+          <ul class="flex items-center justify-center font-monts font-normal text-xs">
             <li>
               <a href="#">Catering</a>
             </li>
@@ -68,9 +60,7 @@
           <a href="#">
             <button
               class="font-monts font-medium text-sm w-16 h-8 rounded-md bg-secondary-500 hover:bg-secondary-600"
-            >
-              {{ vendor.price }}
-            </button>
+            >{{ vendor.price }}</button>
           </a>
         </div>
       </div>
