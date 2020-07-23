@@ -32,7 +32,8 @@
               <client-only>
                 <star-rating
                   class="mb-1"
-                  :increment="0.5"
+                  :increment="0.01"
+                  :rating="4.9"
                   :glow="10"
                   :star-size="18"
                   :show-rating="false"
@@ -74,53 +75,46 @@
       <ul class="flex border-b space-x-4">
         <li class="-mb-px">
           <nuxt-link
-            class="inline-block py-2 px-4 text-blue-500 hover:text-blue-800 font-medium"
-            :to="{ name: 'vendors-id', params: { id:'2' } }"
+            class="inline-block py-2 px-4 text-blue-500 hover:text-tertiary-500 font-medium"
+            :to="{ name: 'vendors-slug', params: { slug:'2' } }"
             exact
-          >Active</nuxt-link>
+          >Projects</nuxt-link>
         </li>
         <li>
           <nuxt-link
-            class="inline-block py-2 px-4 text-blue-500 hover:text-blue-800 font-medium"
+            class="inline-block py-2 px-4 text-blue-500 hover:text-tertiary-500 font-medium"
             to="#over"
-          >Tab</nuxt-link>
+          >Store</nuxt-link>
         </li>
         <li>
           <nuxt-link
-            class="inline-block py-2 px-4 text-blue-500 hover:text-blue-800 font-medium"
+            class="inline-block py-2 px-4 text-blue-500 hover:text-tertiary-500 font-medium"
             to="#ha"
-          >Tab</nuxt-link>
+          >Reviews</nuxt-link>
         </li>
         <li>
           <nuxt-link
-            class="inline-block py-2 px-4 text-blue-500 hover:text-blue-800 font-medium"
+            class="inline-block py-2 px-4 text-blue-500 hover:text-tertiary-500 font-medium"
             to="#hm"
           >Tab</nuxt-link>
         </li>
       </ul>
     </div>
-    <div class="mt-12 grid grid-cols-4 grid-rows-2 gap-6">
-      <v-project-card></v-project-card>
-    </div>
+    <nuxt-child />
   </div>
 </template>
 
 <script>
 import TheButton from "@/components/TheButton.vue";
-import TheProjectCard from "@/components/vendors/TheProjectCard.vue";
 import StarRating from "vue-star-rating";
 
 export default {
   components: {
     "v-button": TheButton,
-    "v-project-card": TheProjectCard,
-    StarRating
-  }
+    StarRating,
+  },
 };
 </script>
 
-<style scoped>
-.nuxt-link-active {
-  @apply border-tertiary-500 text-blue-800 border-b-2;
-}
+<style lang="scss" scoped>
 </style>

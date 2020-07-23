@@ -9,7 +9,7 @@
         </div>
         <div class="flex flex-col justify-center items-center mt-5">
           <h1 class="font-monts font-semibold text-lg truncate tracking-tight text-secondary-500">
-            <nuxt-link :to="{ name: 'vendors-id', params: { id:'2' } }">{{ vendor.title }}</nuxt-link>
+            <nuxt-link :to="{ name: 'vendors-slug', params: { slug:'2' } }">{{ vendor.title }}</nuxt-link>
           </h1>
           <ul class="flex items-center justify-center font-monts font-normal text-xs">
             <li>
@@ -74,12 +74,12 @@ import StarRating from "vue-star-rating";
 export default {
   name: "vendor",
   components: {
-    StarRating
+    StarRating,
   },
   props: ["vendor"],
   data() {
     return {};
   },
-  computed: {}
+  computed: {},
 };
 </script>

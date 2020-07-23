@@ -11,7 +11,7 @@
 export default {
   data() {
     return {
-      posts: ""
+      posts: "",
     };
   },
   async asyncData({
@@ -25,7 +25,7 @@ export default {
     res,
     redirect,
     error,
-    $axios
+    $axios,
   }) {
     const data = await $axios.$get(
       "https://jsonplaceholder.typicode.com/todos"
@@ -39,14 +39,14 @@ export default {
         {
           hid: "description",
           name: "description",
-          content: "custom description"
-        }
-      ]
+          content: "custom description",
+        },
+      ],
     };
   },
   validate({ params, query, store }) {
     return /^\d+$/.test(params.id);
-  }
+  },
 };
 </script>
 
