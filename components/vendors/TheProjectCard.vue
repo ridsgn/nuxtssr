@@ -9,7 +9,7 @@
       <img class="rounded-lg" src="https://picsum.photos/500/500.jpg" alt="project image" />
     </a>
     <div
-      class="absolute bottom-0 left-0 w-full h-20 bg-main rounded-b-lg"
+      class="absolute bottom-0 left-0 w-full h-20 bg-main rounded-b-lg border-2 border-gray-400"
       v-bind:class="[ isHover ? activeClass : inactiveClass ]"
     >
       <div class="flex h-full w-full p-2">
@@ -34,9 +34,9 @@ export default {
     return {
       isHover: false,
       activeClass: ["block", "z-10"],
-      inactiveClass: "hidden"
+      inactiveClass: "hidden",
     };
-  }
+  },
 };
 </script>
 

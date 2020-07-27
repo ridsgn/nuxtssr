@@ -1,6 +1,6 @@
 <template>
   <div class="container mx-auto px-4">
-    <div class="flex items-end justify-end">
+    <div class="flex mt-6 items-end justify-end">
       <v-dropdown />
     </div>
     <div
@@ -18,12 +18,12 @@ import TheDrop from "@/components/TheDrop.vue";
 export default {
   components: {
     "v-card": TheCard,
-    "v-dropdown": TheDrop
+    "v-dropdown": TheDrop,
   },
   data() {
     return {
       id: "",
-      vendors: []
+      vendors: [],
     };
   },
   async asyncData({ $axios }) {
@@ -32,7 +32,7 @@ export default {
     );
     return { data };
   },
-  methods: {}
+  methods: {},
 };
 </script>
 

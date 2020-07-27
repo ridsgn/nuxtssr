@@ -24,11 +24,14 @@
             <client-only>
               <star-rating
                 class="mb-1"
-                :increment="0.5"
+                :increment="0.01"
+                inactive-color="#858720"
+                :rating="4.9"
                 :glow="10"
                 :star-size="18"
                 :show-rating="false"
                 :rounded-corners="true"
+                :read-only="true"
                 :star-points="[
                   23,
                   2,
