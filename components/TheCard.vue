@@ -1,17 +1,17 @@
 <template>
-  <div class="card container mx-auto bg-white max-w-sm h-card w-card rounded-lg shadow-lg">
-    <div class="container mx-auto p-6">
+  <div class="container max-w-sm mx-auto bg-white rounded-lg shadow-lg card h-card w-card">
+    <div class="container p-6 mx-auto">
       <div class="flex flex-col items-center">
-        <div class="flex items-center justify-center w-28 h-28 rounded-full bg-secondary-50">
+        <div class="flex items-center justify-center rounded-full w-28 h-28 bg-secondary-50">
           <a href="#">
             <img class="w-24 h-24 rounded-full" :src="vendor.img" alt="pic" />
           </a>
         </div>
-        <div class="flex flex-col justify-center items-center mt-5">
-          <h1 class="font-monts font-semibold text-lg truncate tracking-tight text-secondary-500">
-            <nuxt-link :to="{ name: 'vendors-slug', params: { slug:'2' } }">{{ vendor.title }}</nuxt-link>
+        <div class="flex flex-col items-center justify-center mt-5">
+          <h1 class="text-lg font-semibold tracking-tight truncate font-monts text-secondary-500">
+            <nuxt-link :to="`/vendors/${vendor.id}`">{{ vendor.title }}</nuxt-link>
           </h1>
-          <ul class="flex items-center justify-center font-monts font-normal text-xs">
+          <ul class="flex items-center justify-center text-xs font-normal font-monts">
             <li>
               <a href="#">Catering</a>
             </li>
@@ -56,13 +56,13 @@
                 ]"
               ></star-rating>
             </client-only>
-            <div class="mb-4 font-monts font-light text-xs">
+            <div class="mb-4 text-xs font-light font-monts">
               <a href="#">{{ vendor.review }} reviews</a>
             </div>
           </div>
           <a href="#">
             <button
-              class="font-monts font-medium text-sm w-16 h-8 rounded-md bg-secondary-500 hover:bg-secondary-600"
+              class="w-16 h-8 text-sm font-medium rounded-md font-monts bg-secondary-500 hover:bg-secondary-600"
             >{{ vendor.price }}</button>
           </a>
         </div>

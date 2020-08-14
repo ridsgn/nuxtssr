@@ -1,10 +1,10 @@
 <template>
-  <div class="container mx-auto px-4">
-    <div class="flex mt-6 items-end justify-end">
+  <div class="container px-4 mx-auto">
+    <div class="flex items-end justify-end mt-6">
       <v-dropdown />
     </div>
     <div
-      class="grid justify-center grid-cols-none sm:grid-cols-card-2 lg:grid-cols-card-3 xl:grid-cols-card-4 gap-5 mt-20"
+      class="grid justify-center grid-cols-none gap-5 mt-20 sm:grid-cols-card-2 lg:grid-cols-card-3 xl:grid-cols-card-4"
     >
       <v-card v-for="vendor in data" :key="vendor.id" :vendor="vendor" />
     </div>
@@ -23,13 +23,14 @@ export default {
   data() {
     return {
       id: "",
-      vendors: [],
     };
   },
   async asyncData({ $axios }) {
     const data = await $axios.$get(
       "https://my-json-server.typicode.com/rizuki96/jsontest/vendors"
     );
+    // console.log(data);
+    // debugger;
     return { data };
   },
   methods: {},
