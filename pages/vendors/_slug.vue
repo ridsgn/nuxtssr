@@ -47,7 +47,8 @@
         <div class="flex items-start flex-1">
           <div class="flex flex-col items-center justify-center flex-1">
             <h1 class="text-lg font-medium">Projects Done</h1>
-            <div class="text-2xl font-bold">{{ response.data.hits }}</div>
+            <div class="text-2xl font-bold">123</div> 
+            <!-- {{ response.data.hits }} -->
           </div>
           <div class="flex flex-col items-center justify-center flex-grow">
             <div class="flex-none">
@@ -141,14 +142,14 @@ export default {
       ],
     };
   },
-  async asyncData({ $axios, params }) {
-    let response = await $axios.get(
-      `http://fakeapi.jsonparseronline.com/posts/${params.slug}`
-    );
-    // console.log(response);
-    // debugger;
-    return { response };
-  },
+  // async asyncData({ $axios, params }) {
+  //   let response = await $axios.get(
+  //     `http://fakeapi.jsonparseronline.com/posts/${params.slug}`
+  //   );
+  //   // console.log(response);
+  //   // debugger;
+  //   return { response };
+  // },
 };
 </script>
 

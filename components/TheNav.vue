@@ -1,7 +1,7 @@
 <template>
   <div class="bg-main top-0 w-full">
     <header class="border-b">
-      <div class="container mx-auto flex flex-row items-center justify-between px-4 py-3">
+      <div class="container mx-auto flex flex-row items-center justify-between xl:px-0 px-4 py-3">
         <div class="flex flex-row items-start">
           <a class="block md:hidden" href="#">
             <svg
@@ -119,14 +119,14 @@
       </div>
     </header>
     <nav class="shadow hidden lg:block">
-      <div class="container mx-auto flex flex-row items-center justify-between px-4">
+      <div class="container mx-auto flex flex-row items-center justify-between xl:px-0 px-4">
         <div class="flex flex-col lg:flex-row items-start">
           <ul class="flex space-x-8 mt-6 lg:mt-0 py-2 -mb-px text-sm">
             <li>
               <nuxt-link :to="{ name: 'index' }" class="py-2 hover:text-tertiary-500" exact>Home</nuxt-link>
             </li>
             <li>
-              <nuxt-link class="py-2 hover:text-tertiary-500" to="#store">Store</nuxt-link>
+              <nuxt-link class="py-2 hover:text-tertiary-500" to="/store">Store</nuxt-link>
             </li>
             <li>
               <nuxt-link class="py-2 hover:text-tertiary-500" to="/vendors">Vendor</nuxt-link>

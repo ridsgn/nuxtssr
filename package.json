@@ -16,6 +16,8 @@
     "@nuxtjs/style-resources": "^1.0.0",
     "nuxt": "^2.13.0",
     "nuxt-buefy": "^0.3.31",
+    "swiper": "^5.4.5",
+    "vue-awesome-swiper": "^4.1.1",
     "vue-star-rating": "^1.6.1"
   },
   "devDependencies": {

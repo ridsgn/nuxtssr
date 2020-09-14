@@ -30,7 +30,8 @@ export default {
   ** Global CSS
   */
   css: [
-    '~assets/scss/bulma.scss'
+    '~assets/scss/bulma.scss',
+    'swiper/css/swiper.css'
   ],
   /*
   ** Plugins to load before mounting the App
@@ -39,7 +40,8 @@ export default {
   plugins: [
     './plugins/mixins/user.js',
     './plugins/axios.js',
-    './plugins/mixins/validation.js'
+    './plugins/mixins/validation.js',
+    { src: '@/plugins/nuxt-swiper-plugin.js', ssr: false },
   ],
   /*
   ** Auto import components
@@ -96,7 +98,7 @@ export default {
             method: 'post'
           }
         }
-      }  
+      }
     }
   }
 }

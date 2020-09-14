@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="w-3/12">
     <!-- image wrapper -->
     <div class="rounded-lg">
       <a href="#">

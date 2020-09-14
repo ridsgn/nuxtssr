@@ -2,13 +2,13 @@
   <div class="container max-w-sm mx-auto bg-white rounded-lg shadow-lg card h-card w-card">
     <div class="container p-6 mx-auto">
       <div class="flex flex-col items-center">
-        <div class="flex items-center justify-center rounded-full w-28 h-28 bg-secondary-50">
+        <div class="flex items-center justify-center rounded-full w-28 h-28 bg-tertiary-50">
           <a href="#">
             <img class="w-24 h-24 rounded-full" :src="vendor.img" alt="pic" />
           </a>
         </div>
         <div class="flex flex-col items-center justify-center mt-5">
-          <h1 class="text-lg font-semibold tracking-tight truncate font-monts text-secondary-500">
+          <h1 class="text-lg font-semibold tracking-tight truncate font-monts text-tertiary-600">
             <nuxt-link :to="`/vendors/${vendor.id}`">{{ vendor.title }}</nuxt-link>
           </h1>
           <ul class="flex items-center justify-center text-xs font-normal font-monts">
