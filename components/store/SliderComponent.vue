@@ -13,9 +13,15 @@ export default {
   components: {
     ContentCard
   },
+  props: {
+    number: {
+      type: Number,
+      required: true
+    }
+  },
   data() {
     return {
-      // newDisplay: false,
+      // number: null,
       items: [1, 2, 3, 4, 5, 6, 7, 8],
       swiperOption: {
         slidesPerView: "auto",
@@ -24,29 +30,15 @@ export default {
         slidesOffsetAfter: 14,
         breakpoints: {
           640: {
-            slidesOffsetBefore: 80,
+            slidesOffsetBefore: this.number,
             slidesOffsetAfter: 80
           }
         }
       }
     };
-  }
-  // methods: {
-  //   onResize() {
-  //     console.log(window.innerWidth);
-  //     if (window.innerWidth > 640) {
-  //       this.newDisplay = true;
-  //     } else {
-  //       this.newDisplay = false;
-  //     }
-  //   }
-  // },
-  // created() {
-  //   window.addEventListener("resize", this.onResize);
-  // },
-  // beforeDestroy() {
-  //   window.removeEventListener("resize", this.onResize);
-  // }
+  },
+
+
 };
 </script>
 

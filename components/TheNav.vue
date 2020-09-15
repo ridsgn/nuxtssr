@@ -1,7 +1,7 @@
 <template>
   <div class="bg-main top-0 w-full">
     <header class="border-b">
-      <div class="container mx-auto flex flex-row items-center justify-between xl:px-0 px-4 py-3">
+      <div class="container mx-auto flex flex-row items-center justify-between xl:px-6 px-4 py-3">
         <div class="flex flex-row items-start">
           <a class="block md:hidden" href="#">
             <svg
@@ -119,7 +119,7 @@
       </div>
     </header>
     <nav class="shadow hidden lg:block">
-      <div class="container mx-auto flex flex-row items-center justify-between xl:px-0 px-4">
+      <div class="container mx-auto flex flex-row items-center justify-between xl:px-6 px-4">
         <div class="flex flex-col lg:flex-row items-start">
           <ul class="flex space-x-8 mt-6 lg:mt-0 py-2 -mb-px text-sm">
             <li>

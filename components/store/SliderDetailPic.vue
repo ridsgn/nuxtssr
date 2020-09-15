@@ -102,43 +102,19 @@ export default {
   }
 }
 
-@media (min-width: 1280px) {
+@media (min-width: 1024px) {
   .thumb-example {
-    height: 20rem;
+    height: 40rem;
   }
 
   .swiper {
-    .swiper-slide {
-      background-size: cover;
-      background-position: center;
-      &.slide-1 {
-        border-radius: 8px;
-        background-image: url("https://picsum.photos/380/250.jpg?random=1");
-      }
-      &.slide-2 {
-        border-radius: 8px;
-        background-image: url("https://picsum.photos/380/250.jpg?random=2");
-      }
-      &.slide-3 {
-        border-radius: 8px;
-        background-image: url("https://picsum.photos/380/250.jpg?random=3");
-      }
-      &.slide-4 {
-        border-radius: 8px;
-        background-image: url("https://picsum.photos/380/250.jpg?random=4");
-      }
-      &.slide-5 {
-        border-radius: 8px;
-        background-image: url("https://picsum.photos/380/250.jpg?random=5");
-      }
-    }
     &.gallery-top {
       height: 424px;
       width: 100%;
       margin-bottom: 1.3rem;
     }
     &.gallery-thumbs {
-      height: 50%;
+      height: 20%;
       box-sizing: border-box;
       padding: 2px 0;
     }

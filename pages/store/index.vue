@@ -2,7 +2,7 @@
   <div>
     <v-banner></v-banner>
     <div class="my-10 sm:my-20">
-      <slider-card></slider-card>
+      <v-slider-card :number="80"></v-slider-card>
     </div>
   </div>
 </template>
@@ -15,7 +15,7 @@ export default {
   name: "swiper-nuxt",
   components: {
     "v-banner": TheBanner,
-    "slider-card": Slider,
+    "v-slider-card": Slider,
   },
   data() {
     return {};

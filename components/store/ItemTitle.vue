@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="flex h-full w-full mx-auto">
-      <div class="flex flex-grow h-full xl:mx-0 mx-4">
+      <div class="flex flex-grow h-full mx-0">
         <div class="flex items-center mr-3">
           <img
             class="h-12 w-12 rounded-full"
