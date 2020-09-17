@@ -10,14 +10,15 @@
 import ContentCard from "@/components/store/ContentCard";
 
 export default {
+  name: "SwiperSlider",
   components: {
-    ContentCard
+    ContentCard,
   },
   props: {
     number: {
       type: Number,
-      required: true
-    }
+      required: true,
+    },
   },
   data() {
     return {
@@ -31,14 +32,12 @@ export default {
         breakpoints: {
           640: {
             slidesOffsetBefore: this.number,
-            slidesOffsetAfter: 80
-          }
-        }
-      }
+            slidesOffsetAfter: 80,
+          },
+        },
+      },
     };
   },
-
-
 };
 </script>
 

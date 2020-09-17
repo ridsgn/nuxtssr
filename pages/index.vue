@@ -20,6 +20,9 @@
 
 <script>
 export default {
+  layout(context) {
+    return 'navbar'
+  },
   head() {
     return {
       title: "Home Page",

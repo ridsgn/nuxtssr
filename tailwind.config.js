@@ -7,13 +7,15 @@
 module.exports = {
   theme: {
     extend: {
+      spacing: {
+        128: '32rem',
+        28: '7rem'
+      },
       width: {
         card: '16.75rem',
-        '28': '7rem'
       },
       height: {
         card: '20.375rem',
-        '28': '7rem'
       },
       gridTemplateColumns: {
         'card-4': 'repeat(4, minmax(min-content, max-content))',
