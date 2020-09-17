@@ -24,8 +24,8 @@
         </div>
       </div>
     </div>
-    <div class="flex container mx-auto content-between lg:px-4 space-x-6">
-      <div class="w-8/12">
+    <div class="flex container mx-auto justify-between lg:px-6 space-x-6">
+      <div class="w-7/12">
         <h1>Customer Info</h1>
         <form>
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-4">
@@ -110,12 +110,40 @@
           <div class="flex justify-end mt-4">
             <button
               class="px-4 py-2 bg-gray-800 text-gray-200 rounded hover:bg-gray-700 focus:outline-none focus:bg-gray-700"
-            >Save</button>
+            >Submit</button>
           </div>
         </form>
       </div>
-      <div class="w-4/12">
+      <div class="w-5/12">
         <h1>Order Summary</h1>
+        <div class="flex flex-col flex-shrink space-y-4 p-4 border-b-2">
+          <div class="flex rounded-lg max-w-sm">
+            <img
+              class="w-32 h-28 bg-no-repeat bg-contain rounded-lg mr-4"
+              src="https://picsum.photos/380/250.jpg?random=1"
+              alt="any"
+            />
+            <div class="flex flex-col space-y-2">
+              <h4>A Hand of Married Couple</h4>
+              <div>test</div>
+              <p class="self-end">Rp 5.0000.000</p>
+            </div>
+            <div class="ml-4">tes</div>
+          </div>
+          <div class="flex rounded-lg max-w-sm">
+            <img
+              class="w-32 h-28 bg-no-repeat bg-contain rounded-lg mr-4"
+              src="https://picsum.photos/380/250.jpg?random=1"
+              alt="any"
+            />
+            <div class="flex flex-col space-y-2">
+              <h4>A Hand of Married Couple</h4>
+              <div>test</div>
+              <p class="self-end">Rp 5.0000.000</p>
+            </div>
+            <div class="ml-4">tes</div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
