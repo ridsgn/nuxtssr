@@ -1,7 +1,7 @@
 <template>
   <div class="container px-24 mx-auto">
     <div class="relative flex h-40 mt-12 bg-white border rounded-lg shadow-xl card-container">
-      <div class="absolute top-0 right-0" style="top: -4px;">
+      <div class="absolute right-0" style="top: -4px;">
         <div class="flex flex-col items-center justify-center mr-6">
           <button class="mb-4">
             <svg class="w-6 h-6" viewBox="0 0 36 36">
@@ -37,8 +37,10 @@
             <div class="text-xs font-medium text-paragraph">Online 12 hours ago &#8739; Jakarta, ID</div>
           </div>
           <div class="flex">
-            <v-button class="mr-4 text-xs tracking-wide">Send Message</v-button>
-            <v-button class="text-xs tracking-wide">Vendor's Info</v-button>
+            <b-button class="mr-4" type="is-primary">Send Message</b-button>
+            <!-- <v-button class="mr-4 text-xs tracking-wide">Send Message</v-button> -->
+            <b-button type="is-primary">Vendor's Info</b-button>
+            <!-- <v-button class="text-xs tracking-wide">Vendor's Info</v-button> -->
           </div>
         </div>
       </div>

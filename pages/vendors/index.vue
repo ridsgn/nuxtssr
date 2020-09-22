@@ -25,10 +25,12 @@ export default {
       id: "",
     };
   },
-  async asyncData({ $axios }) {
+  async asyncData({ $axios, error }) {
     const data = await $axios.$get(
       "https://my-json-server.typicode.com/rizuki96/jsontest/vendors"
-    );
+    ).catch(err => {
+      error({ statusCode: err, message: 'Error' })
+    });
     // console.log(data);
     // debugger;
     return { data };

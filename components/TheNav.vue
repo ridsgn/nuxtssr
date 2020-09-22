@@ -1,11 +1,11 @@
 <template>
-  <div class="fixed z-10 bg-main top-0 w-full">
+  <div class="top-0 z-10 w-full bg-main">
     <header class="border-b">
-      <div class="container mx-auto flex flex-row items-center justify-between xl:px-6 px-4 py-3">
+      <div class="container flex flex-row items-center justify-between px-4 py-3 mx-auto xl:px-6">
         <div class="flex flex-row items-start">
-          <a class="block md:hidden" href="#">
+          <a class="block md:hidden test" href="#">
             <svg
-              class="h-8 w-auto"
+              class="w-auto h-8"
               fill="none"
               viewBox="0 0 35 32"
               xmlns="http://www.w3.org/2000/svg"
@@ -21,18 +21,18 @@
             </svg>
           </a>
           <a class="hidden md:block" href="/">
-            <h1 class="w-40 flex font-semibold text-xl sm:text-2xl text-highlight">Happy Life</h1>
+            <h1 class="flex w-40 text-xl font-semibold sm:text-2xl text-highlight">Happy Life</h1>
           </a>
         </div>
         <div class="flex items-center mt-0">
           <div class="relative">
             <input
               type="text"
-              class="bg-gray-100 text-main text-sm rounded-md focus:outline-none focus:shadow-outline w-full sm:w-64 px-3 pl-8 py-1"
+              class="w-full px-3 py-1 pl-8 text-sm bg-gray-100 rounded-md text-main focus:outline-none focus:shadow-outline sm:w-64"
               placeholder="Search..."
             />
             <div class="absolute top-0 flex items-center h-full ml-2">
-              <svg class="fill-current text-gray-400 w-4" viewBox="0 0 24 24">
+              <svg class="w-4 text-gray-400 fill-current" viewBox="0 0 24 24">
                 <path
                   class="hericon-ui"
                   d="M16.32 14.9l5.39 5.4a1 1 0 01-1.42 1.4l-5.38-5.38a8 8 0 111.41-1.41zM10 16a6 6 0 100-12 6 6 0 000 12z"
@@ -42,7 +42,7 @@
           </div>
           <div class="ml-4">
             <button
-              class="p-1 border-2 border-transparent text-gray-400 rounded-full hover:text-paragraph focus:outline-none focus:text-white focus:bg-gray-300 transition duration-150 ease-in-out"
+              class="p-1 text-gray-400 transition duration-150 ease-in-out border-2 border-transparent rounded-full hover:text-paragraph focus:outline-none focus:text-white focus:bg-gray-300"
               aria-label="Cart"
             >
               <svg
@@ -61,67 +61,68 @@
               </svg>
             </button>
           </div>
-          <div class="ml-4 relative" v-if="authenticated">
+          <div class="relative ml-4" v-if="authenticated">
             <button
               @click="isAva = !isAva"
               id="user-menu"
               aria-label="User Menu"
               aria-haspopup="true"
-              class="border-2 border-transparent rounded-full focus:outline-none focus:border-gray-700 transition duration-150 ease-in-out"
+              class="transition duration-150 ease-in-out border-2 border-transparent rounded-full focus:outline-none focus:border-gray-700"
             >
               <img
                 src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
                 alt="avatar"
-                class="rounded-full w-6"
+                class="w-6 rounded-full"
               />
             </button>
             <transition
-              enter-active-class="transition ease-out duration-100"
-              enter-class="transform opacity-0 scale-95"
-              enter-to-class="transform opacity-100 scale-100"
-              leave-active-class="transition ease-in duration-75"
-              leave-class="transform opacity-100 scale-100"
-              leave-to-class="transform opacity-0 scale-95"
+              enter-active-class="transition duration-100 ease-out"
+              enter-class="transform scale-95 opacity-0"
+              enter-to-class="transform scale-100 opacity-100"
+              leave-active-class="transition duration-75 ease-in"
+              leave-class="transform scale-100 opacity-100"
+              leave-to-class="transform scale-95 opacity-0"
             >
               <div
                 v-if="isAva"
-                class="origin-top-right absolute right-0 mt-2 w-40 rounded-md shadow-lg"
+                class="absolute right-0 w-40 mt-2 origin-top-right rounded-md shadow-lg"
               >
                 <div
-                  class="py-1 rounded-md bg-white shadow-xs"
+                  class="py-1 bg-white rounded-md shadow-xs"
                   role="menu"
                   aria-orientation="vertical"
                   aria-labelledby="user-menu"
                 >
                   <a
                     href="#"
-                    class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out"
+                    class="block px-4 py-2 text-sm leading-5 text-gray-700 transition duration-150 ease-in-out hover:bg-gray-100 focus:outline-none focus:bg-gray-100"
                     role="menuitem"
                   >{{ user.name }}</a>
                   <a
                     href="#"
-                    class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out"
+                    class="block px-4 py-2 text-sm leading-5 text-gray-700 transition duration-150 ease-in-out hover:bg-gray-100 focus:outline-none focus:bg-gray-100"
                     role="menuitem"
                   >Settings</a>
                   <a
                     @click.prevent="logout"
                     role="menuitem"
-                    class="block w-full text-left px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out cursor-pointer"
+                    class="block w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 transition duration-150 ease-in-out cursor-pointer hover:bg-gray-100 focus:outline-none focus:bg-gray-100"
                   >Sign out</a>
                 </div>
               </div>
             </transition>
           </div>
           <div class="ml-4 cursor-pointer" v-else>
-            <v-button class="text-sm" to="/login">Sign In</v-button>
+            <b-button class="font-mono" type="is-primary" tag="nuxt-link" to="/login">Sign In</b-button>
+            <!-- <v-button class="text-sm" to="/login">Sign In</v-button> -->
           </div>
         </div>
       </div>
     </header>
-    <nav class="shadow hidden lg:block">
-      <div class="container mx-auto flex flex-row items-center justify-between xl:px-6 px-4">
-        <div class="flex flex-col lg:flex-row items-start">
-          <ul class="flex space-x-8 mt-6 lg:mt-0 py-2 -mb-px text-sm">
+    <nav class="hidden shadow lg:block">
+      <div class="container flex flex-row items-center justify-between px-4 mx-auto xl:px-6">
+        <div class="flex flex-col items-start lg:flex-row">
+          <ul class="flex py-2 mt-6 -mb-px space-x-8 text-sm lg:mt-0">
             <li>
               <nuxt-link :to="{ name: 'index' }" class="py-2 hover:text-tertiary-500" exact>Home</nuxt-link>
             </li>
@@ -171,5 +172,8 @@ export default {
 <style scoped>
 .nuxt-link-active {
   @apply border-b-2 border-tertiary-500;
+}
+.test {
+  margin-bottom: 0 !important;
 }
 </style>

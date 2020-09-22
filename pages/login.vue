@@ -1,103 +1,91 @@
 <template>
-  <div>
+  <div class="flex max-w-sm mx-auto mt-40 overflow-hidden bg-white rounded-lg shadow-lg lg:max-w-4xl">
     <div
-      class="min-h-screen flex items-center justify-center bg-gray-50 pb-12 px-4 sm:px-6 lg:px-8"
-    >
-      <div class="max-w-md w-full">
-        <div>
-          <img
-            class="mx-auto h-12 w-auto"
-            src="https://tailwindui.com/img/logos/workflow-mark-on-white.svg"
-            alt="Workflow"
-          />
-          <h2
-            class="mt-6 text-center text-3xl leading-9 font-extrabold text-gray-900"
-          >
-            Sign in to your account
-          </h2>
-          <p class="mt-2 text-center text-sm leading-5 text-gray-600">
-            Or
-            <nuxt-link
-              to="/register"
-              class="font-medium text-indigo-600 hover:text-indigo-500 focus:outline-none focus:underline transition ease-in-out duration-150"
-            >
-              Create an account for free
-            </nuxt-link>
-          </p>
+      class="hidden bg-cover lg:block lg:w-1/2"
+      style="background-image:url('https://images.unsplash.com/photo-1546032996-6dfacbacbf3f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=655&q=80')"
+    ></div>
+
+    <div class="w-full px-6 py-8 md:px-8 lg:w-1/2">
+      <h2 class="text-2xl font-semibold text-center text-gray-700">Brand</h2>
+
+      <p class="text-xl text-center text-gray-600">Welcome back!</p>
+
+      <a
+        href="#"
+        class="flex items-center justify-center mt-4 text-white rounded-lg shadow-md hover:bg-gray-100"
+      >
+        <div class="px-4 py-3">
+          <svg class="w-6 h-6" viewBox="0 0 40 40">
+            <path
+              d="M36.3425 16.7358H35V16.6667H20V23.3333H29.4192C28.045 27.2142 24.3525 30 20 30C14.4775 30 10 25.5225 10 20C10 14.4775 14.4775 9.99999 20 9.99999C22.5492 9.99999 24.8683 10.9617 26.6342 12.5325L31.3483 7.81833C28.3717 5.04416 24.39 3.33333 20 3.33333C10.7958 3.33333 3.33335 10.7958 3.33335 20C3.33335 29.2042 10.7958 36.6667 20 36.6667C29.2042 36.6667 36.6667 29.2042 36.6667 20C36.6667 18.8825 36.5517 17.7917 36.3425 16.7358Z"
+              fill="#FFC107"
+            />
+            <path
+              d="M5.25497 12.2425L10.7308 16.2583C12.2125 12.59 15.8008 9.99999 20 9.99999C22.5491 9.99999 24.8683 10.9617 26.6341 12.5325L31.3483 7.81833C28.3716 5.04416 24.39 3.33333 20 3.33333C13.5983 3.33333 8.04663 6.94749 5.25497 12.2425Z"
+              fill="#FF3D00"
+            />
+            <path
+              d="M20 36.6667C24.305 36.6667 28.2167 35.0192 31.1742 32.34L26.0159 27.975C24.3425 29.2425 22.2625 30 20 30C15.665 30 11.9842 27.2359 10.5975 23.3784L5.16254 27.5659C7.92087 32.9634 13.5225 36.6667 20 36.6667Z"
+              fill="#4CAF50"
+            />
+            <path
+              d="M36.3425 16.7358H35V16.6667H20V23.3333H29.4192C28.7592 25.1975 27.56 26.805 26.0133 27.9758C26.0142 27.975 26.015 27.975 26.0158 27.9742L31.1742 32.3392C30.8092 32.6708 36.6667 28.3333 36.6667 20C36.6667 18.8825 36.5517 17.7917 36.3425 16.7358Z"
+              fill="#1976D2"
+            />
+          </svg>
         </div>
-        <form class="mt-8" action="#" method="POST" @submit.prevent="submit">
-          <input type="hidden" name="remember" value="true" />
-          <div class="rounded-md shadow-sm">
-            <div>
-              <input
-                aria-label="Email address"
-                name="email"
-                type="email"
-                autofocus
-                class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10 sm:text-sm sm:leading-5"
-                placeholder="Email address"
-                v-model.trim="form.email"
-              />
-            </div>
-            <div class="-mt-px">
-              <input
-                aria-label="Password"
-                name="password"
-                type="password"
-                class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10 sm:text-sm sm:leading-5"
-                placeholder="Password"
-                v-model="form.password"
-              />
-            </div>
-          </div>
 
-          <div class="mt-6 flex items-center justify-between">
-            <div class="flex items-center">
-              <input
-                id="remember_me"
-                type="checkbox"
-                class="form-checkbox h-4 w-4 text-indigo-600 transition duration-150 ease-in-out"
-              />
-              <label
-                for="remember_me"
-                class="ml-2 block text-sm leading-5 text-gray-900"
-              >
-                Remember me
-              </label>
-            </div>
+        <span class="w-5/6 px-4 py-3 font-bold text-center text-gray-600">Sign in with Google</span>
+      </a>
 
-            <div class="text-sm leading-5">
-              <a
-                href="#"
-                class="font-medium text-indigo-600 hover:text-indigo-500 focus:outline-none focus:underline transition ease-in-out duration-150"
-              >
-                Forgot your password?
-              </a>
-            </div>
-          </div>
+      <div class="flex items-center justify-between mt-4">
+        <span class="w-1/5 border-b lg:w-1/4"></span>
 
-          <div class="mt-6">
-            <button
-              type="submit"
-              class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition duration-150 ease-in-out"
-            >
-              <span class="absolute left-0 inset-y-0 flex items-center pl-3">
-                <svg
-                  class="h-5 w-5 text-indigo-500 group-hover:text-indigo-400 transition ease-in-out duration-150"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z"
-                    clip-rule="evenodd"
-                  />
-                </svg>
-              </span>
-              Sign in
-            </button>
-          </div>
-        </form>
+        <a
+          href="#"
+          class="text-xs text-center text-gray-500 uppercase hover:underline"
+        >or login with email</a>
+
+        <span class="w-1/5 border-b lg:w-1/4"></span>
+      </div>
+
+      <div class="mt-4">
+        <label
+          class="block mb-2 text-sm font-medium text-gray-600"
+          for="LoggingEmailAddress"
+        >Email Address</label>
+        <input
+          id="LoggingEmailAddress"
+          class="block w-full px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded focus:border-blue-500 focus:outline-none focus:shadow-outline"
+          type="email"
+        />
+      </div>
+
+      <div class="mt-4">
+        <div class="flex justify-between">
+          <label class="block mb-2 text-sm font-medium text-gray-600" for="loggingPassword">Password</label>
+          <a href="#" class="text-xs text-gray-500 hover:underline">Forget Password?</a>
+        </div>
+
+        <input
+          id="loggingPassword"
+          class="block w-full px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded focus:border-blue-500 focus:outline-none focus:shadow-outline"
+          type="password"
+        />
+      </div>
+
+      <div class="mt-8">
+        <button
+          class="w-full px-4 py-2 font-bold text-white bg-gray-700 rounded hover:bg-gray-600 focus:outline-none focus:bg-gray-600"
+        >Login</button>
+      </div>
+
+      <div class="flex items-center justify-between mt-4">
+        <span class="w-1/5 border-b md:w-1/4"></span>
+
+        <a href="#" class="text-xs text-gray-500 uppercase hover:underline">or sign up</a>
+
+        <span class="w-1/5 border-b md:w-1/4"></span>
       </div>
     </div>
   </div>
@@ -105,22 +93,25 @@
 
 <script>
 export default {
+  layout(context) {
+    return "default";
+  },
   data() {
     return {
       form: {
         email: "",
-        password: ""
-      }
+        password: "",
+      },
     };
   },
   methods: {
     async submit() {
       await this.$auth.loginWith("local", {
-        data: this.form
+        data: this.form,
       });
 
       this.$router.push("/");
-    }
-  }
+    },
+  },
 };
 </script>

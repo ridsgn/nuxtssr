@@ -1,0 +1,28 @@
+steps:
+  - name: "gcr.io/cloud-builders/docker"
+    args:
+      [
+        "build",
+        "--network=cloudbuild",
+        "-t",
+        "gcr.io/nuxt-deploy-290307/server",
+        ".",
+      ]
+  - name: "gcr.io/cloud-builders/docker"
+    args: ["push", "gcr.io/nuxt-deploy-290307/server"]
+  - name: "gcr.io/cloud-builders/cloud"
+    args:
+      [
+        "run",
+        "deploy",
+        "server",
+        "--image",
+        "gcr.io/nuxt-deploy-290307/server",
+        "region",
+        "us-central1",
+        "--platform",
+        "managed",
+        "--allow-unauthenticated",
+      ]
+    images:
+      - "gcr.io/nuxt-deploy-290307/server"
