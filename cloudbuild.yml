@@ -10,7 +10,7 @@ steps:
       ]
   - name: "gcr.io/cloud-builders/docker"
     args: ["push", "gcr.io/nuxt-deploy-290307/server"]
-  - name: "gcr.io/cloud-builders/cloud"
+  - name: "gcr.io/cloud-builders/gcloud"
     args:
       [
         "run",
