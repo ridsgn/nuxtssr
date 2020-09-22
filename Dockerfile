@@ -7,10 +7,10 @@ ENV HOST 0.0.0.0
 
 COPY package*.json ./
 
-RUN npm install --only=production
+RUN npm install
 
 COPY . .
 
 RUN npm build
 
-CMD [ "npm", "start" ]
+CMD npm start
