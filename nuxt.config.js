@@ -28,12 +28,15 @@ export default {
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
   plugins: [
-    '~/plugins/vue-formulate',
+    '~/plugins/vee-validate',
     '~/plugins/vue-tailwind',
-    { src: '@/plugins/nuxt-swiper-plugin.js', ssr: false },
+
+    { src: '~/plugins/nuxt-swiper-plugin.js', mode: 'client' },
+    { src: '~/plugins/persistedState.js' },
+
     // "./plugins/mixins/user.js",
-    "./plugins/mixins/validation",
-    "./plugins/axios"
+    "~/plugins/mixins/validation",
+    "~/plugins/axios"
   ],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)
@@ -98,11 +101,18 @@ export default {
         },
         // tokenRequired: true,
         // tokenType: 'Bearer '
-      }
+      },
+      // google: {
+      //   client_id: '475757220288-debdsqphnplpt2v77q3jq377hmheak2r.apps.googleusercontent.com'
+      // }
     },
   },
 
+
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {
+    transpile: [
+      "vee-validate/dist/rules"
+    ],
   }
 }

@@ -44,7 +44,17 @@
 							</svg>
 						</div>
 					</div>
-					<div class="ml-4">
+					<div
+						class="relative ml-4"
+						@mouseenter="cart = true"
+						@mouseleave="cart = false"
+					>
+						<div
+							v-show="itemCount"
+							class="absolute top-0 right-0 px-1 -mt-1 -mr-2 text-xs font-bold text-white bg-red-700 rounded-full"
+						>
+							{{ itemCount }}
+						</div>
 						<button
 							class="p-1 text-gray-400 transition duration-150 ease-in-out border-2 border-transparent rounded-full hover:text-paragraph focus:outline-none focus:text-white focus:bg-gray-300"
 							aria-label="Cart"
@@ -68,21 +78,125 @@
 								/>
 							</svg>
 						</button>
-					</div>
-					<div class="relative ml-4" v-if="$auth.loggedIn">
-						<button
-							@click.prevent="isAva = !isAva"
-							id="user-menu"
-							aria-label="User Menu"
-							aria-haspopup="true"
-							class="transition duration-150 ease-in-out border-2 border-transparent rounded-full focus:outline-none focus:border-gray-700"
+						<div
+							v-show="cart"
+							class="absolute right-0 rounded-md shadow-lg"
+							@mouseenter="cart = true"
+							@mouseleave="cart = false"
 						>
-							<img
-								src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-								alt="avatar"
-								class="w-6 rounded-full"
-							/>
-						</button>
+							<div
+								class="flex flex-col pb-4 pl-4 bg-white rounded-md shadow-xs"
+								role="menu"
+								aria-orientation="vertical"
+								aria-labelledby="user-menu"
+							>
+								<ul
+									class="flex flex-col items-center flex-grow py-4 pr-4"
+									:class="
+										isEmptyCart ? '' : 'max-h overflow-hidden overflow-y-scroll'
+									"
+								>
+									<div class="flex flex-col items-center space-y-4">
+										<li
+											v-for="item in carts"
+											:key="item.product.id"
+											class="flex p-4 transition duration-500 ease-in-out transform bg-gray-200 rounded-md cursor-pointer select-none hover:-translate-y-1 hover:shadow-lg"
+										>
+											<nuxt-link
+												:to="{
+													name: 'stores-slug',
+													params: { slug: item.product.slug },
+												}"
+												class="flex"
+											>
+												<img
+													class="flex items-center justify-center flex-shrink-0 w-10 h-10 mr-4 bg-gray-300 rounded-md"
+													:src="item.product.img"
+												/>
+												<div class="flex max-w-sm">
+													<div>
+														<div class="text-sm font-medium truncate max">
+															{{ item.product.title }}
+														</div>
+														<div class="flex justify-between flex-grow-0">
+															<div class="text-xs text-gray-600">
+																{{ item.quantity * 100 }} pax
+															</div>
+															<div class="self-center text-xs text-gray-600">
+																&times; {{ item.afterDiscount }}
+															</div>
+														</div>
+													</div>
+												</div>
+											</nuxt-link>
+											<div
+												class="self-center w-4 h-4 ml-16 text-red-700 rounded-full cursor-pointer hover:bg-red-200"
+												@click="removeItem(item.product)"
+											>
+												<svg
+													xmlns="http://www.w3.org/2000/svg"
+													width="100%"
+													height="100%"
+													fill="none"
+													viewBox="0 0 24 24"
+													stroke="currentColor"
+													stroke-width="2"
+													stroke-linecap="round"
+													stroke-linejoin="round"
+													class="feather feather-trash-2"
+												>
+													<polyline points="3 6 5 6 21 6"></polyline>
+													<path
+														d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
+													></path>
+													<line x1="10" y1="11" x2="10" y2="17"></line>
+													<line x1="14" y1="11" x2="14" y2="17"></line>
+												</svg>
+											</div>
+										</li>
+										<li
+											v-show="isEmptyCart"
+											class="flex justify-center w-64 p-4 text-xs bg-gray-200 rounded-md"
+										>
+											Its empty, order some our store
+										</li>
+									</div>
+								</ul>
+								<div class="mt-4 mr-4">
+									<div class="flex items-center justify-between py-4">
+										<p class="text-lg font-bold">Total</p>
+										<p class="">IDR {{ totalPrice }}</p>
+									</div>
+									<button
+										class="w-full px-5 py-2 font-medium text-white transition duration-150 ease-in-out bg-teal-500 border-0 rounded-lg focus:outline-none focus:shadow-outline hover:bg-teal-600"
+									>
+										Checkout
+									</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div
+						class="relative ml-4"
+						@mouseleave="isAva = false"
+						@mouseenter="isAva = true"
+						v-if="$auth.loggedIn"
+					>
+						<div class="flex items-center">
+							<button
+								id="user-menu"
+								aria-label="User Menu"
+								aria-haspopup="true"
+								class="transition duration-150 ease-in-out border-2 border-transparent rounded-full focus:outline-none focus:border-gray-700"
+							>
+								<img
+									src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+									alt="avatar"
+									class="w-6 rounded-full"
+								/>
+							</button>
+							<p class="hidden ml-2 md:block">{{ $auth.user.name }}</p>
+						</div>
 						<transition
 							enter-active-class="transition duration-100 ease-out"
 							enter-class="transform scale-95 opacity-0"
@@ -92,8 +206,10 @@
 							leave-to-class="transform scale-95 opacity-0"
 						>
 							<div
-								v-if="isAva"
-								class="absolute right-0 w-40 mt-2 origin-top-right rounded-md shadow-lg"
+								v-show="isAva"
+								class="absolute right-0 w-40 mt-1 origin-top-right rounded-md shadow-lg"
+								@mouseleave="isAva = false"
+								@mouseenter="isAva = true"
 							>
 								<div
 									class="py-1 bg-white rounded-md shadow-xs"
@@ -101,17 +217,24 @@
 									aria-orientation="vertical"
 									aria-labelledby="user-menu"
 								>
-									<a
-										href="#"
+									<nuxt-link
+										:to="{
+											name: 'user-slug',
+											params: { slug: $auth.user.name },
+										}"
 										class="block px-4 py-2 text-sm leading-5 text-gray-700 transition duration-150 ease-in-out hover:bg-gray-100 focus:outline-none focus:bg-gray-100"
 										role="menuitem"
-										>{{ $auth.user.name }}</a	
+										>{{ $auth.user.name }}</nuxt-link
 									>
-									<a
-										href="#"
+									<nuxt-link
+										:to="{
+											name: 'user-slug',
+											params: { slug: $auth.user.name },
+											query: { tab: 'account' },
+										}"
 										class="block px-4 py-2 text-sm leading-5 text-gray-700 transition duration-150 ease-in-out hover:bg-gray-100 focus:outline-none focus:bg-gray-100"
 										role="menuitem"
-										>Settings</a
+										>Settings</nuxt-link
 									>
 									<a
 										@click.prevent="logout"
@@ -125,7 +248,7 @@
 					</div>
 					<div class="ml-4 cursor-pointer" v-else>
 						<t-button
-							class="text-xs font-medium truncate"
+							class="text-sm font-medium truncate"
 							tagName="a"
 							:to="{ name: 'auth-login' }"
 							>Sign In</t-button
@@ -134,7 +257,7 @@
 				</div>
 			</div>
 		</header>
-		<nav class="hidden shadow lg:block">
+		<nav class="hidden shadow lg:block" id="nav">
 			<div
 				class="container flex flex-row items-center justify-between px-4 mx-auto xl:px-6"
 			>
@@ -143,38 +266,38 @@
 						<li>
 							<nuxt-link
 								:to="{ name: 'index' }"
-								class="py-2 hover:text-tertiary-500"
+								class="py-2 hover:text-teal-500 on"
 								exact
 								>Home</nuxt-link
 							>
 						</li>
 						<li>
-							<nuxt-link class="py-2 hover:text-tertiary-500" to="/stores"
+							<nuxt-link class="py-2 hover:text-teal-500 on" to="/stores"
 								>Store</nuxt-link
 							>
 						</li>
 						<li>
-							<nuxt-link class="py-2 hover:text-tertiary-500" to="/vendors"
+							<nuxt-link class="py-2 hover:text-teal-500 on" to="/vendors"
 								>Vendor</nuxt-link
 							>
 						</li>
 						<li>
-							<nuxt-link class="py-2 hover:text-tertiary-500" to="/events"
+							<nuxt-link class="py-2 hover:text-teal-500 on" to="/events"
 								>Events</nuxt-link
 							>
 						</li>
 						<li>
-							<nuxt-link class="py-2 hover:text-tertiary-500" to="/blog"
+							<nuxt-link class="py-2 hover:text-teal-500 on" to="/blog"
 								>Blog</nuxt-link
 							>
 						</li>
 						<li>
-							<nuxt-link class="py-2 hover:text-tertiary-500" to="/real-wedding"
+							<nuxt-link class="py-2 hover:text-teal-500 on" to="/real-wedding"
 								>Real Wedding</nuxt-link
 							>
 						</li>
 						<li>
-							<nuxt-link class="py-2 hover:text-tertiary-500" to="/app"
+							<nuxt-link class="py-2 hover:text-teal-500 on" to="/app"
 								>Get Our App</nuxt-link
 							>
 						</li>
@@ -191,19 +314,47 @@ export default {
 	data() {
 		return {
 			isAva: false,
+			cart: false,
+			empty: false,
 		};
 	},
+	computed: {
+		carts() {
+			return this.$store.state.cart.cart;
+		},
+		isEmptyCart() {
+			if (typeof this.carts !== "undefined" && this.carts.length > 0) {
+				return false;
+			}
+			return true;
+		},
+	},
 	methods: {
-		logout() {
-			this.$auth.logout();
+		async logout() {
+			await this.$auth.logout();
 			this.isAva = false;
+			await this.$router.push("/auth/login");
+		},
+		removeItem(product) {
+			this.$store.dispatch("cart/removeItemFromCart", product);
 		},
 	},
 };
 </script>
 
-<style scoped>
-.nuxt-link-active {
-	@apply border-b-2 border-teal-500;
+<style lang="scss" scoped>
+#nav {
+	.nuxt-link-active {
+		@apply border-b-2 border-teal-500;
+	}
+}
+
+.max {
+	max-width: 14rem;
+	min-width: 14rem;
+}
+
+.max-h {
+	max-height: 16rem;
 }
 </style>

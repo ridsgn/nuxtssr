@@ -1,0 +1,94 @@
+{
+  "stores": [
+    {
+      "id": "sdfn2399",
+      "title": "Heart Tin Can - Buy 25 Get 5 Free",
+      "slug": "heart-tin-can-buy-25-get-5",
+      "img": "https://images.unsplash.com/photo-1527037408186-7bb2e16db8d8?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80",
+      "vendor": "Happy Wedding",
+      "category": "Raw Souvenir",
+      "price": "IDR 126.000"
+    },
+    {
+      "id": "sdsef386",
+      "title": "Round Glass Jar 330ml - Buy 25 Get 5 Free",
+      "slug": "round-glass-jar-330ml-polos",
+      "img": "https://images.unsplash.com/photo-1582811473421-f5f3da39527f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80",
+      "vendor": "Happy Wedding",
+      "category": "Raw Souvenir",
+      "price": "IDR 140.000"
+    },
+    {
+      "id": "ssae7264",
+      "title": "Rectangular Tin Can Pink - Buy 25 Get 5 Free",
+      "slug": "rectangular-tin-can-pink-buy-25-get-5-free",
+      "img": "https://images.unsplash.com/photo-1600185000029-b1dbe91b23e4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80",
+      "vendor": "Happy Wedding",
+      "category": "Raw Souvenir",
+      "price": "IDR 250.000"
+    },
+    {
+      "id": "skhe6203",
+      "title": "Pink Floral Tin Can (L) - Buy 25 Get 5 Free",
+      "slug": "pink-floral-tin-can-l-buy-25-get-5-free",
+      "img": "https://images.unsplash.com/photo-1521478706270-f2e33c203d95?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80",
+      "vendor": "Happy Wedding",
+      "category": "Raw Souvenir",
+      "price": "IDR 350.000"
+    },
+    {
+      "id": "sien3021",
+      "title": "Frosted Drink Bottle - Buy 25 Get 5 Free",
+      "slug": "frosted-drink-bottle-buy-25-get-5-free",
+      "img": "https://images.unsplash.com/photo-1576324114690-cb989a181a69?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=80",
+      "vendor": "Happy Wedding",
+      "category": "Raw Souvenir",
+      "price": "IDR 300.000"
+    },
+    {
+      "id": "cdfn1254",
+      "title": "Wedding Merchandise Fine Grain Wood Frame 4R",
+      "slug": "wedding-merchandise-fine-grain-wood-frame-4r",
+      "img": "https://images.unsplash.com/photo-1452827073306-6e6e661baf57?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1267&q=80",
+      "vendor": "Happy Wedding",
+      "category": "Wedding Merchandise",
+      "price": "IDR 20.000"
+    },
+    {
+      "id": "csae4512",
+      "title": "Wedding Merchandise Ruled Notebook A7",
+      "slug": "wedding-merchandise-ruled-notebook-a7",
+      "img": "https://images.unsplash.com/photo-1523463695703-81670ed104a2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1351&q=80",
+      "vendor": "Happy Wedding",
+      "category": "Wedding Merchandise",
+      "price": "IDR 25.000"
+    },
+    {
+      "id": "case9123",
+      "title": "Wedding Merchandise Printed Leaves Zipper Canvas Pouch Leaves",
+      "slug": "wedding-printed-leaves-zipper-canvas-pouch-leaves",
+      "img": "https://images.unsplash.com/photo-1561995734-ef4b62bb6586?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80",
+      "vendor": "Happy Wedding",
+      "category": "Wedding Merchandise",
+      "price": "IDR 35.000"
+    },
+    {
+      "id": "cfje6843",
+      "title": "Wedding Merchandise Gold Lining Wood Frame 4R",
+      "slug": "wedding-gold-lining-wood-frame-4r",
+      "img": "https://images.unsplash.com/photo-1582262228307-2c0730be6fb8?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1298&q=80",
+      "vendor": "Happy Wedding",
+      "category": "Wedding Merchandise",
+      "price": "IDR 20.000"
+    },
+    {
+      "id": "cenf1544",
+      "title": "Wedding Merchandise Gray Gold Frame 4R",
+      "slug": "wedding-gray-gold-frame-4r",
+      "img": "https://images.unsplash.com/photo-1582812162044-ceaaba61685e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=742&q=80",
+      "vendor": "Happy Wedding",
+      "category": "Wedding Merchandise",
+      "price": "IDR 20.000"
+    }
+  ]
+}

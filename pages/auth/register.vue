@@ -1,25 +1,42 @@
 <template>
 	<div>
-		<t-alert :dismissible="false" variant="danger" class="container w-full max-w-lg mx-auto mt-32" :show="errors.email || errors.username || errors.password"> 
+		<t-alert
+			:dismissible="false"
+			variant="danger"
+			class="container w-full max-w-lg mx-auto mt-32"
+			:show="errors.email"
+		>
 			<ul class="ml-4 list-disc">
 				<li v-if="errors.username">{{ errors.username[0] }}</li>
 				<li v-if="errors.email">{{ errors.email[0] }}</li>
 				<li v-if="errors.password">{{ errors.password[0] }}</li>
 			</ul>
 		</t-alert>
+		<t-alert
+			:dismissible="false"
+			variant="success"
+			class="container w-full max-w-lg mx-auto mt-32"
+			:show="res != null"
+		>
+			<ul class="ml-4 list-disc">
+				<li>{{ res }}</li>
+			</ul>
+		</t-alert>
 		<div
-			class="flex flex-col max-w-sm mx-auto mt-20 overflow-hidden bg-white shadow-lg lg:max-w-4xl"
-			:class="errors.email || errors.username || errors.password ? 'lg:mt-8' : 'lg:mt-32'"
+			class="flex flex-col max-w-sm mx-auto mt-20 overflow-hidden bg-white rounded-lg shadow-lg lg:max-w-4xl"
+			:class="
+				errors.email || errors.username || errors.password || res
+					? 'lg:mt-8'
+					: 'lg:mt-32'
+			"
 		>
 			<div
 				class="flex max-w-sm min-w-full overflow-hidden bg-white rounded-lg shadow-lg"
 			>
-				<div
+				<img
 					class="hidden bg-cover lg:block lg:w-1/2"
-					style="
-						background-image: url('https://images.unsplash.com/photo-1546032996-6dfacbacbf3f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=655&q=80');
-					"
-				></div>
+					src="https://images.unsplash.com/photo-1546032996-6dfacbacbf3f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=655&q=80"
+				/>
 				<div class="w-full px-6 py-8 md:px-8 lg:w-1/2">
 					<!-- <h2 class="text-2xl font-semibold text-center text-gray-700 font-poppins">Happy Life</h2> -->
 
@@ -63,89 +80,124 @@
 						<span class="w-1/5 border-b lg:w-1/4"></span>
 					</div>
 
-					<form @submit.prevent="userRegister">
-						<div class="mt-4">
-							<label
-								class="block mb-2 text-sm font-medium text-gray-600"
-								for="LoggingUsername"
-								>Username</label
-							>
-							<FormulateInput
-								input-class="w-full px-3 py-2 leading-none border border-gray-300 rounded outline-none border-box focus:border-teal-500"
-								help-class="mb-1 text-xs text-gray-500"
-								error-class="mb-1 text-xs text-red-700"
-								help="Enter new username, must have at least 1 number"
-								validation="^required|min:5,length|matches:/[0-9]/"
-								:validation-messages="{
-									matches: 'Username must contain at least 1 number',
-								}"
-								type="text"
-								v-model.trim="form.username"
-							/>
-							<!-- <input
-						id="LoggingUsername"
-						v-model.trim="form.username"
-						class="block w-full px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded focus:border-blue-500 focus:outline-none focus:shadow-outline"
-						type="text"
-					/> -->
-						</div>
-
-						<div class="mt-4">
-							<label
-								class="block mb-2 text-sm font-medium text-gray-600"
-								for="LoggingEmailAddress"
-								>Email Address</label
-							>
-							<FormulateInput
-								input-class="w-full px-3 py-2 leading-none border border-gray-300 rounded outline-none border-box focus:border-teal-500"
-								error-class="mb-1 text-xs text-red-700"
-								validation="^required|email"
-								type="email"
-								v-model.trim="form.email"
-							/>
-							<!-- <input
-						id="LoggingEmailAddress"
-						v-model.trim="form.email"
-						class="block w-full px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded focus:border-blue-500 focus:outline-none focus:shadow-outline"
-						type="email"
-					/> -->
-						</div>
-
-						<div class="mt-4">
-							<div class="flex justify-between">
-								<label
-									class="block mb-2 text-sm font-medium text-gray-600"
-									for="loggingPassword"
-									>Password</label
+					<ValidationObserver ref="form" v-slot="{ invalid, reset }">
+						<form
+							@submit.prevent="userRegister"
+							@reset.prevent="reset(onReset)"
+						>
+							<div class="mt-6">
+								<ValidationProvider
+									rules="required"
+									v-slot="{ errors, classes }"
 								>
+									<label
+										class="block mb-2 text-sm font-medium text-gray-600"
+										for="Username"
+										>Username</label
+									>
+									<div class="content" :class="classes">
+										<input
+											id="Username"
+											v-model.trim="form.username"
+											class="w-full px-3 py-2 leading-none border border-gray-300 rounded outline-none border-box focus:border-teal-500"
+											type="text"
+											:class="classes"
+										/>
+										<span>{{ errors[0] }}</span>
+									</div>
+								</ValidationProvider>
 							</div>
 
-							<FormulateInput
-								input-class="w-full px-3 py-2 leading-none border border-gray-300 rounded outline-none border-box focus:border-teal-500"
-								error-class="mb-1 text-xs text-red-700"
-								validation="^required"
-								type="password"
-								v-model.trim="form.password"
-							/>
+							<div class="mt-6">
+								<ValidationProvider
+									rules="required|email"
+									v-slot="{ errors, classes }"
+								>
+									<label
+										class="block mb-2 text-sm font-medium text-gray-600"
+										for="Email Address"
+										>Email Address</label
+									>
+									<div class="content" :class="classes">
+										<input
+											id="Email Address"
+											v-model.trim="form.email"
+											class="w-full px-3 py-2 leading-none border border-gray-300 rounded outline-none border-box focus:border-teal-500"
+											type="text"
+											:class="classes"
+										/>
+										<span>{{ errors[0] }}</span>
+									</div>
+								</ValidationProvider>
+							</div>
 
-							<!-- <input
-								id="loggingPassword"
-								v-model.trim="form.password"
-								class="block w-full px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded focus:border-blue-500 focus:outline-none focus:shadow-outline"
-								type="password"
-							/> -->
-						</div>
+							<div class="mt-6">
+								<ValidationProvider
+									rules="required|confirmed:confirmation"
+									v-slot="{ errors, classes }"
+								>
+									<div class="flex justify-between">
+										<label
+											class="block mb-2 text-sm font-medium text-gray-600"
+											for="Password"
+											>Password</label
+										>
+									</div>
+									<div class="content" :class="classes">
+										<input
+											name="Password"
+											type="password"
+											v-model="form.password"
+											class="w-full px-3 py-2 leading-none border border-gray-300 rounded outline-none border-box focus:border-teal-500"
+											:class="classes"
+										/>
+										<span>{{ errors[0] }}</span>
+									</div>
+								</ValidationProvider>
+							</div>
 
-						<div class="mt-8">
-							<t-button type="submit" class="w-full font-bold">Sign Up</t-button>
-							<!-- <button
-					class="w-full px-4 py-2 font-bold text-white bg-gray-700 rounded hover:bg-gray-600 focus:outline-none focus:bg-gray-600"
-				>Login</button> -->
-						</div>
-					</form>
+							<div class="mt-6">
+								<ValidationProvider
+									v-slot="{ errors, classes }"
+									vid="confirmation"
+									rules="required"
+								>
+									<div class="flex justify-between">
+										<label
+											class="block mb-2 text-sm font-medium text-gray-600"
+											for="Password Confirmation"
+											>Password Confirmation</label
+										>
+									</div>
+									<div class="content" :class="classes">
+										<input
+											name="Password Confirmation"
+											type="password"
+											v-model="confirmation"
+											class="w-full px-3 py-2 leading-none border border-gray-300 rounded outline-none border-box focus:border-teal-500"
+											:class="classes"
+										/>
+										<span>{{ errors[0] }}</span>
+									</div>
+								</ValidationProvider>
+							</div>
+
+							<div class="mt-8">
+								<t-button
+									type="submit"
+									:class="[
+										'w-full font-bold',
+										{ 'cursor-not-allowed': invalid || loading },
+									]"
+									:disabled="invalid || loading"
+									>{{ loading ? "Please wait..." : "Sign Up" }}</t-button
+								>
+							</div>
+						</form>
+					</ValidationObserver>
 
 					<div class="flex items-center justify-between mt-4">
-						<span class="w-1/5 border-b md:w-1/4"></span>
+						<span class="w-1/6 border-b md:w-1/5"></span>
 
 						<nuxt-link
 							:to="{ name: 'auth-login' }"
@@ -153,7 +205,7 @@
 							>Already have an account ?</nuxt-link
 						>
 
-						<span class="w-1/5 border-b md:w-1/4"></span>
+						<span class="w-1/6 border-b md:w-1/5"></span>
 					</div>
 				</div>
 			</div>
@@ -166,21 +218,70 @@ export default {
 	auth: false,
 	data() {
 		return {
+			res: null,
+			loading: false,
+			visibility: false,
 			form: {
 				username: "",
 				email: "",
 				password: "",
 			},
+			confirmation: "",
 		};
 	},
 	methods: {
+		onReset() {
+			this.$refs.form.reset();
+		},
+
 		async userRegister() {
+			this.loading = true;
 			try {
-				await this.$axios.post("/register", this.form);
+				const res = await this.$axios.post("/register", this.form);
+				this.loading = false;
+				if (res.status === 200) {
+					this.res = res.data.message
+				}
 			} catch (err) {
+				this.loading = false;
 				console.log(err);
+			} finally {
+				this.form.password = "";
+				this.confirmation = "";
+				this.onReset();
 			}
 		},
 	},
 };
 </script>
+
+<style lang="scss" scoped>
+.content {
+	span {
+		@apply block;
+	}
+
+	&.is-invalid {
+		span,
+		input {
+			@apply text-red-700;
+		}
+		span {
+			@apply text-xs;
+		}
+		input {
+			@apply border-solid border border-red-700;
+		}
+	}
+
+	&.is-valid {
+		span,
+		input {
+			@apply text-teal-500;
+		}
+		input {
+			@apply border-solid border border-teal-500;
+		}
+	}
+}
+</style>

@@ -1,7 +1,8 @@
 <template>
 	<div
-		class="container max-w-sm mx-auto bg-white rounded-lg shadow-lg card h-card w-card"
+		class="container max-w-sm mx-auto transition duration-500 ease-in-out transform bg-white rounded-lg shadow-lg cursor-pointer select-none card h-card w-card hover:-translate-y-1 hover:shadow-2xl"
 	>
+	<a :href="`/vendors/${vendor.id}`" target="_blank">
 		<div class="container p-6 mx-auto">
 			<div class="flex flex-col items-center">
 				<div
@@ -15,7 +16,7 @@
 					<h1
 						class="text-lg font-semibold tracking-tight text-teal-600 truncate"
 					>
-						<a :href="`/vendors/${vendor.id}`" target="__blank">{{
+						<a :href="`/vendors/${vendor.id}`" target="_blank">{{
 							vendor.title
 						}}</a>
 					</h1>
@@ -47,17 +48,13 @@
 							<a href="#">{{ vendor.review }} reviews</a>
 						</div>
 					</div>
-					<a href="#">
-						<t-button class="text-xs font-medium">{{ vendor.price }}</t-button>
-						<!-- <button
-							class="w-16 h-8 text-sm font-medium rounded-md font-monts bg-secondary-500 hover:bg-secondary-600"
-						>
-							{{ vendor.price }}
-						</button> -->
+					<a :href="`/vendors/${vendor.id}`" target="_blank">
+						<t-button class="w-24 text-xs font-semibold tracking-widest">{{ vendor.price }}</t-button>
 					</a>
 				</div>
 			</div>
 		</div>
+	</a>
 	</div>
 </template>
 

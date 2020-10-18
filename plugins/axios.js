@@ -4,6 +4,10 @@ export default function ({ $axios, store }) {
       store.dispatch('validation/setErrors', error.response.data.errors)
     }
 
+    if (error.response.status === 401) {
+      store.dispatch('validation/setErrors', error.response.data)
+    }
+
     return Promise.reject(error);
   });
 

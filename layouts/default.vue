@@ -5,8 +5,8 @@
 	</div>
 </template>
 
-<style>
+<style lang="scss">
 html {
-	@apply font-display;
+	@apply font-display bg-gray-200;
 }
 </style>

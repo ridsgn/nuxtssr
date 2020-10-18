@@ -1,0 +1,30 @@
+<template>
+	<div v-show="isActive">
+		<slot></slot>
+	</div>
+</template>
+
+<script>
+export default {
+	props: {
+		name: { required: true },
+		selected: { default: false, type: Boolean },
+	},
+	data() {
+		return {
+			isActive: false,
+		};
+	},
+	computed: {
+		href() {
+			return "#" + this.name.toLowerCase();
+		},
+	},
+	mounted() {
+		this.isActive = this.selected;
+	},
+};
+</script>
+
+<style lang="scss" scoped>
+</style>

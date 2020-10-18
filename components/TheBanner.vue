@@ -6,7 +6,6 @@
 				ref="carousel"
 				class="swiper"
 				:options="swiperOptions"
-				@ready="onSwiperRedied"
 				@clickSlide="onSwiperClickSlide"
 				@slideChangeTransitionStart="onSwiperSlideChangeTransitionStart"
 			>
@@ -38,7 +37,7 @@
 
 <script>
 export default {
-	name: "swiper-nuxt",
+	name: "BannerSlider",
 	data() {
 		return {
 			swiperOptions: {
