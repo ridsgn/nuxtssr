@@ -15,18 +15,18 @@
 			class="flex flex-col max-w-xs px-12 py-12 space-y-4 bg-white rounded-md shadow-xs"
 		>
 			<div class="items-center">
-				<nuxt-link :to="{ query: { tab: 'account' } }" exact class="flex-none font-medium"
+				<nuxt-link :to="{ query: { tab: 'account' } }" exact class="flex-none font-medium hover:text-teal-500"
 					>Account Information</nuxt-link
 				>
 			</div>
 			<div class="items-center">
-				<nuxt-link :to="{ query: { tab: 'notif' } }" exact class="font-medium">Notification</nuxt-link>
+				<nuxt-link :to="{ query: { tab: 'notif' } }" exact class="font-medium hover:text-teal-500">Notification</nuxt-link>
 			</div>
 			<div class="items-center">
-				<nuxt-link :to="{ query: { tab: 'pass' } }" exact class="font-medium">Password & Security</nuxt-link>
+				<nuxt-link :to="{ query: { tab: 'pass' } }" exact class="font-medium hover:text-teal-500">Password & Security</nuxt-link>
 			</div>
 			<div class="items-center">
-				<nuxt-link :to="{ query: { tab: 'payment' } }" exact class="font-medium">Payment History</nuxt-link>
+				<nuxt-link :to="{ query: { tab: 'payment' } }" exact class="font-medium hover:text-teal-500">Payment History</nuxt-link>
 			</div>
 		</div>
 	</div>

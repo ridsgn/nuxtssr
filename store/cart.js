@@ -66,6 +66,17 @@ export const mutations = {
     state.cart.push({ product, afterDiscount, quantity });
   },
 
+  UPDATE_QUANTITY(state, { productId, quantity }) {
+    let productInCart = state.cart.find(item => {
+      return item.product.id === productId
+    })
+
+    if (productInCart) {
+      productInCart.quantity = quantity;
+      return;
+    }
+  },
+
   REMOVE_ITEM_CART(state, product) {
     state.cart = state.cart.filter(item => {
       return item.product.id !== product.id;
@@ -86,6 +97,10 @@ export const actions = {
 
   addProductToCart({ commit }, { product, afterDiscount, quantity }) {
     commit('ADD_TO_CART', { product, afterDiscount, quantity });
+  },
+
+  quantityUpdate({ commit }, { productId, quantity }) {
+    commit('UPDATE_QUANTITY', { productId, quantity });
   },
 
   removeItemFromCart({commit}, product) {

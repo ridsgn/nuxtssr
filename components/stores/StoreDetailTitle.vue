@@ -2,7 +2,7 @@
 	<div class="px-4 mb-4 lg:px-0">
 		<div class="flex w-full h-full mx-auto">
 			<div class="flex flex-grow h-full mx-0">
-				<div class="flex items-center mr-3">
+				<div class="flex items-center flex-shrink-0 mr-3">
 					<img
 						class="w-12 h-12 rounded-full"
 						src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
@@ -11,9 +11,9 @@
 					/>
 				</div>
 				<div
-					class="flex flex-col items-start justify-between flex-grow py-1 mr-2 xl:mr-8"
+					class="flex flex-col items-start justify-between flex-grow max-w-xs py-1 mr-2 truncate xl:max-w-full xl:mr-8"
 				>
-					<div class="font-medium font-poppins">{{ oneProduct.title }}</div>
+					<p class="font-medium truncate font-poppins">{{ oneProduct.title }}</p>
 					<div class="text-xs font-normal font-poppins">
 						by
 						<nuxt-link to="/vendors/1" class="font-semibold font-poppins"

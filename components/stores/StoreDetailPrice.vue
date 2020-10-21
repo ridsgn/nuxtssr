@@ -1,9 +1,9 @@
 <template>
 	<div class="px-4 lg:px-0">
 		<div class="mt-32 lg:pl-8 lg:pr-0 lg:mt-0">
-			<div class="grid grid-cols-2 gap-3 mb-3 xl:grid-cols-1">
+			<div class="grid grid-cols-3 gap-3 mb-3 xl:grid-cols-3">
 				<div
-					class="relative border-2 border-gray-500 border-solid rounded-lg h-28"
+					class="relative col-span-3 border-2 border-gray-500 border-solid rounded-lg h-28"
 				>
 					<div class="absolute -mt-4 -ml-2 lg :mt-1">
 						<div class="w-20 h-8 bg-teal-600 rounded-full">
@@ -22,9 +22,18 @@
 					</div>
 				</div>
 
-				<div class="border-2 border-gray-500 border-solid rounded-lg">
-					<input class="flex flex-col items-center justify-center w-full h-full p-2 bg-transparent bg-none" />
+				<p class="flex items-center justify-end">Quantity</p>
+				<div
+					class="w-full border-2 border-gray-500 border-solid rounded-lg outline-none justify-self-end"
+				>
+					<input
+						type="text"
+						onkeyup="this.value = this.value.replace(/\D/g,'')"
+						v-model.trim="qty"
+						class="h-full p-2 bg-transparent bg-none"
+					/>
 				</div>
+				<cite class="flex items-center justify-start">pcs</cite>
 			</div>
 
 			<div class="flex flex-col">
@@ -35,23 +44,31 @@
 						<div class="font-medium font-poppins">Details</div>
 					</div>
 					<div
-						class="p-4 text-xs font-normal leading-relaxed text-justify font-poppins"
+						class="max-w-sm p-4 text-xs font-normal leading-relaxed text-left font-poppins"
 					>
 						<p>
-							Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean
-							eget diam venenatis, iaculis ante a, consequat augue. Sed in
-							porttitor lorem, ac euismod ex. Lorem ipsum dolor sit amet,
-							consectetur adipisicing elit. Corrupti aperiam culpa optio veniam,
-							dolorum quia, libero quae repellendus architecto asperiores cum
-							praesentium, autem laudantium voluptates explicabo ab dolore
-							facere minus.
+							This Package was included : <br /><br />
+
+							&#9900; &nbsp; 1 Photographer <br />
+							&#9900; &nbsp; 1 Videographer <br />
+							&#9900; &nbsp; 1 Album Sangjit 5R (20 Pages) <br />
+							&#9900; &nbsp; 50 Edited Photos <br />
+							&#9900; &nbsp; 5 Hours Coverage Documentation Time <br />
+							<br />
+							&#42; All files in Google Drive
+							<br />
+							For more information : +62818858833
 						</p>
 					</div>
 				</div>
 
 				<div class="flex justify-between space-x-3">
 					<t-button class="w-2/4 font-medium">Message Vendor</t-button>
-					<t-button class="w-2/4 font-medium" @click="addToCart()"
+					<t-button
+						:variant="qty == 0 ? 'disabled' : ''"
+						:disabled="qty == 0"
+						@click="addToCart()"
+						class="w-2/4 font-medium"
 						>Order Now</t-button
 					>
 				</div>
@@ -63,12 +80,17 @@
 
 <script>
 export default {
+	data() {
+		return {
+			qty: 1,
+		};
+	},
 	methods: {
 		addToCart() {
 			this.$store.dispatch("cart/addProductToCart", {
 				product: this.oneProduct,
 				afterDiscount: this.afterDiscount,
-				quantity: 1,
+				quantity: parseInt(this.qty),
 			});
 		},
 	},

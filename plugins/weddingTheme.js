@@ -10,7 +10,7 @@ export default {
         variants: {
             error: 'text-white bg-red-600 hover:bg-red-500 focus:border-red-700  active:bg-red-700 text-sm font-medium border border-transparent px-3 py-2 rounded-md',
             success: 'text-white bg-green-600 hover:bg-green-500 focus:border-green-700 active:bg-green-700 text-sm font-medium border border-transparent px-3 py-2 rounded-md',
-            funny: 'text-white bg-orange-600 hover:bg-orange-500 focus:border-orange-700 active:bg-orange-700 text-sm font-medium uppercase border-orange-200 px-4 py-2 border-2 rounded-full shadow',
+            disabled: 'text-white bg-teal-500 border-0 py-2 px-5 focus:outline-none hover:bg-teal-600 rounded-lg opacity-50 cursor-not-allowed',
             link: 'underline text-orange-500 px-3 py-2 hover:bg-orange-100 rounded'
         }
     },

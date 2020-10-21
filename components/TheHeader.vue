@@ -56,7 +56,7 @@
 							{{ itemCount }}
 						</div>
 						<button
-							class="p-1 text-gray-400 transition duration-150 ease-in-out border-2 border-transparent rounded-full hover:text-paragraph focus:outline-none focus:text-white focus:bg-gray-300"
+							class="p-1 pl-1 text-gray-400 transition duration-150 ease-in-out border-2 border-transparent rounded-full hover:text-paragraph focus:outline-none"
 							aria-label="Cart"
 						>
 							<svg
@@ -80,7 +80,7 @@
 						</button>
 						<div
 							v-show="cart"
-							class="absolute right-0 rounded-md shadow-lg"
+							class="absolute right-0 z-50 rounded-md shadow-lg"
 							@mouseenter="cart = true"
 							@mouseleave="cart = false"
 						>
@@ -100,6 +100,7 @@
 										<li
 											v-for="item in carts"
 											:key="item.product.id"
+											@click="cart = false"
 											class="flex p-4 transition duration-500 ease-in-out transform bg-gray-200 rounded-md cursor-pointer select-none hover:-translate-y-1 hover:shadow-lg"
 										>
 											<nuxt-link
@@ -108,6 +109,7 @@
 													params: { slug: item.product.slug },
 												}"
 												class="flex"
+												@click="cart = false"
 											>
 												<img
 													class="flex items-center justify-center flex-shrink-0 w-10 h-10 mr-4 bg-gray-300 rounded-md"
@@ -167,11 +169,14 @@
 										<p class="text-lg font-bold">Total</p>
 										<p class="">IDR {{ totalPrice }}</p>
 									</div>
-									<button
-										class="w-full px-5 py-2 font-medium text-white transition duration-150 ease-in-out bg-teal-500 border-0 rounded-lg focus:outline-none focus:shadow-outline hover:bg-teal-600"
-									>
-										Checkout
-									</button>
+									<nuxt-link :to="{ name: 'checkout' }">
+										<button
+											@click="cart = false"
+											class="w-full px-5 py-2 font-medium text-white transition duration-150 ease-in-out bg-teal-500 border-0 rounded-lg focus:outline-none focus:shadow-outline hover:bg-teal-600"
+										>
+											Checkout
+										</button>
+									</nuxt-link>
 								</div>
 							</div>
 						</div>

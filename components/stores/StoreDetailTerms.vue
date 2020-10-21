@@ -7,7 +7,7 @@
 				<div class="font-medium font-poppins">Terms & Conditions</div>
 			</div>
 			<div
-				class="p-4 text-xs font-normal leading-relaxed text-justify font-poppins"
+				class="p-4 text-xs font-normal leading-relaxed text-left font-poppins"
 			>
 				<p>
 					- Down Payment is 50% of the value of the shoes; to be paid before the
@@ -29,7 +29,7 @@
 				<div class="font-medium font-poppins">Terms & Conditions</div>
 			</div>
 			<div
-				class="p-4 text-xs font-normal leading-relaxed text-justify font-poppins"
+				class="p-4 text-xs font-normal leading-relaxed text-left font-poppins"
 			>
 				<p>
 					- Down Payment is 50% of the value of the shoes; to be paid before the
@@ -51,7 +51,7 @@
 				<div class="font-medium font-poppins">Terms & Conditions</div>
 			</div>
 			<div
-				class="p-4 text-xs font-normal leading-relaxed text-justify font-poppins"
+				class="p-4 text-xs font-normal leading-relaxed text-left font-poppins"
 			>
 				<p>
 					- Down Payment is 50% of the value of the shoes; to be paid before the
