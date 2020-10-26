@@ -1,8 +1,10 @@
 export const state = () => ({
   products: [],
-  product: [],
+  product: null,
   cart: [],
 });
+
+// GETTER
 
 export const getters = {
   productsSouvenir(state) {
@@ -15,7 +17,7 @@ export const getters = {
     return state.product[0]
   },
   regex(state, getters) {
-    return getters.oneProduct.price.replace(/[\IDR\s\.]/g, '');
+    return getters.oneProduct.price.replace(/[IDR\s.]/g, '');
   },
   discount(state, getters) {
     const number = Number(getters.regex);
@@ -43,6 +45,8 @@ export const getters = {
     return formatter.format(total);
   }
 }
+
+// MUTATION
 
 export const mutations = {
   SET_PRODUCTS(state, products) {
@@ -73,7 +77,6 @@ export const mutations = {
 
     if (productInCart) {
       productInCart.quantity = quantity;
-      return;
     }
   },
 
@@ -84,15 +87,31 @@ export const mutations = {
   }
 }
 
+// ACTION
+
 export const actions = {
   async getProducts({ commit }) {
-    const products = await this.$axios.$get('http://localhost:4000/stores');
-    commit('SET_PRODUCTS', products);
+    try {
+      const products = await this.$axios.$get('http://localhost:4000/stores')
+      commit('SET_PRODUCTS', products);
+    } catch (e) {
+      console.log(e);
+    }
   },
 
   async getProduct({ commit }, slug) {
     const product = await this.$axios.$get(`http://localhost:4000/stores?slug=${slug}`);
     commit('SET_PRODUCT', product);
+  },
+
+  async storeProduct({ state }, user_id) {
+    const item = state.cart.map(product => product.product)
+
+    await this.$axios.$post('http://localhost:8000/api/cart', {
+      user_id: user_id.id,
+      product_id: item.map(ids => ids.id),
+      quantity: state.cart.map(quantity => quantity.quantity)
+    });
   },
 
   addProductToCart({ commit }, { product, afterDiscount, quantity }) {

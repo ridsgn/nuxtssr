@@ -4,12 +4,12 @@
 			:dismissible="false"
 			variant="danger"
 			class="container w-full max-w-lg mx-auto mt-32"
-			:show="errors.email"
+			:show="vErrors.email"
 		>
 			<ul class="ml-4 list-disc">
-				<li v-if="errors.username">{{ errors.username[0] }}</li>
-				<li v-if="errors.email">{{ errors.email[0] }}</li>
-				<li v-if="errors.password">{{ errors.password[0] }}</li>
+				<li v-if="vErrors.username">{{ vErrors.username[0] }}</li>
+				<li v-if="vErrors.email">{{ vErrors.email[0] }}</li>
+				<li v-if="vErrors.password">{{ vErrors.password[0] }}</li>
 			</ul>
 		</t-alert>
 		<t-alert
@@ -25,7 +25,7 @@
 		<div
 			class="flex flex-col max-w-sm mx-auto mt-20 overflow-hidden bg-white rounded-lg shadow-lg lg:max-w-4xl"
 			:class="
-				errors.email || errors.username || errors.password || res
+				vErrors.email || vErrors.username || vErrors.password || res
 					? 'lg:mt-8'
 					: 'lg:mt-32'
 			"
@@ -240,7 +240,7 @@ export default {
 				const res = await this.$axios.post("/register", this.form);
 				this.loading = false;
 				if (res.status === 200) {
-					this.res = res.data.message
+					this.res = res.data.message;
 				}
 			} catch (err) {
 				this.loading = false;
@@ -256,32 +256,4 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.content {
-	span {
-		@apply block;
-	}
-
-	&.is-invalid {
-		span,
-		input {
-			@apply text-red-700;
-		}
-		span {
-			@apply text-xs;
-		}
-		input {
-			@apply border-solid border border-red-700;
-		}
-	}
-
-	&.is-valid {
-		span,
-		input {
-			@apply text-teal-500;
-		}
-		input {
-			@apply border-solid border border-teal-500;
-		}
-	}
-}
 </style>

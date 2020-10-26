@@ -6,14 +6,14 @@ const Validation = {
 		Vue.mixin({
 			computed: {
 				...mapGetters({
-					errors: "validation/errors",
+					vErrors: "validation/vErrors",
 					message: "validation/message",
 					souvenir: 'cart/productsSouvenir',
 					weddingku: 'cart/productsWeddingku',
 					oneProduct: 'cart/oneProduct',
 					afterDiscount: 'cart/discount',
 					itemCount: 'cart/cartItemCount',
-					totalPrice: 'cart/cartTotalPrice'
+					totalPrice: 'cart/cartTotalPrice',
 				})
 			}
 		});

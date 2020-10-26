@@ -8,10 +8,9 @@ export default {
         fixedClasses: 'focus:outline-none focus:shadow-outline flex items-center justify-center transition ease-in-out duration-150',
         classes: 'text-white bg-teal-500 border-0 py-2 px-5 focus:outline-none hover:bg-teal-600 rounded-lg',
         variants: {
-            error: 'text-white bg-red-600 hover:bg-red-500 focus:border-red-700  active:bg-red-700 text-sm font-medium border border-transparent px-3 py-2 rounded-md',
-            success: 'text-white bg-green-600 hover:bg-green-500 focus:border-green-700 active:bg-green-700 text-sm font-medium border border-transparent px-3 py-2 rounded-md',
+            cta: 'text-white bg-orange-500 border-0 py-2 px-5 focus:outline-none hover:bg-orange-600 rounded-lg',
             disabled: 'text-white bg-teal-500 border-0 py-2 px-5 focus:outline-none hover:bg-teal-600 rounded-lg opacity-50 cursor-not-allowed',
-            link: 'underline text-orange-500 px-3 py-2 hover:bg-orange-100 rounded'
+            outline: 'text-teal-500 bg-transparent border-2 py-2 px-5 focus:outline-none hover:text-teal-600 hover:border-teal-600 rounded-lg',
         }
     },
     TModal: {

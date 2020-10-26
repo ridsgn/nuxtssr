@@ -61,7 +61,6 @@
 						>
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
-								xmlns:xlink="http://www.w3.org/1999/xlink"
 								width="1.5em"
 								height="1.5em"
 								preserveAspectRatio="xMidYMid meet"
@@ -91,12 +90,11 @@
 								aria-labelledby="user-menu"
 							>
 								<ul
-									class="flex flex-col items-center flex-grow py-4 pr-4"
+									class="flex flex-col items-center flex-grow py-4 pr-4 space-y-4"
 									:class="
 										isEmptyCart ? '' : 'max-h overflow-hidden overflow-y-scroll'
 									"
 								>
-									<div class="flex flex-col items-center space-y-4">
 										<li
 											v-for="item in carts"
 											:key="item.product.id"
@@ -114,6 +112,7 @@
 												<img
 													class="flex items-center justify-center flex-shrink-0 w-10 h-10 mr-4 bg-gray-300 rounded-md"
 													:src="item.product.img"
+                          :alt="item.product.title"
 												/>
 												<div class="flex max-w-sm">
 													<div>
@@ -160,9 +159,8 @@
 											v-show="isEmptyCart"
 											class="flex justify-center w-64 p-4 text-xs bg-gray-200 rounded-md"
 										>
-											Its empty, order some our store
+											Its empty, order some at our store
 										</li>
-									</div>
 								</ul>
 								<div class="mt-4 mr-4">
 									<div class="flex items-center justify-between py-4">
@@ -328,17 +326,21 @@ export default {
 			return this.$store.state.cart.cart;
 		},
 		isEmptyCart() {
-			if (typeof this.carts !== "undefined" && this.carts.length > 0) {
-				return false;
-			}
-			return true;
+			return !(typeof this.carts !== "undefined" && this.carts.length > 0);
 		},
 	},
 	methods: {
 		async logout() {
-			await this.$auth.logout();
 			this.isAva = false;
-			await this.$router.push("/auth/login");
+      await this.$store.dispatch("cart/storeProduct", this.$store.state.auth.user);
+
+      try {
+        await this.$auth.logout();
+        location.replace("/auth/login");
+      } catch (e) {
+        console.log(e);
+      }
+
 		},
 		removeItem(product) {
 			this.$store.dispatch("cart/removeItemFromCart", product);

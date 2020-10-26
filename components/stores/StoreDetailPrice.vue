@@ -63,18 +63,18 @@
 				</div>
 
 				<div class="flex justify-between space-x-3">
-					<t-button class="w-2/4 font-medium">Message Vendor</t-button>
+					<t-button variant="outline" @click="check" class="flex-1 flex-shrink w-2/4 font-medium">Chat</t-button>
 					<t-button
 						:variant="qty == 0 ? 'disabled' : ''"
 						:disabled="qty == 0"
 						@click="addToCart()"
-						class="w-2/4 font-medium"
+						class="flex-grow w-2/4 font-medium"
 						>Order Now</t-button
 					>
 				</div>
 			</div>
 		</div>
-		<!-- <pre>{{ oneProduct.id }}</pre> -->
+<!--		 <pre>{{ test }}</pre>-->
 	</div>
 </template>
 
@@ -87,11 +87,15 @@ export default {
 	},
 	methods: {
 		addToCart() {
-			this.$store.dispatch("cart/addProductToCart", {
-				product: this.oneProduct,
-				afterDiscount: this.afterDiscount,
-				quantity: parseInt(this.qty),
-			});
+		  if (!this.$store.state.auth.loggedIn) {
+		    this.$router.push('/auth/login');
+      } else {
+        this.$store.dispatch("cart/addProductToCart", {
+          product: this.oneProduct,
+          afterDiscount: this.afterDiscount,
+          quantity: parseInt(this.qty),
+        });
+      }
 		},
 	},
 };

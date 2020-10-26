@@ -6,7 +6,7 @@
 					<img
 						class="absolute object-cover w-full h-40 border-b rounded-lg shadow-md cursor-pointer md:h-full"
 						:src="product.img"
-						alt="product name"
+						:alt="product.title"
 					/>
 				</a>
 			</div>

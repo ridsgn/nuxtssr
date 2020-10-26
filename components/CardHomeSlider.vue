@@ -42,7 +42,7 @@
 											class="mb-1"
 											:increment="0.01"
 											inactive-color="#858720"
-											:rating="4.9"
+											:rating="4.2"
 											:glow="10"
 											:star-size="18"
 											:show-rating="false"

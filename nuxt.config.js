@@ -16,13 +16,15 @@ export default {
 
   router: {
     middleware: [
-      'clearValidationErrors'
+      'clearValidationErrors',
+      // 'isLoggedIn'
     ]
   },
 
   // Global CSS (https://go.nuxtjs.dev/config-css)
   css: [
     'swiper/css/swiper.css',
+    '~/assets/style.scss'
     // '@braid/vue-formulate/dist/snow.min.css'
   ],
 
@@ -32,7 +34,7 @@ export default {
     '~/plugins/vue-tailwind',
 
     { src: '~/plugins/nuxt-swiper-plugin.js', mode: 'client' },
-    { src: '~/plugins/persistedState.js' },
+    { src: '~/plugins/persistedState.js', mode: 'client' },
 
     // "./plugins/mixins/user.js",
     "~/plugins/mixins/validation",
@@ -112,7 +114,7 @@ export default {
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {
     transpile: [
-      "vee-validate/dist/rules"
+      "vee-validate/dist/rules",
     ],
   }
 }

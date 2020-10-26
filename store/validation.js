@@ -1,12 +1,12 @@
 export const state = () => ({
-	errors: {},
+	vErrors: {},
 	message: {},
 });
 
 // getters
 export const getters = {
-	errors(state) {
-		return state.errors;
+	vErrors(state) {
+		return state.vErrors;
 	},
 
 	message(state) {
@@ -16,8 +16,8 @@ export const getters = {
 
 // mutations
 export const mutations = {
-	SET_VALIDATION_ERRORS(state, errors) {
-		state.errors = errors;
+	SET_VALIDATION_ERROR(state, vErrors) {
+		state.vErrors = vErrors;
 	},
 
 	SET_RESPONSE_MESSAGE(state, res) {
@@ -27,14 +27,14 @@ export const mutations = {
 
 // actions
 export const actions = {
-	setErrors({ commit }, errors) {
-		commit("SET_VALIDATION_ERRORS", errors);
+	setErrors({ commit }, vErrors) {
+		commit("SET_VALIDATION_ERROR", vErrors);
 	},
 	setMessage({ commit }, res) {
 		commit("SET_RESPONSE_MESSAGE", res);
 	},
 	clearErrors({ commit }) {
-		commit("SET_VALIDATION_ERRORS", {});
+		commit("SET_VALIDATION_ERROR", {});
 		commit("SET_RESPONSE_MESSAGE", {});
 	}
 };

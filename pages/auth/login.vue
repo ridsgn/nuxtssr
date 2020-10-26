@@ -1,19 +1,17 @@
 <template>
 	<div>
-		<t-alert :dismissible="false" variant="danger" class="container w-full max-w-lg mx-auto mt-32" :show="errors.error"> 
+		<t-alert :dismissible="false" variant="danger" class="container w-full max-w-lg mx-auto mt-32" :show="vErrors.error">
 			<ul class="ml-4 list-disc">
-				{{errors.error}}
+				{{vErrors.error}}
 			</ul>
 		</t-alert>
 		<div
 			class="flex max-w-sm mx-auto mt-20 overflow-hidden bg-white rounded-lg shadow-lg lg:max-w-4xl"
-			:class="errors.error ? 'lg:mt-8' : 'lg:mt-32'"
+			:class="vErrors.error ? 'lg:mt-8' : 'lg:mt-32'"
 		>
 			<div
 				class="hidden bg-cover lg:block lg:w-1/2"
-				style="
-					background-image: url('https://images.unsplash.com/photo-1546032996-6dfacbacbf3f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=655&q=80');
-				"
+				style="background-image: url('https://images.unsplash.com/photo-1546032996-6dfacbacbf3f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=655&q=80')"
 			></div>
 
 			<div class="w-full px-6 py-8 md:px-8 lg:w-1/2">
@@ -135,7 +133,8 @@ export default {
 		async userLogin() {
 			try {
 				await this.$auth.loginWith("local", { data: this.form });
-				await this.$router.push("/");
+				await this.$router.go(-1);
+				await this.$axios.$get(`/cart/${this.$auth.user.id}`);
 			} catch (err) {
 				console.log(err);
 			}

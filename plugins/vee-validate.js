@@ -1,8 +1,3 @@
-// import Vue from 'vue';
-// import VueFormulate from '@braid/vue-formulate';
-
-// Vue.use(VueFormulate)
-
 import Vue from 'vue';
 import { ValidationProvider, extend, ValidationObserver, configure } from 'vee-validate';
 import { email, required, confirmed } from "vee-validate/dist/rules";

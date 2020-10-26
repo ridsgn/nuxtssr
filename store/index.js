@@ -1,13 +1,13 @@
-// import persistedState from '@/plugins/persistedState';
+// import VuexPersistence from 'vuex-persist';
 
-// export const plugins = [persistedState];
+// const vuexPersist = new VuexPersistence({
+//   strictMode: process.env.NODE_ENV !== 'production',
+//   reducer: (state) => ({ cart: state.cart.cart }),
+//   key: 'store',
+// });
 
-// export const getters = {
-//   isAuthenticated(state) {
-//     return state.auth.loggedIn
-//   },
+// export const mutations = {
+//   RESTORE_MUTATION: vuexPersist.RESTORE_MUTATION,
+// };
 
-//   loggedInUser(state) {
-//     return state.auth.user
-//   }
-// }
+// export const plugins = [vuexPersist.plugin];

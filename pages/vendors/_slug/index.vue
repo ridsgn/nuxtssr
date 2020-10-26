@@ -14,7 +14,7 @@
 				<VendorReviews :vendor="data"/>
 			</VTab>
 		</VTabs>
-		<pre>{{ data }}</pre>
+		<!-- <pre>{{ data }}</pre> -->
 	</div>
 </template>
 

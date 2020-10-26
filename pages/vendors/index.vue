@@ -79,15 +79,20 @@
 				</div>
 			</div>
 		</div>
-		<VendorList :vendors="vendors"></VendorList>
+		<vendor-list :vendors="vendors" :key="Math.random()"></vendor-list>
 	</div>
 </template>
 
 <script>
+import VendorList from "~/components/vendors/VendorList";
 export default {
 	name: "VendorsPage",
-	data() {
-		return {};
+  components: {VendorList},
+  data() {
+    let vendors;
+    return {
+		  vendors
+    };
 	},
 	async asyncData({ $axios, error }) {
 		const vendors = await $axios
@@ -95,8 +100,7 @@ export default {
 			.catch((err) => {
 				error({ statusCode: err, message: "Error" });
 			});
-		// console.log(vendors);
-		// debugger;
+
 		return { vendors };
 	},
 };
