@@ -8,6 +8,7 @@
 
 <style lang="scss">
 html {
-	@apply font-display bg-gray-200;
+	@apply font-display;
+	background-color: #E9EBFC;
 }
 </style>
