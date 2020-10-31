@@ -1,5 +1,5 @@
 <template>
-	<div class="fixed top-0 z-50 w-full bg-white">
+	<div class="fixed top-0 z-20 w-full bg-white">
 		<header class="border-b">
 			<div
 				class="container flex flex-row items-center justify-between px-4 py-3 mx-auto xl:px-6"
@@ -168,12 +168,14 @@
 										<p class="">IDR {{ totalPrice }}</p>
 									</div>
 									<nuxt-link :to="{ name: 'checkout' }">
-										<button
+										<t-button
 											@click="cart = false"
-											class="w-full px-5 py-2 font-medium text-white transition duration-150 ease-in-out bg-teal-500 border-0 rounded-lg focus:outline-none focus:shadow-outline hover:bg-teal-600"
+											class="w-full"
+											:variant="totalPrice != 0 ? 'cta' : 'disabledCta'"
+											:disabled="totalPrice == 0"
 										>
 											Checkout
-										</button>
+										</t-button>
 									</nuxt-link>
 								</div>
 							</div>

@@ -13,13 +13,13 @@
 				<div
 					class="flex flex-col items-start justify-between flex-grow max-w-xs py-1 mr-2 truncate xl:max-w-full xl:mr-8"
 				>
-					<p class="font-medium truncate font-poppins">{{ oneProduct.title }}</p>
+					<p class="font-medium truncate font-poppins">{{ oneProduct.name }}</p>
 					<div class="text-xs font-normal font-poppins">
 						by
 						<nuxt-link to="/vendors/1" class="font-semibold font-poppins"
-							>{{oneProduct.vendor}}</nuxt-link
+							>HLI Wedding ID</nuxt-link
 						>
-						- {{oneProduct.category}}
+						- Happy Merchandise
 					</div>
 					<div class="pt-1 text-xs font-light font-poppins">Jakarta, ID</div>
 				</div>

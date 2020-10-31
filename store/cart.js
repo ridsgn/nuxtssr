@@ -1,32 +1,32 @@
 export const state = () => ({
   products: [],
-  product: null,
+  product: {},
   cart: [],
 });
 
 // GETTER
 
 export const getters = {
-  productsSouvenir(state) {
-    return state.products.filter(product => product.category === "Raw Souvenir");
-  },
-  productsWeddingku(state) {
-    return state.products.filter(product => product.category === "Wedding Merchandise");
-  },
+  // productsSouvenir(state) {
+  //   return state.products.filter(product => product.category === "Raw Souvenir");
+  // },
+  // productsWeddingku(state) {
+  //   return state.products.filter(product => product.category === "Wedding Merchandise");
+  // },
   oneProduct(state) {
-    return state.product[0]
+    return state.product.product
   },
-  regex(state, getters) {
-    return getters.oneProduct.price.replace(/[IDR\s.]/g, '');
-  },
+  // regex(state, getters) {
+  //   return getters.oneProduct.price.replace(/[IDR\s.]/g, '');
+  // },
   discount(state, getters) {
-    const number = Number(getters.regex);
+    const price = getters.oneProduct.price;
     const formatter = new Intl.NumberFormat('id-ID', {
       style: 'decimal',
       currency: 'IDR',
     })
 
-    return formatter.format(number - (number * 0.24));
+    return formatter.format(price - (price * 0.24));
   },
   cartItemCount(state) {
     return state.cart.length;
@@ -92,22 +92,22 @@ export const mutations = {
 export const actions = {
   async getProducts({ commit }) {
     try {
-      const products = await this.$axios.$get('http://localhost:4000/stores')
-      commit('SET_PRODUCTS', products);
+      const products = await this.$axios.$get('/products')
+      commit('SET_PRODUCTS', products.product.data);
     } catch (e) {
       console.log(e);
     }
   },
 
   async getProduct({ commit }, slug) {
-    const product = await this.$axios.$get(`http://localhost:4000/stores?slug=${slug}`);
-    commit('SET_PRODUCT', product);
+    const product = await this.$axios.$get(`/product/${slug}`);
+    commit('SET_PRODUCT', product.data);
   },
 
   async storeProduct({ state }, user_id) {
     const item = state.cart.map(product => product.product)
 
-    await this.$axios.$post('http://localhost:8000/api/cart', {
+    await this.$axios.$post('/cart', {
       user_id: user_id.id,
       product_id: item.map(ids => ids.id),
       quantity: state.cart.map(quantity => quantity.quantity)

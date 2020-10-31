@@ -19,7 +19,9 @@
 
 				<div class="flex self-start flex-1 mt-4 space-x-4 place-items-end">
 					<t-button class="text-xs font-semibold">Message Vendor</t-button>
-					<t-button class="text-xs font-semibold">Vendor's Info</t-button>
+					<t-button @click="showModal = true" class="text-xs font-semibold"
+						>Vendor's Info</t-button
+					>
 				</div>
 			</div>
 			<div class="mx-4 my-8 border"></div>
@@ -27,7 +29,7 @@
 				<div class="flex items-center justify-start flex-1 w-1/2">
 					<div class="flex items-start flex-1">
 						<div class="flex flex-col items-center justify-center">
-							<h1 class="text-lg font-medium">Projects Done</h1>
+							<h1 class="text-lg font-medium">Real Wedding</h1>
 							<div class="text-2xl font-bold">{{ vendor.hits }}</div>
 						</div>
 						<div class="flex flex-col items-center justify-center flex-grow">
@@ -35,7 +37,7 @@
 								<h1 class="text-lg font-medium">Ratings</h1>
 								<div class="flex flex-row">
 									<div class="mr-2 text-2xl font-bold">
-										{{ (vendor.categoryId.toFixed(1)) }}
+										{{ vendor.categoryId.toFixed(1) }}
 									</div>
 									<div>
 										<client-only>
@@ -63,6 +65,13 @@
 				</div>
 			</div>
 		</div>
+
+		<t-modal v-model="showModal" variant="clean">
+			<template v-slot:header>
+				<p class="capitalize">Sirih Gading Catering's Info</p>
+			</template>
+			Lorem, ipsum dolor sit amet consectetur adipisicing elit. Hic, laboriosam quibusdam. Odio debitis id esse libero voluptates doloribus modi assumenda impedit repellat, vel, nostrum totam deleniti laborum quas unde eos.
+		</t-modal>
 	</div>
 </template>
 
@@ -82,6 +91,7 @@ export default {
 	},
 	data() {
 		return {
+			showModal: false,
 			star: [
 				23,
 				2,

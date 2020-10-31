@@ -16,7 +16,7 @@
 
 					<div class="flex flex-col items-center justify-center h-full pt-2">
 						<div class="text-sm font-light leading-none line-through">
-							{{ oneProduct.price }}
+							IDR {{ price(oneProduct.price) }}
 						</div>
 						<div class="text-2xl font-semibold">IDR {{ afterDiscount }}</div>
 					</div>
@@ -28,8 +28,11 @@
 				>
 					<input
 						type="text"
+						maxlength="3"
 						onkeyup="this.value = this.value.replace(/\D/g,'')"
-						v-model.trim="qty"
+						:value="oneProduct.quantity"
+						@keyup="updateQty($event)"
+						@change="updateQty($event)"
 						class="h-full p-2 bg-transparent bg-none"
 					/>
 				</div>
@@ -47,23 +50,17 @@
 						class="max-w-sm p-4 text-xs font-normal leading-relaxed text-left font-poppins"
 					>
 						<p>
-							This Package was included : <br /><br />
-
-							&#9900; &nbsp; 1 Photographer <br />
-							&#9900; &nbsp; 1 Videographer <br />
-							&#9900; &nbsp; 1 Album Sangjit 5R (20 Pages) <br />
-							&#9900; &nbsp; 50 Edited Photos <br />
-							&#9900; &nbsp; 5 Hours Coverage Documentation Time <br />
-							<br />
-							&#42; All files in Google Drive
-							<br />
-							For more information : +62818858833
+							{{ oneProduct.details }}
 						</p>
 					</div>
 				</div>
 
 				<div class="flex justify-between space-x-3">
-					<t-button variant="outline" @click="check" class="flex-1 flex-shrink w-2/4 font-medium">Chat</t-button>
+					<t-button
+						variant="outline"
+						class="flex-1 flex-shrink w-2/4 font-medium"
+						>Chat</t-button
+					>
 					<t-button
 						:variant="qty == 0 ? 'disabled' : ''"
 						:disabled="qty == 0"
@@ -74,7 +71,7 @@
 				</div>
 			</div>
 		</div>
-<!--		 <pre>{{ test }}</pre>-->
+		<!--		 <pre>{{ test }}</pre>-->
 	</div>
 </template>
 
@@ -86,16 +83,27 @@ export default {
 		};
 	},
 	methods: {
+		updateQty(event) {
+			return this.qty = event.target.value;
+		},
+		price(value) {
+			const formatter = new Intl.NumberFormat("id-ID", {
+				style: "decimal",
+				currency: "IDR",
+			});
+
+			return formatter.format(value);
+		},
 		addToCart() {
-		  if (!this.$store.state.auth.loggedIn) {
-		    this.$router.push('/auth/login');
-      } else {
-        this.$store.dispatch("cart/addProductToCart", {
-          product: this.oneProduct,
-          afterDiscount: this.afterDiscount,
-          quantity: parseInt(this.qty),
-        });
-      }
+			if (!this.$store.state.auth.loggedIn) {
+				this.$router.push("/auth/login");
+			} else {
+				this.$store.dispatch("cart/addProductToCart", {
+					product: this.oneProduct,
+					afterDiscount: this.afterDiscount,
+					quantity: parseInt(this.qty),
+				});
+			}
 		},
 	},
 };

@@ -5,8 +5,8 @@
 				<a href="#" class="cursor-pointer">
 					<img
 						class="absolute object-cover w-full h-40 border-b rounded-lg shadow-md cursor-pointer md:h-full"
-						:src="product.img"
-						:alt="product.title"
+						src="https://picsum.photos/160/160"
+						:alt="product.name"
 					/>
 				</a>
 			</div>
@@ -19,7 +19,7 @@
 								class="block max-w-xs overflow-hidden text-sm font-medium leading-tight text-gray-800 lg:text-base hover:underline trunk"
 								:to="{ name: 'stores-slug', params: { slug: product.slug } }"
 							>
-								{{ product.title }}
+								{{ capitalize(product.name) }}
 							</nuxt-link>
 
 							<span
@@ -30,14 +30,14 @@
 						</div>
 
 						<div class="mt-px text-xs opacity-75">
-							<a class="hover:underline" href="#"> {{ product.category }} </a>
+							<a class="hover:underline" href="#"> Happy Wedding ID </a>
 						</div>
 					</div>
 
 					<div class="flex items-center justify-between px-4 pb-3 mt-3 md:mt-1">
 						<div>
 							<div class="text-lg text-gray-800">
-								<span class="font-semibold">{{ product.price }}</span>
+								<span class="font-semibold">IDR {{ price(product.price) }}</span>
 							</div>
 						</div>
 
@@ -68,7 +68,19 @@ export default {
 	data() {
 		return {};
 	},
-	methods: {},
+	methods: {
+		price(value) {
+			const formatter = new Intl.NumberFormat('id-ID', {
+				style: 'decimal',
+				currency: 'IDR',
+			});
+
+			return formatter.format(value);
+		},
+		capitalize(value) {
+			return value.replace(/\w\S*/g, (w) => (w.replace(/^\w/, (c) => c.toUpperCase())));
+		}
+	},
 };
 </script>
 
@@ -83,7 +95,7 @@ export default {
 @media (min-width: 640px) {
 	.trunk {
 		max-height: 3.5rem;
-		min-height: 2.5rem;
+		// min-height: 2.5rem;
 	}
 }
 </style>

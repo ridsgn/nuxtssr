@@ -71,23 +71,23 @@ export default {
 		background-position: center;
 		&.slide-1 {
 			border-radius: 8px;
-			background-image: url("https://picsum.photos/380/250.jpg?random=1");
+			background-image: url("https://picsum.photos/854/424.jpg?random=1");
 		}
 		&.slide-2 {
 			border-radius: 8px;
-			background-image: url("https://picsum.photos/380/250.jpg?random=2");
+			background-image: url("https://picsum.photos/854/424.jpg?random=2");
 		}
 		&.slide-3 {
 			border-radius: 8px;
-			background-image: url("https://picsum.photos/380/250.jpg?random=3");
+			background-image: url("https://picsum.photos/854/424.jpg?random=3");
 		}
 		&.slide-4 {
 			border-radius: 8px;
-			background-image: url("https://picsum.photos/380/250.jpg?random=4");
+			background-image: url("https://picsum.photos/854/424.jpg?random=4");
 		}
 		&.slide-5 {
 			border-radius: 8px;
-			background-image: url("https://picsum.photos/380/250.jpg?random=5");
+			background-image: url("https://picsum.photos/854/424.jpg?random=5");
 		}
 	}
 	&.gallery-top {
