@@ -31,8 +31,7 @@ export default {
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
   plugins: [
     '~/plugins/vee-validate',
-    '~/plugins/vue-tailwind',
-
+    { src: '~/plugins/vue-tailwind', mode: 'client' },
     { src: '~/plugins/nuxt-swiper-plugin.js', mode: 'client' },
     { src: '~/plugins/persistedState.js', mode: 'client' },
 
@@ -79,7 +78,7 @@ export default {
 
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
   axios: {
-    baseURL: "https://35.240.194.136/api"
+    baseURL: "http://localhost:8000/api"
   },
 
   auth: {
