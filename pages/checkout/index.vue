@@ -22,7 +22,7 @@
 															<img
 																class="w-20 h-20 rounded-md"
 																:src="item.product.img"
-																:alt="item.product.name"
+																alt="#"
 															/>
 														</div>
 													</div>
@@ -205,9 +205,7 @@
 													<t-button
 														:disabled="totalQty === 0"
 														:variant="totalQty ? 'cta' : 'disabledCta'"
-														@click="
-															showModal = true;
-														"
+														@click="showModal = true"
 														class="w-full"
 														>Buy ({{ totalQty }})
 													</t-button>
@@ -222,136 +220,154 @@
 				</div>
 			</div>
 
-			<t-modal :clickToClose="false" v-model="showModal" variant="clean">
-				<template v-slot:header>
-					Shipping
-					<div class="flex mt-4">
-						<label class="flex items-center">
-							<t-checkbox variant="success" name="options" v-model="checkbox" />
-							<span class="ml-2 text-xs font-medium capitalize">Use your account information</span>
-						</label>
-					</div>
-				</template>
-				<div class="flex justify-center mb-4 space-x-4">
-					<ValidationProvider
-						class="flex-grow"
-						rules="required"
-						v-slot="{ errors, classes }"
-					>
-						<label
-							class="block mb-2 text-xs font-medium text-gray-600"
-							for="Recipient Name"
-							>Recipient Name</label
-						>
-						<div class="content" :class="classes">
-							<input
-								id="Recipient Name"
-								v-model="shipping.name"
-								class="w-full px-3 py-2 text-xs leading-none border border-gray-300 rounded outline-none border-box focus:border-teal-500"
-								type="text"
-								:class="classes"
-								:disabled="checkbox"
-							/>
-							<span>{{ errors[0] }}</span>
+			<ValidationObserver ref="form" v-slot="{ invalid }">
+				<t-modal :clickToClose="false" v-model="showModal" variant="clean">
+					<template v-slot:header>
+						Shipping
+						<div class="flex mt-4">
+							<label class="flex items-center">
+								<t-checkbox
+									variant="success"
+									name="options"
+									v-model="checkbox"
+								/>
+								<span class="ml-2 text-xs font-medium capitalize"
+									>Use your account information</span
+								>
+							</label>
 						</div>
-					</ValidationProvider>
-					<ValidationProvider rules="required|numeric" v-slot="{ errors, classes }">
-						<label
-							class="block mb-2 text-xs font-medium text-gray-600"
-							for="Phone Number"
-							>Phone Number</label
-						>
-						<div class="content" :class="classes">
-							<input
-								id="Phone Number"
-								v-model.trim="shipping.phone"
-								class="w-full px-3 py-2 text-xs leading-none border border-gray-300 rounded outline-none border-box focus:border-teal-500"
-								type="text"
-								:disabled="checkbox"
-								:class="classes"
-							/>
-							<span>{{ errors[0] }}</span>
+					</template>
+					<form action="">
+						<div class="flex justify-center mb-4 space-x-4">
+							<ValidationProvider
+								class="flex-grow"
+								rules="required"
+								v-slot="{ errors, classes }"
+							>
+								<label
+									class="block mb-2 text-xs font-medium text-gray-600"
+									for="Recipient Name"
+									>Recipient Name</label
+								>
+								<div class="content" :class="classes">
+									<input
+										id="Recipient Name"
+										v-model="shipping.name"
+										class="w-full px-3 py-2 text-xs leading-none border border-gray-300 rounded outline-none border-box focus:border-teal-500"
+										type="text"
+										:class="classes"
+										:disabled="checkbox"
+									/>
+									<span>{{ errors[0] }}</span>
+								</div>
+							</ValidationProvider>
+							<ValidationProvider
+								rules="required|numeric"
+								v-slot="{ errors, classes }"
+							>
+								<label
+									class="block mb-2 text-xs font-medium text-gray-600"
+									for="Phone Number"
+									>Phone Number</label
+								>
+								<div class="content" :class="classes">
+									<input
+										id="Phone Number"
+										v-model.trim="shipping.phone"
+										class="w-full px-3 py-2 text-xs leading-none border border-gray-300 rounded outline-none border-box focus:border-teal-500"
+										type="text"
+										:disabled="checkbox"
+										:class="classes"
+									/>
+									<span>{{ errors[0] }}</span>
+								</div>
+							</ValidationProvider>
 						</div>
-					</ValidationProvider>
-				</div>
-				<div class="flex justify-center mb-4 space-x-4">
-					<ValidationProvider
-						class="flex-grow"
-						rules="required"
-						v-slot="{ errors, classes }"
-					>
-						<label
-							class="block mb-2 text-xs font-medium text-gray-600"
-							for="City"
-							>City or District</label
-						>
-						<div class="content" :class="classes">
-							<input
-								id="City"
-								v-model="shipping.city"
-								class="w-full px-3 py-2 text-xs leading-none border border-gray-300 rounded outline-none border-box focus:border-teal-500"
-								type="text"
-								:disabled="checkbox"
-								:class="classes"
-							/>
-							<span>{{ errors[0] }}</span>
+						<div class="flex justify-center mb-4 space-x-4">
+							<ValidationProvider
+								class="flex-grow"
+								rules="required"
+								v-slot="{ errors, classes }"
+							>
+								<label
+									class="block mb-2 text-xs font-medium text-gray-600"
+									for="City"
+									>City or District</label
+								>
+								<div class="content" :class="classes">
+									<input
+										id="City"
+										v-model="shipping.city"
+										class="w-full px-3 py-2 text-xs leading-none border border-gray-300 rounded outline-none border-box focus:border-teal-500"
+										type="text"
+										:disabled="checkbox"
+										:class="classes"
+									/>
+									<span>{{ errors[0] }}</span>
+								</div>
+							</ValidationProvider>
+							<ValidationProvider
+								class="flex-1"
+								rules="required"
+								v-slot="{ errors, classes }"
+							>
+								<label
+									class="block mb-2 text-xs font-medium text-gray-600"
+									for="Postal Code"
+									>Postal Code</label
+								>
+								<div class="content" :class="classes">
+									<input
+										id="Postal Code"
+										v-model.trim="shipping.postal"
+										class="w-full px-3 py-2 text-xs leading-none border border-gray-300 rounded outline-none border-box focus:border-teal-500"
+										type="text"
+										:disabled="checkbox"
+										:class="classes"
+									/>
+									<span>{{ errors[0] }}</span>
+								</div>
+							</ValidationProvider>
 						</div>
-					</ValidationProvider>
-					<ValidationProvider
-						class="flex-1"
-						rules="required"
-						v-slot="{ errors, classes }"
-					>
-						<label
-							class="block mb-2 text-xs font-medium text-gray-600"
-							for="Postal Code"
-							>Postal Code</label
-						>
-						<div class="content" :class="classes">
-							<input
-								id="Postal Code"
-								v-model.trim="shipping.postal"
-								class="w-full px-3 py-2 text-xs leading-none border border-gray-300 rounded outline-none border-box focus:border-teal-500"
-								type="text"
-								:disabled="checkbox"
-								:class="classes"
-							/>
-							<span>{{ errors[0] }}</span>
+						<div class="flex justify-center space-x-4">
+							<ValidationProvider
+								class="flex-1"
+								rules="required"
+								v-slot="{ errors, classes }"
+							>
+								<label
+									class="block mb-2 text-xs font-medium text-gray-600"
+									for="Address"
+									>Address</label
+								>
+								<div class="content" :class="classes">
+									<textarea
+										id="Address"
+										v-model="shipping.address"
+										class="w-full px-3 py-2 text-xs leading-none border border-gray-300 rounded outline-none border-box focus:border-teal-500"
+										type="text"
+										:class="classes"
+										:disabled="checkbox"
+										maxlength="200"
+									></textarea>
+									<span>{{ errors[0] }}</span>
+								</div>
+							</ValidationProvider>
 						</div>
-					</ValidationProvider>
-				</div>
-				<div class="flex justify-center space-x-4">
-					<ValidationProvider
-						class="flex-1"
-						rules="required"
-						v-slot="{ errors, classes }"
-					>
-						<label
-							class="block mb-2 text-xs font-medium text-gray-600"
-							for="Address"
-							>Address</label
-						>
-						<div class="content" :class="classes">
-							<textarea
-								id="Address"
-								v-model="shipping.address"
-								class="w-full px-3 py-2 text-xs leading-none border border-gray-300 rounded outline-none border-box focus:border-teal-500"
-								type="text"
-								:class="classes"
-								:disabled="checkbox"
-								maxlength="200"
-							></textarea>
-							<span>{{ errors[0] }}</span>
+					</form>
+					<template v-slot:footer>
+						<div class="flex justify-between">
+							<t-button variant="outline" type="button"> Cancel</t-button>
+							<t-button
+								@click="processOrder()"
+								:disabled="(invalid && !checkbox ) || loading"
+								:variant="{ 'disabled' : (invalid && !checkbox ) || loading }"
+								>{{ loading ? "Please wait..." : "Proceed" }}</t-button
+							>
 						</div>
-					</ValidationProvider>
-				</div>
-				<template v-slot:footer>
-					<div class="flex justify-between">
-						<t-button variant="outline" type="button"> Cancel</t-button>
-						<t-button @click="processOrder()">Proceed</t-button>
-					</div>
-				</template>
-			</t-modal>
+					</template>
+				</t-modal>
+			</ValidationObserver>
 		</div>
 	</div>
 </template>
@@ -361,12 +377,13 @@ export default {
 	data() {
 		return {
 			showModal: false,
+			loading: false,
 			shipping: {
 				name: "ada isi",
 				phone: "",
 				city: "",
 				postal: "",
-				address: ""
+				address: "",
 			},
 			checkbox: false,
 		};
@@ -378,10 +395,16 @@ export default {
 				quantity: event.target.value !== "" ? event.target.value : 1,
 			});
 		},
-		processOrder() {
-			this.$store.dispatch("cart/processOrder", {
-				shipping: this.checkbox ? false : this.shipping
-			})
+		async processOrder() {
+			this.loading = true;
+
+			await this.$store.dispatch("cart/processOrder", {
+				shipping: this.checkbox ? false : this.shipping,
+			});
+
+			this.loading = false;
+			this.showModal = false;
+			this.$router.push('/stores')
 		},
 		price(value) {
 			const formatter = new Intl.NumberFormat("id-ID", {
