@@ -26,7 +26,7 @@ export const getters = {
       currency: 'IDR',
     })
 
-    return formatter.format(price - (price * 0.24));
+    return price - (price * 0.24);
   },
   cartItemCount(state) {
     return state.cart.length;
@@ -42,7 +42,7 @@ export const getters = {
       total += (item.afterDiscount * item.quantity)
     });
 
-    return formatter.format(total);
+    return total;
   }
 }
 
