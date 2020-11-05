@@ -1,11 +1,14 @@
-export default function ({ $axios, store, $auth }) {
+export default function ({ $axios, store, redirect, $auth }) {
   $axios.onError(error => {
-    if (error.response.status === 422) {
+    const code = parseInt(error.response && error.response.status)
+
+    if (code === 422) {
       store.dispatch('validation/setErrors', error.response.data.errors)
     }
 
-    if (error.response.status === 401) {
+    if (code === 401) {
       store.dispatch('validation/setErrors', error.response.data)
+		  redirect('/auth/login')
     }
 
     return Promise.reject(error);
@@ -13,7 +16,6 @@ export default function ({ $axios, store, $auth }) {
 
   $axios.onRequest(() => {
     store.dispatch('validation/clearErrors')
-    // console.log(store.state.currentUser.token)
   });
 
   // const token = $auth.token.get()

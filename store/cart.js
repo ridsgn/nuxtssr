@@ -1,8 +1,10 @@
-export const state = () => ({
+export const getDefaultState = () => ({
   products: [],
   product: {},
   cart: [],
 });
+
+export const state = getDefaultState()
 
 // GETTER
 
@@ -84,6 +86,10 @@ export const mutations = {
     state.cart = state.cart.filter(item => {
       return item.product.id !== product.id;
     })
+  },
+
+  RESET_STATE(state) {
+    Object.assign(state, getDefaultState())
   }
 }
 
@@ -114,7 +120,7 @@ export const actions = {
     });
   },
 
-  async processOrder({ state }, shipping) {
+  async processOrder({ state, commit }, shipping) {
     const items = state.cart
     const clone = JSON.parse(JSON.stringify(items))
     const ship = Object.values(shipping)
@@ -122,19 +128,28 @@ export const actions = {
     for (let index = 0; index < clone.length; index++) {
       clone[index].price = clone[index]['afterDiscount']
       clone[index].qty = clone[index]['quantity']
-      clone[index].product = clone[index].product.id
+      clone[index].id_product = clone[index].product.id
       clone[index].id_vendor = null
       clone[index].disc = null
       
       delete clone[index].afterDiscount
       delete clone[index].quantity
+      delete clone[index].product
     }
 
     try {
-      await this.$axios.$post('/order', {
+      const order = await this.$axios.$post('/order', {
         data: clone,
-        shipping: ship
       })
+
+      const midtrans = await this.$axios.$post('/payment/get-token', {
+        id_order: order.id_order
+      })
+      
+      window.open(midtrans.redirect_url, "_blank")
+
+      commit('RESET_STATE')
+
     } catch (e) {
       console.log(e);
     }
