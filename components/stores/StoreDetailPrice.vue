@@ -18,7 +18,7 @@
 						<div class="text-sm font-light leading-none line-through">
 							IDR {{ price(oneProduct.price) }}
 						</div>
-						<div class="text-2xl font-semibold">IDR {{ afterDiscount }}</div>
+						<div class="text-2xl font-semibold">IDR {{ price(afterDiscount) }}</div>
 					</div>
 				</div>
 

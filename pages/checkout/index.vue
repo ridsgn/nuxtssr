@@ -38,10 +38,10 @@
 												</div>
 												<div class="--product-price">
 													<del class="inline-block"
-														>IDR {{ item.product.price }}
+														>IDR {{ price(item.product.price) }}
 													</del>
 													<b class="inline-block"
-														>IDR {{ item.afterDiscount }}</b
+														>IDR {{ price(item.afterDiscount) }}</b
 													>
 												</div>
 											</div>
@@ -196,7 +196,7 @@
 												<div>
 													<div class="flex items-center justify-between">
 														<div>Total Price</div>
-														<div>{{ totalPrice }}</div>
+														<div>IDR {{ price(totalPrice) }}</div>
 													</div>
 												</div>
 											</div>
@@ -380,8 +380,16 @@ export default {
 		},
 		processOrder() {
 			this.$store.dispatch("cart/processOrder", {
-				shipping: this.checkbox ? null : this.shipping
+				shipping: this.checkbox ? false : this.shipping
 			})
+		},
+		price(value) {
+			const formatter = new Intl.NumberFormat("id-ID", {
+				style: "decimal",
+				currency: "IDR",
+			});
+
+			return formatter.format(value);
 		},
 		// trxCreate() {
 		// 	let data = this.showModal

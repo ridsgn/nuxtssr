@@ -127,7 +127,7 @@
 																{{ item.quantity }} pcs
 															</div>
 															<div class="self-center text-xs text-gray-600">
-																&times; {{ item.afterDiscount }}
+																&times; {{ price(item.afterDiscount) }}
 															</div>
 														</div>
 													</div>
@@ -168,14 +168,14 @@
 									<div class="mt-4 mr-4">
 										<div class="flex items-center justify-between py-4">
 											<p class="text-lg font-bold">Total</p>
-											<p class="">IDR {{ totalPrice }}</p>
+											<p class="">IDR {{ price(totalPrice) }}</p>
 										</div>
 										<nuxt-link :to="{ name: 'checkout' }">
 											<t-button
 												@click="cart = false"
 												class="w-full"
-												:variant="totalPrice != 0 ? 'cta' : 'disabledCta'"
-												:disabled="totalPrice == 0"
+												:variant="totalPrice !== 0 ? 'cta' : 'disabledCta'"
+												:disabled="totalPrice === 0"
 											>
 												Checkout
 											</t-button>
@@ -357,6 +357,14 @@ export default {
 		removeItem(product) {
 			this.$store.dispatch("cart/removeItemFromCart", product);
 		},
+		price(value) {
+			const formatter = new Intl.NumberFormat("id-ID", {
+				style: "decimal",
+				currency: "IDR",
+			});
+
+			return formatter.format(value);
+		}
 	},
 };
 </script>

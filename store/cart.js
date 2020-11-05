@@ -129,13 +129,12 @@ export const actions = {
       delete clone[index].afterDiscount
       delete clone[index].quantity
     }
-    
 
     try {
       await this.$axios.$post('/order', {
         data: clone,
         shipping: ship
-      });
+      })
     } catch (e) {
       console.log(e);
     }
