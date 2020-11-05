@@ -14,8 +14,7 @@
 						But dont worry, you can find plenty of other things on our homepage.
 					</p>
 
-					<t-button
-					>
+					<t-button>
 						<nuxt-link :to="{ name: 'index' }">back to homepage</nuxt-link>
 					</t-button>
 				</div>
@@ -27,112 +26,6 @@
 						viewBox="0 0 2395 1800"
 						width="400"
 					>
-						<defs>
-							<style>
-								.cls-1 {
-									fill: #d6b49a;
-								}
-								.cls-1,
-								.cls-10,
-								.cls-11,
-								.cls-13,
-								.cls-14,
-								.cls-15,
-								.cls-17,
-								.cls-2,
-								.cls-4,
-								.cls-5,
-								.cls-6 {
-									stroke: #000;
-								}
-								.cls-1,
-								.cls-11,
-								.cls-13,
-								.cls-14,
-								.cls-16,
-								.cls-8 {
-									stroke-linecap: round;
-									stroke-linejoin: round;
-								}
-								.cls-1,
-								.cls-10,
-								.cls-11,
-								.cls-12,
-								.cls-13,
-								.cls-14,
-								.cls-15,
-								.cls-16,
-								.cls-17,
-								.cls-2,
-								.cls-3,
-								.cls-4,
-								.cls-5,
-								.cls-6,
-								.cls-7,
-								.cls-8,
-								.cls-9 {
-									stroke-width: 3px;
-								}
-								.cls-2 {
-									fill: #020202;
-								}
-								.cls-10,
-								.cls-12,
-								.cls-15,
-								.cls-17,
-								.cls-2,
-								.cls-3,
-								.cls-4,
-								.cls-5,
-								.cls-6,
-								.cls-7,
-								.cls-9 {
-									stroke-miterlimit: 10;
-								}
-								.cls-3 {
-									fill: #818181;
-								}
-								.cls-12,
-								.cls-16,
-								.cls-3,
-								.cls-7,
-								.cls-8,
-								.cls-9 {
-									stroke: #191818;
-								}
-								.cls-4 {
-									fill: #dcdbda;
-								}
-								.cls-5 {
-									fill: #4ea7f1;
-								}
-								.cls-14,
-								.cls-6 {
-									fill: #f8f3ed;
-								}
-								.cls-16,
-								.cls-7 {
-									fill: #333;
-								}
-								.cls-13,
-								.cls-8 {
-									fill: none;
-								}
-								.cls-9 {
-									fill: #f8f59c;
-								}
-								.cls-10,
-								.cls-11 {
-									fill: #f3d2c9;
-								}
-								.cls-15 {
-									fill: #8bb174;
-								}
-								.cls-17 {
-									fill: #da4e22;
-								}
-							</style>
-						</defs>
 						<title>Artboard 1 copy</title>
 						<path
 							class="cls-1"
@@ -291,4 +184,106 @@ export default {};
 </script>
 
 <style scoped>
+.cls-1 {
+	fill: #d6b49a;
+}
+.cls-1,
+.cls-10,
+.cls-11,
+.cls-13,
+.cls-14,
+.cls-15,
+.cls-17,
+.cls-2,
+.cls-4,
+.cls-5,
+.cls-6 {
+	stroke: #000;
+}
+.cls-1,
+.cls-11,
+.cls-13,
+.cls-14,
+.cls-16,
+.cls-8 {
+	stroke-linecap: round;
+	stroke-linejoin: round;
+}
+.cls-1,
+.cls-10,
+.cls-11,
+.cls-12,
+.cls-13,
+.cls-14,
+.cls-15,
+.cls-16,
+.cls-17,
+.cls-2,
+.cls-3,
+.cls-4,
+.cls-5,
+.cls-6,
+.cls-7,
+.cls-8,
+.cls-9 {
+	stroke-width: 3px;
+}
+.cls-2 {
+	fill: #020202;
+}
+.cls-10,
+.cls-12,
+.cls-15,
+.cls-17,
+.cls-2,
+.cls-3,
+.cls-4,
+.cls-5,
+.cls-6,
+.cls-7,
+.cls-9 {
+	stroke-miterlimit: 10;
+}
+.cls-3 {
+	fill: #818181;
+}
+.cls-12,
+.cls-16,
+.cls-3,
+.cls-7,
+.cls-8,
+.cls-9 {
+	stroke: #191818;
+}
+.cls-4 {
+	fill: #dcdbda;
+}
+.cls-5 {
+	fill: #4ea7f1;
+}
+.cls-14,
+.cls-6 {
+	fill: #f8f3ed;
+}
+.cls-16,
+.cls-7 {
+	fill: #333;
+}
+.cls-13,
+.cls-8 {
+	fill: none;
+}
+.cls-9 {
+	fill: #f8f59c;
+}
+.cls-10,
+.cls-11 {
+	fill: #f3d2c9;
+}
+.cls-15 {
+	fill: #8bb174;
+}
+.cls-17 {
+	fill: #da4e22;
+}
 </style>

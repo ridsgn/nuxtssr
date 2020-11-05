@@ -30,9 +30,7 @@
 						type="text"
 						maxlength="3"
 						onkeyup="this.value = this.value.replace(/\D/g,'')"
-						:value="oneProduct.quantity"
-						@keyup="updateQty($event)"
-						@change="updateQty($event)"
+						v-model="qty"
 						class="h-full p-2 bg-transparent bg-none"
 					/>
 				</div>
@@ -83,9 +81,6 @@ export default {
 		};
 	},
 	methods: {
-		updateQty(event) {
-			return this.qty = event.target.value;
-		},
 		price(value) {
 			const formatter = new Intl.NumberFormat("id-ID", {
 				style: "decimal",
@@ -106,6 +101,9 @@ export default {
 			}
 		},
 	},
+	created() {
+		return this.qty = this.oneProduct.quantity;
+	}
 };
 </script>
 

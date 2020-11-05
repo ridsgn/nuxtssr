@@ -13,7 +13,7 @@ export default {
       return this.$store.state.cart.product
     },
   },
-	mounted() {
+	created() {
 		this.$store.dispatch("cart/getProduct", this.$route.params.slug);
 	},
 };

@@ -22,7 +22,7 @@
 															<img
 																class="w-20 h-20 rounded-md"
 																:src="item.product.img"
-																:alt="item.product.title"
+																:alt="item.product.name"
 															/>
 														</div>
 													</div>
@@ -33,12 +33,12 @@
 											<div class="">
 												<div class="mb-2 --product-name">
 													<nuxt-link to="#">
-														{{ item.product.title }}
+														{{ item.product.name }}
 													</nuxt-link>
 												</div>
 												<div class="--product-price">
 													<del class="inline-block"
-														>{{ item.product.price }}
+														>IDR {{ item.product.price }}
 													</del>
 													<b class="inline-block"
 														>IDR {{ item.afterDiscount }}</b
@@ -207,7 +207,6 @@
 														:variant="totalQty ? 'cta' : 'disabledCta'"
 														@click="
 															showModal = true;
-															trxCreate();
 														"
 														class="w-full"
 														>Buy ({{ totalQty }})
@@ -226,8 +225,11 @@
 			<t-modal :clickToClose="false" v-model="showModal" variant="clean">
 				<template v-slot:header>
 					Shipping
-					<div class="text-xs italic font-medium text-gray-500">
-						{{ trxCode }}
+					<div class="flex mt-4">
+						<label class="flex items-center">
+							<t-checkbox variant="success" name="options" v-model="checkbox" />
+							<span class="ml-2 text-xs font-medium capitalize">Use your account information</span>
+						</label>
 					</div>
 				</template>
 				<div class="flex justify-center mb-4 space-x-4">
@@ -248,11 +250,12 @@
 								class="w-full px-3 py-2 text-xs leading-none border border-gray-300 rounded outline-none border-box focus:border-teal-500"
 								type="text"
 								:class="classes"
+								:disabled="checkbox"
 							/>
 							<span>{{ errors[0] }}</span>
 						</div>
 					</ValidationProvider>
-					<ValidationProvider rules="required" v-slot="{ errors, classes }">
+					<ValidationProvider rules="required|numeric" v-slot="{ errors, classes }">
 						<label
 							class="block mb-2 text-xs font-medium text-gray-600"
 							for="Phone Number"
@@ -264,6 +267,7 @@
 								v-model.trim="shipping.phone"
 								class="w-full px-3 py-2 text-xs leading-none border border-gray-300 rounded outline-none border-box focus:border-teal-500"
 								type="text"
+								:disabled="checkbox"
 								:class="classes"
 							/>
 							<span>{{ errors[0] }}</span>
@@ -287,6 +291,7 @@
 								v-model="shipping.city"
 								class="w-full px-3 py-2 text-xs leading-none border border-gray-300 rounded outline-none border-box focus:border-teal-500"
 								type="text"
+								:disabled="checkbox"
 								:class="classes"
 							/>
 							<span>{{ errors[0] }}</span>
@@ -308,6 +313,7 @@
 								v-model.trim="shipping.postal"
 								class="w-full px-3 py-2 text-xs leading-none border border-gray-300 rounded outline-none border-box focus:border-teal-500"
 								type="text"
+								:disabled="checkbox"
 								:class="classes"
 							/>
 							<span>{{ errors[0] }}</span>
@@ -332,6 +338,7 @@
 								class="w-full px-3 py-2 text-xs leading-none border border-gray-300 rounded outline-none border-box focus:border-teal-500"
 								type="text"
 								:class="classes"
+								:disabled="checkbox"
 								maxlength="200"
 							></textarea>
 							<span>{{ errors[0] }}</span>
@@ -341,7 +348,7 @@
 				<template v-slot:footer>
 					<div class="flex justify-between">
 						<t-button variant="outline" type="button"> Cancel</t-button>
-						<t-button type="button"> Proceed</t-button>
+						<t-button @click="processOrder()">Proceed</t-button>
 					</div>
 				</template>
 			</t-modal>
@@ -355,12 +362,13 @@ export default {
 		return {
 			showModal: false,
 			shipping: {
-				name: "",
+				name: "ada isi",
 				phone: "",
 				city: "",
 				postal: "",
+				address: ""
 			},
-			trxCode: "",
+			checkbox: false,
 		};
 	},
 	methods: {
@@ -370,12 +378,21 @@ export default {
 				quantity: event.target.value !== "" ? event.target.value : 1,
 			});
 		},
-		trxCreate() {
-			this.trxCode = (
-				btoa(+new Date() + Math.random().toString()).substr(-7, 5) +
-				new Date().getTime()
-			).toUpperCase();
+		processOrder() {
+			this.$store.dispatch("cart/processOrder", {
+				shipping: this.checkbox ? null : this.shipping
+			})
 		},
+		// trxCreate() {
+		// 	let data = this.showModal
+		// 		? (
+		// 				btoa(+new Date() + Math.random().toString()).substr(-7, 5) +
+		// 				new Date().getTime()
+		// 		  ).toUpperCase()
+		// 		: "";
+
+		// 	return (this.trxCode = data);
+		// },
 		removeItem(product) {
 			this.$store.dispatch("cart/removeItemFromCart", product);
 		},
