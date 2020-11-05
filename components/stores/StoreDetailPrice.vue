@@ -95,7 +95,7 @@ export default {
 			} else {
 				this.$store.dispatch("cart/addProductToCart", {
 					product: this.oneProduct,
-					afterDiscount: this.afterDiscount,
+					afterDiscount: parseInt(this.afterDiscount),
 					quantity: parseInt(this.qty),
 				});
 			}

@@ -39,7 +39,7 @@ export const getters = {
     let total = 0;
 
     state.cart.forEach(item => {
-      total += item.afterDiscount * (item.quantity * 1000)
+      total += (item.afterDiscount * item.quantity)
     });
 
     return formatter.format(total);
