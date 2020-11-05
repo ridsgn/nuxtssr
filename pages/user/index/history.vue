@@ -1,0 +1,103 @@
+<template>
+	<div>
+		<section class="text-gray-700 body-font">
+			<div class="container px-5 py-5 mx-auto">
+				<div class="flex flex-col w-full mb-6 text-center">
+					<h1
+						class="mb-2 text-3xl font-medium text-gray-900 sm:text-4xl title-font"
+					>
+						Payment History
+					</h1>
+				</div>
+				<div class="w-full mx-auto overflow-auto">
+					<table class="w-full text-left whitespace-no-wrap table-auto">
+						<thead>
+							<tr>
+								<th
+									class="px-4 py-3 text-sm font-medium tracking-wider text-gray-900 bg-gray-200 rounded-tl rounded-bl title-font"
+								>
+									#
+								</th>
+								<th
+									class="px-4 py-3 text-sm font-medium tracking-wider text-gray-900 bg-gray-200 title-font"
+								>
+									Trx. ID
+								</th>
+								<th
+									class="px-4 py-3 text-sm font-medium tracking-wider text-gray-900 bg-gray-200 title-font"
+								>
+									Speed
+								</th>
+								<th
+									class="px-4 py-3 text-sm font-medium tracking-wider text-gray-900 bg-gray-200 title-font"
+								>
+									Storage
+								</th>
+								<th
+									class="px-4 py-3 text-sm font-medium tracking-wider text-gray-900 bg-gray-200 rounded-tr rounded-br title-font"
+								>
+									Status
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+                <td class="px-4 py-3">1</td>
+								<td class="px-4 py-3">027350NSBF</td>
+								<td class="px-4 py-3">5 Mb/s</td>
+								<td class="px-4 py-3">15 GB</td>
+								<td class="px-4 py-3"><code class="inline-flex px-2 text-xs font-semibold leading-5 text-red-800 bg-red-100 rounded-full">Failed</code></td>
+							</tr>
+							<tr>
+                <td class="px-4 py-3 border-t-2 border-gray-200">2</td>
+								<td class="px-4 py-3 border-t-2 border-gray-200">658455KHAE</td>
+								<td class="px-4 py-3 border-t-2 border-gray-200">25 Mb/s</td>
+								<td class="px-4 py-3 border-t-2 border-gray-200">25 GB</td>
+								<td
+									class="px-4 py-3 text-lg text-gray-900 border-t-2 border-gray-200"
+								>
+									<code class="inline-flex px-2 text-xs font-semibold leading-5 text-red-800 bg-red-100 rounded-full">Failed</code>
+								</td>
+							</tr>
+							<tr>
+                <td class="px-4 py-3 border-t-2 border-gray-200">3</td>
+								<td class="px-4 py-3 border-t-2 border-gray-200">484657SUSL</td>
+								<td class="px-4 py-3 border-t-2 border-gray-200">36 Mb/s</td>
+								<td class="px-4 py-3 border-t-2 border-gray-200">40 GB</td>
+								<td
+									class="px-4 py-3 text-lg text-gray-900 border-t-2 border-gray-200"
+								>
+									<code class="inline-flex px-2 text-xs font-semibold leading-5 text-red-800 bg-red-100 rounded-full">Failed</code>
+								</td>
+							</tr>
+							<tr>
+                <td class="px-4 py-3 border-t-2 border-b-2 border-gray-200">4</td>
+								<td class="px-4 py-3 border-t-2 border-b-2 border-gray-200">
+									454484JYUW
+								</td>
+								<td class="px-4 py-3 border-t-2 border-b-2 border-gray-200">
+									48 Mb/s
+								</td>
+								<td class="px-4 py-3 border-t-2 border-b-2 border-gray-200">
+									120 GB
+								</td>
+								<td
+									class="px-4 py-3 text-lg text-gray-900 border-t-2 border-b-2 border-gray-200"
+								>
+									<code class="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full">Success</code>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</section>
+	</div>
+</template>
+
+<script>
+export default {};
+</script>
+
+<style scoped>
+</style>

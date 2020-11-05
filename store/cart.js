@@ -114,6 +114,33 @@ export const actions = {
     });
   },
 
+  async processOrder({ state }, shipping) {
+    const items = state.cart
+    const clone = JSON.parse(JSON.stringify(items))
+    const ship = Object.values(shipping)
+    
+    for (let index = 0; index < clone.length; index++) {
+      clone[index].price = clone[index]['afterDiscount']
+      clone[index].qty = clone[index]['quantity']
+      clone[index].product = clone[index].product.id
+      clone[index].id_vendor = null
+      clone[index].disc = null
+      
+      delete clone[index].afterDiscount
+      delete clone[index].quantity
+    }
+    
+
+    try {
+      await this.$axios.$post('/order', {
+        data: clone,
+        shipping: ship
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  },
+
   addProductToCart({ commit }, { product, afterDiscount, quantity }) {
     commit('ADD_TO_CART', { product, afterDiscount, quantity });
   },
@@ -122,7 +149,7 @@ export const actions = {
     commit('UPDATE_QUANTITY', { productId, quantity });
   },
 
-  removeItemFromCart({commit}, product) {
+  removeItemFromCart({ commit }, product) {
     commit('REMOVE_ITEM_CART', product);
   }
 }

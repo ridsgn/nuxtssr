@@ -1,11 +1,15 @@
 import Vue from 'vue';
 import { ValidationProvider, extend, ValidationObserver, configure } from 'vee-validate';
-import { email, required, confirmed } from "vee-validate/dist/rules";
+import { email, required, confirmed, numeric } from "vee-validate/dist/rules";
 
 extend('email', email);
 extend('required', {
   ...required,
   message: "{_field_} is required"
+});
+extend('numeric', {
+  ...numeric,
+  message: "{_field_} is numeric only"
 });
 extend('confirmed', {
   ...confirmed,

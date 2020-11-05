@@ -14,7 +14,7 @@ export default {
 			return this.$store.state.cart.products
 		}
 	},
-	mounted() {
+	created() {
 		this.$store.dispatch('cart/getProducts');
 	},
 };

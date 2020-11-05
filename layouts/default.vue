@@ -1,8 +1,8 @@
 <template>
 	<div>
 		<TheHeader />
-		<nuxt class="min-h-screen mb-10"/>
-		<TheFooter></TheFooter>
+		<nuxt class="min-h-screen mb-10" />
+		<TheFooter />
 	</div>
 </template>
 

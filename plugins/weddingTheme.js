@@ -78,5 +78,14 @@ export default {
     },
     TTag: {
         classes: 'px-2 inline-flex font-body text-xs leading-5 tracking-wide truncate ellipsis font-semibold rounded-full bg-teal-100 text-teal-800',
+    },
+    TCheckbox: {
+        fixedClasses: 'form-checkbox transition duration-150 ease-in-out',
+        classes: '',
+        variants: {
+            error: 'text-red-500 ',
+            success: 'text-teal-500 ',
+            orange: 'text-orange-500 '
+        }
     }
 }
