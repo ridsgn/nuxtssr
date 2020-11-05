@@ -100,8 +100,9 @@ export default {
             method: 'get'
           }
         },
-        // tokenRequired: true,
-        // tokenType: 'Bearer '
+        globalToken: true,
+        tokenRequired: true,
+        tokenType: 'Bearer '
       },
       // google: {
       //   client_id: '475757220288-debdsqphnplpt2v77q3jq377hmheak2r.apps.googleusercontent.com'
