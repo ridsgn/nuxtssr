@@ -54,6 +54,7 @@ export default {
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
     '@nuxtjs/auth',
+    '@nuxtjs/proxy',
     'nuxt-webfontloader'
   ],
 
@@ -73,6 +74,15 @@ export default {
         'https://fonts.googleapis.com/css?family=Open+Sans:300,400&display=swap',
         'https://fonts.googleapis.com/css?family=Roboto:300,700&display=swap'
       ]
+    }
+  },
+
+  proxy: {
+    '/api': {
+      target: 'https://api.eatmekitchens.com',
+      // pathRewrite: {
+      //   '^/api': '/'
+      // }
     }
   },
 
