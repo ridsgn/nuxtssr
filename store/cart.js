@@ -1,4 +1,4 @@
-export const getDefaultState = () => ({
+const getDefaultState = () => ({
   products: [],
   product: {},
   cart: [],

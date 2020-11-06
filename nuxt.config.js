@@ -80,7 +80,7 @@ export default {
   proxy: {
     '/api': {
       target: 'https://api.eatmekitchens.com',
-      changeOrigin: true
+      // changeOrigin: true
     }
   },
 
