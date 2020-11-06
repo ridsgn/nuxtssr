@@ -80,9 +80,6 @@ export default {
   proxy: {
     '/api': {
       target: 'https://api.eatmekitchens.com',
-      pathRewrite: {
-        '^/api': ''
-      },
       changeOrigin: true
     }
   },
