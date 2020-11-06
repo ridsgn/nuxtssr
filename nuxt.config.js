@@ -80,15 +80,17 @@ export default {
   proxy: {
     '/api': {
       target: 'https://api.eatmekitchens.com',
-      // pathRewrite: {
-      //   '^/api': '/'
-      // }
+      pathRewrite: {
+        '^/api': ''
+      },
+      changeOrigin: true
     }
   },
 
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
   axios: {
-    baseURL: "//api.eatmekitchens.com/api"
+    baseURL: "//api.eatmekitchens.com/api",
+    proxy: true
   },
 
   auth: {
