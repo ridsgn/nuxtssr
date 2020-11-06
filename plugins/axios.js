@@ -1,4 +1,4 @@
-export default function ({ $axios, store, redirect }) {
+export default function ({ $axios, store, redirect, $auth }) {
   $axios.onError(error => {
     const code = parseInt(error.response && error.response.status)
 
@@ -8,6 +8,7 @@ export default function ({ $axios, store, redirect }) {
 
     if (code === 401) {
       store.dispatch('validation/setErrors', error.response.data)
+      $auth.logout()
 		  redirect('/auth/login')
     }
 

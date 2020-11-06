@@ -54,7 +54,7 @@ export default {
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
     '@nuxtjs/auth',
-    '@nuxtjs/proxy',
+    // '@nuxtjs/proxy',
     'nuxt-webfontloader'
   ],
 
@@ -77,17 +77,17 @@ export default {
     }
   },
 
-  proxy: {
-    '/api': {
-      target: 'https://api.eatmekitchens.com',
-      // changeOrigin: true
-    }
-  },
+  // proxy: {
+  //   '/api': {
+  //     target: 'https://api.eatmekitchens.com',
+  //     // changeOrigin: true
+  //   }
+  // },
 
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
   axios: {
     baseURL: "//api.eatmekitchens.com/api",
-    proxy: true
+    // proxy: true
   },
 
   auth: {
