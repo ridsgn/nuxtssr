@@ -1,8 +1,10 @@
-export const getDefaultState = () => ({
-  products: [],
-  product: {},
-  cart: [],
-});
+const getDefaultState = () => {
+  return {
+    products: [],
+    product: {},
+    cart: [],
+  }
+}
 
 export const state = getDefaultState()
 
@@ -99,7 +101,7 @@ export const actions = {
   async getProducts({ commit }) {
     try {
       const products = await this.$axios.$get('/products')
-      commit('SET_PRODUCTS', products.product.data);
+      commit('SET_PRODUCTS', products.data);
     } catch (e) {
       console.log(e);
     }
@@ -126,11 +128,11 @@ export const actions = {
     const ship = Object.values(shipping)
     
     for (let index = 0; index < clone.length; index++) {
-      clone[index].price = clone[index]['afterDiscount']
+      clone[index].price = clone[index].product.price
       clone[index].qty = clone[index]['quantity']
       clone[index].id_product = clone[index].product.id
       clone[index].id_vendor = null
-      clone[index].disc = null
+      clone[index].disc = 24
       
       delete clone[index].afterDiscount
       delete clone[index].quantity
@@ -140,6 +142,7 @@ export const actions = {
     try {
       const order = await this.$axios.$post('/order', {
         data: clone,
+        shipping: ship
       })
 
       const midtrans = await this.$axios.$post('/payment/get-token', {
