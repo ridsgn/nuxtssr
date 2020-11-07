@@ -2,7 +2,6 @@
 	<div
 		class="container max-w-sm mx-auto transition duration-500 ease-in-out transform bg-white rounded-lg shadow-lg cursor-pointer select-none card h-card w-card hover:-translate-y-1 hover:shadow-2xl"
 	>
-	<a :href="`/vendors/${vendor.id}`" target="_blank">
 		<div class="container p-6 mx-auto">
 			<div class="flex flex-col items-center">
 				<div
@@ -16,9 +15,9 @@
 					<h1
 						class="text-lg font-semibold tracking-tight text-teal-600 truncate"
 					>
-						<a :href="`/vendors/${vendor.id}`" target="_blank">{{
+						<nuxt-link :to="`/vendors/${vendor.id}`">{{
 							vendor.title
-						}}</a>
+						}}</nuxt-link>
 					</h1>
 					<ul class="flex items-center justify-center text-xs font-normal">
 						<li>
@@ -54,7 +53,6 @@
 				</div>
 			</div>
 		</div>
-	</a>
 	</div>
 </template>
 

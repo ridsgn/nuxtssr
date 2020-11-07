@@ -14,10 +14,7 @@ const Validation = {
 					afterDiscount: 'cart/discount',
 					itemCount: 'cart/cartItemCount',
 					totalPrice: 'cart/cartTotalPrice',
-				}),
-				// ...mapState({
-				// 	product: "cart/product"
-				// })
+				})
 			}
 		});
 	}
