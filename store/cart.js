@@ -101,11 +101,7 @@ export const actions = {
   async getProducts({ commit }) {
     try {
       const products = await this.$axios.$get('/products')
-<<<<<<< HEAD
-      commit('SET_PRODUCTS', product.data);
-=======
       commit('SET_PRODUCTS', products.data);
->>>>>>> dev
     } catch (e) {
       console.log(e);
     }
