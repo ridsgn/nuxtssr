@@ -1,6 +1,6 @@
 <template>
-	<div>
-    {{ vendor.content }}
+	<div class="grid grid-cols-4 grid-rows-2 gap-6 mt-12 mb-12">
+    <vendor-store-list v-for="(item, index) in 4" :key="index"></vendor-store-list>
   </div>
 </template>
 

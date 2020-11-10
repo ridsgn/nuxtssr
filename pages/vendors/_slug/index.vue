@@ -3,28 +3,32 @@
 		<!-- vendor detail card -->
 		<DetailCard :vendor="data" />
 		<!-- vendor tab nav -->
-		<VTabs>
-			<VTab name="Projects" :selected="true">
-				<VendorProjects :vendor="data" />
-			</VTab>
-			<VTab name="Stores">
-				<VendorStores :vendor="data"/>
-			</VTab>
-			<VTab name="Reviews">
-				<VendorReviews :vendor="data"/>
-			</VTab>
-		</VTabs>
+		<tabs class="mt-8">
+			<tab title="Projects">
+				<LazyVendorProjects :vendor="data" />
+			</tab>
+			<tab title="Stores">
+				<LazyVendorStores :vendor="data" />
+			</tab>
+			<tab title="Reviews">
+				<LazyVendorReviews :vendor="data" />
+			</tab>
+		</tabs>
 		<!-- <pre>{{ data }}</pre> -->
 	</div>
 </template>
 
 <script>
+import { Tabs, Tab } from "vue-slim-tabs";
+
 export default {
+	components: {
+		Tabs,
+		Tab,
+	},
 	name: "VendorDetailPage",
 	data() {
-		return {
-			selected: "home",
-		};
+		return {};
 	},
 	async asyncData({
 		isDev,
@@ -53,5 +57,36 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style>
+.vue-tablist {
+	@apply font-medium text-sm;
+	list-style: none;
+	display: flex;
+	padding-left: 0;
+	border-bottom: 1px solid #38b2ac;
+}
+
+.vue-tab {
+	padding: 5px 10px;
+	margin: 0 2px;
+	cursor: pointer;
+	user-select: none;
+	border: 1px solid transparent;
+	border-bottom-color: #38b2ac;
+	border-radius: 3px 3px 0 0;
+	background-color: white;
+	position: relative;
+	bottom: -1px;
+}
+
+.vue-tab[aria-selected="true"] {
+	@apply border-teal-500 text-teal-500;
+	padding: 6px 12px;
+	border-bottom-color: transparent;
+}
+
+.vue-tab[aria-disabled="true"] {
+	cursor: not-allowed;
+	color: #999;
+}
 </style>

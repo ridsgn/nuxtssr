@@ -126,14 +126,14 @@ export const actions = {
     const items = state.cart
     const clone = JSON.parse(JSON.stringify(items))
     const ship = Object.values(shipping)
-    
+
     for (let index = 0; index < clone.length; index++) {
       clone[index].price = clone[index].product.price
       clone[index].qty = clone[index]['quantity']
       clone[index].id_product = clone[index].product.id
       clone[index].id_vendor = null
       clone[index].disc = 24
-      
+
       delete clone[index].afterDiscount
       delete clone[index].quantity
       delete clone[index].product
@@ -148,10 +148,23 @@ export const actions = {
       const midtrans = await this.$axios.$post('/payment/get-token', {
         id_order: order.id_order
       })
-      
-      window.open(midtrans.redirect_url, "_blank")
 
-      commit('RESET_STATE')
+      snap.pay(midtrans.token, {
+        onSuccess(result) {
+          console.log('success');
+          console.log(result);
+          // commit('RESET_STATE')
+        },
+        onPending(result) {
+          console.log('pending');
+          console.log(result);
+          commit('RESET_STATE')
+        }
+      });
+
+      // window.open(midtrans.redirect_url, "_blank")
+
+      // await commit('RESET_STATE')
 
     } catch (e) {
       console.log(e);
@@ -168,5 +181,13 @@ export const actions = {
 
   removeItemFromCart({ commit }, product) {
     commit('REMOVE_ITEM_CART', product);
+  },
+
+  async checkAuth() {
+    if (this.$auth.loggedIn) {
+      await commit('RESET_STATE')
+      await this.$auth.logout()
+      await this.$router.push('/auth/login');
+    }
   }
 }

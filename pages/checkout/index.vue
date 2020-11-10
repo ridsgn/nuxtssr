@@ -404,7 +404,6 @@ export default {
 
 			this.loading = false;
 			this.showModal = false;
-			this.$router.push('/stores')
 		},
 		price(value) {
 			const formatter = new Intl.NumberFormat("id-ID", {
@@ -442,6 +441,12 @@ export default {
 			return total;
 		},
 	},
+	mounted() {
+		let midtrans = document.createElement('script')
+		midtrans.setAttribute('src', 'https://app.sandbox.midtrans.com/snap/snap.js')
+		midtrans.setAttribute('data-client-key', 'SB-Mid-client-Q0fAI3TTlUCQpc4X')
+		document.head.appendChild(midtrans)
+	}
 };
 </script>
 

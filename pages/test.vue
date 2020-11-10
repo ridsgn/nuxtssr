@@ -1,5 +1,17 @@
 <template>
-	<div>
+	<div class="mt-40">
+		<button @click="toggler = !toggler"><img src="https://picsum.photos/150/150" alt="haha"></button>
+
+		<FsLightbox
+			:toggler="toggler"
+			:sources="[
+				'https://i.imgur.com/fsyrScY.jpg',
+				'https://www.youtube.com/watch?v=xshEZzpS4CQ',
+				'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
+			]"
+		/>
+	</div>
+	<!-- <div>
 		<div class="flex items-center justify-center min-h-screen py-6 bg-gray-100">
 			<div class="flex w-full max-w-xs p-4 bg-white">
 				<ul class="flex flex-col w-full">
@@ -256,11 +268,20 @@
 				</ul>
 			</div>
 		</div>
-	</div>
+	</div> -->
 </template>
 
 <script>
-export default {};
+import FsLightbox from "fslightbox-vue";
+
+export default {
+	components: { FsLightbox },
+	data() {
+		return {
+			toggler: false,
+		};
+	},
+};
 </script>
 
 <style scoped>
