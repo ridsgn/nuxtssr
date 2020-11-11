@@ -8,7 +8,7 @@
 					<div class="absolute -mt-4 -ml-2 lg :mt-1">
 						<div class="w-20 h-8 bg-teal-600 rounded-full">
 							<div class="flex items-center justify-center h-full">
-								<div class="text-sm font-bold text-white">24%&nbsp;</div>
+								<div class="text-sm font-bold text-white">{{ oneProduct.disc }}%&nbsp;</div>
 								<div class="text-xs font-light text-white">OFF</div>
 							</div>
 						</div>

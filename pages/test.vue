@@ -1,15 +1,23 @@
 <template>
-	<div class="mt-40">
-		<button @click="toggler = !toggler"><img src="https://picsum.photos/150/150" alt="haha"></button>
+	<div class="relative mt-40">
+		<!-- <div v-for="(project, index) in data.data.projects" :key="project.id">
+			<button @click="toggler[index] = !toggler[index]" class="mr-4">
+				<img :src="project.image" alt="haha">
+			</button>
 
-		<FsLightbox
-			:toggler="toggler"
-			:sources="[
-				'https://i.imgur.com/fsyrScY.jpg',
-				'https://www.youtube.com/watch?v=xshEZzpS4CQ',
-				'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
-			]"
-		/>
+			<FsLightbox
+				:toggler="toggler[index]"
+				:sources="project.images"
+				:key="project.id"
+			/>
+		</div> -->
+		<!-- <VuePureLightbox
+			style="width: 20em"
+			v-for="project in data.data.projects"
+			:key="project.id"
+			:thumbnail="project.image"
+			:images="project.images"
+		/> -->
 	</div>
 	<!-- <div>
 		<div class="flex items-center justify-center min-h-screen py-6 bg-gray-100">
@@ -272,17 +280,41 @@
 </template>
 
 <script>
-import FsLightbox from "fslightbox-vue";
+// import FsLightbox from "fslightbox-vue";
+import VuePureLightbox from "vue-pure-lightbox";
+import styles from "vue-pure-lightbox/dist/VuePureLightbox.css";
 
 export default {
-	components: { FsLightbox },
+	components: { VuePureLightbox },
 	data() {
 		return {
-			toggler: false,
+			toggler: [false, false],
 		};
+	},
+	async asyncData({
+		isDev,
+		route,
+		store,
+		env,
+		params,
+		query,
+		req,
+		res,
+		redirect,
+		error,
+		$axios,
+	}) {
+		const data = await $axios.$get(`/vendor/4`);
+		return data;
 	},
 };
 </script>
 
-<style scoped>
+<style>
+.lightbox {
+	z-index: 9999;
+}
+.lightbox__element {
+  width: 50em;
+}
 </style>

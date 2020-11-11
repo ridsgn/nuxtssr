@@ -2,13 +2,13 @@
 	<div class="">
 		<!-- image wrapper -->
 		<div class="flex items-center justify-center rounded-lg">
-			<a href="#">
+			<nuxt-link :to="{ name: 'stores-slug', params: { slug: product.slug }, query: { vendor: 'true' } }">
 				<img
 					class="rounded-lg"
 					src="https://picsum.photos/267/216.jpg"
 					alt="store image"
 				/>
-			</a>
+			</nuxt-link>
 		</div>
 
 		<!-- title wrapper -->
@@ -16,7 +16,7 @@
 			<div class="flex min-w-0 mb-4">
 				<div class="flex flex-col min-w-0 leading-normal">
 					<h1 class="font-medium tracking-tight">
-						Engangement Package
+						{{ product.name }}
 					</h1>
 					<p class="text-xs tracking-tight truncate">
 						by
@@ -60,7 +60,9 @@
 			<div class="flex min-w-0">
 				<div class="flex flex-col min-w-0 leading-none">
 					<p class="mb-1 text-xs font-thin line-through">25.000.000</p>
-					<h1 class="text-xl font-semibold tracking-wide">12.600.000</h1>
+					<h1 class="text-xl font-semibold tracking-wide">
+						{{ price(product.price) }}
+					</h1>
 				</div>
 				<div
 					class="flex items-end justify-end flex-grow flex-shrink-0 ml-4 text-xs"
@@ -83,7 +85,24 @@
 </template>
 
 <script>
-export default {};
+export default {
+	props: {
+		product: {
+			type: Object,
+			required: true,
+		},
+	},
+	methods: {
+		price(value) {
+			const formatter = new Intl.NumberFormat("id-ID", {
+				style: "decimal",
+				currency: "IDR",
+			});
+
+			return formatter.format(value);
+		},
+	},
+};
 </script>
 
 <style lang="scss" scoped>

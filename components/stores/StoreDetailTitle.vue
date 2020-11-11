@@ -13,7 +13,7 @@
 				<div
 					class="flex flex-col items-start justify-between flex-grow max-w-xs py-1 mr-2 truncate xl:max-w-full xl:mr-8"
 				>
-					<p class="font-medium truncate font-poppins">{{ oneProduct.name }}</p>
+					<p class="font-medium truncate font-poppins">{{ capitalize(oneProduct.name) }}</p>
 					<div class="text-xs font-normal font-poppins">
 						by
 						<nuxt-link to="/vendors/1" class="font-semibold font-poppins"
@@ -77,6 +77,11 @@
 
 <script>
 export default {
+	methods: {
+		capitalize(value) {
+			return value.replace(/\w\S*/g, (w) => (w.replace(/^\w/, (c) => c.toUpperCase())));
+		}
+	}
 };
 </script>
 

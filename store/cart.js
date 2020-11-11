@@ -25,12 +25,13 @@ export const getters = {
   // },
   discount(state, getters) {
     const price = getters.oneProduct.price;
+    const disc = getters.oneProduct.disc;
     const formatter = new Intl.NumberFormat('id-ID', {
       style: 'decimal',
       currency: 'IDR',
     })
 
-    return price - (price * 0.24);
+    return price - (price * (disc / 100));
   },
   cartItemCount(state) {
     return state.cart.length;
@@ -107,8 +108,14 @@ export const actions = {
     }
   },
 
-  async getProduct({ commit }, slug) {
-    const product = await this.$axios.$get(`/product/${slug}`);
+  async getProduct({ commit }, { slug, vendor }) {
+
+    // if (vendor) {
+    //   let product = await this.$axios.$get(`/vendor-product/${slug}`)
+    // } else {
+    //   let product = await this.$axios.$get(`/product/${slug}`)
+    // }
+    const product = vendor ? await this.$axios.$get(`/vendor-product/${slug}`) : await this.$axios.$get(`/product/${slug}`)
     commit('SET_PRODUCT', product.data);
   },
 
@@ -132,7 +139,7 @@ export const actions = {
       clone[index].qty = clone[index]['quantity']
       clone[index].id_product = clone[index].product.id
       clone[index].id_vendor = null
-      clone[index].disc = 24
+      clone[index].disc = clone[index].product.disc
 
       delete clone[index].afterDiscount
       delete clone[index].quantity
@@ -183,7 +190,7 @@ export const actions = {
     commit('REMOVE_ITEM_CART', product);
   },
 
-  async checkAuth() {
+  async checkAuth({ commit }) {
     if (this.$auth.loggedIn) {
       await commit('RESET_STATE')
       await this.$auth.logout()

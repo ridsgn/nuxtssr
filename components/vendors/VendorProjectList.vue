@@ -4,14 +4,13 @@
 		@click.prevent
 		@mouseenter="isHover = true"
 		@mouseleave="isHover = false"
+		@click="isHover = false"
 	>
-		<a href="#">
-			<img
-				class="rounded-lg"
-				src="https://picsum.photos/500/500"
-				alt="project image"
-			/>
-		</a>
+		<VuePureLightbox
+			@click="isHover = false"
+			:thumbnail="project.image"
+			:images="project.images"
+		/>
 		<div
 			class="absolute bottom-0 left-0 w-full h-20 bg-white border-2 border-gray-400 rounded-b-lg"
 			v-bind:class="[isHover ? activeClass : inactiveClass]"
@@ -36,7 +35,11 @@
 </template>
 
 <script>
+import VuePureLightbox from "vue-pure-lightbox";
+import styles from "vue-pure-lightbox/dist/VuePureLightbox.css";
+
 export default {
+	components: { VuePureLightbox },
 	data() {
 		return {
 			isHover: false,
@@ -44,10 +47,23 @@ export default {
 			inactiveClass: "hidden",
 		};
 	},
+	props: {
+		project: {
+			type: Object,
+			required: true,
+		},
+	},
 };
 </script>
 
-<style scoped>
-.card-img {
+<style>
+.lightbox {
+	z-index: 9999;
+}
+.lightbox__thumbnail img {
+  border-radius: 0.5rem;
+}
+.lightbox__element {
+  width: 50em;
 }
 </style>

@@ -5,11 +5,11 @@
 		>
 			<img
 				class="w-32 bg-cover"
-				src="https://images.unsplash.com/photo-1494726161322-5360d4d0eeae?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80"
+				:src="vendor.image"
 			/>
 
 			<div class="flex flex-col w-6/12 p-4 md:p-4">
-				<h1 class="text-2xl font-bold text-gray-900">Sirih Gading Catering</h1>
+				<h1 class="text-2xl font-bold text-gray-900">{{ vendor.name }}</h1>
 
 				<p class="text-sm font-medium text-gray-600">Catering</p>
 
@@ -30,14 +30,14 @@
 					<div class="flex items-start flex-1">
 						<div class="flex flex-col items-center justify-center">
 							<h1 class="text-lg font-medium">Real Wedding</h1>
-							<div class="text-2xl font-bold">{{ vendor.hits }}</div>
+							<div class="text-2xl font-bold">298</div>
 						</div>
 						<div class="flex flex-col items-center justify-center flex-grow">
 							<div class="flex-none">
 								<h1 class="text-lg font-medium">Ratings</h1>
 								<div class="flex flex-row">
 									<div class="mr-2 text-2xl font-bold">
-										{{ vendor.categoryId.toFixed(1) }}
+										4
 									</div>
 									<div>
 										<client-only>
@@ -45,7 +45,7 @@
 												class="mb-1"
 												:increment="0.01"
 												inactive-color="#858720"
-												:rating="vendor.categoryId"
+												:rating="4"
 												:glow="10"
 												:star-size="18"
 												:show-rating="false"

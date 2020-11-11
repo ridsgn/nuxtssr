@@ -5,10 +5,10 @@
 		<!-- vendor tab nav -->
 		<tabs class="mt-8">
 			<tab title="Projects">
-				<LazyVendorProjects :vendor="data" />
+				<LazyVendorProjects :projects="data.projects" />
 			</tab>
 			<tab title="Stores">
-				<LazyVendorStores :vendor="data" />
+				<LazyVendorStores :products="data.products" />
 			</tab>
 			<tab title="Reviews">
 				<LazyVendorReviews :vendor="data" />
@@ -43,11 +43,8 @@ export default {
 		error,
 		$axios,
 	}) {
-		const data = await $axios.$get(
-			`http://fakeapi.jsonparseronline.com/posts/${params.slug}`
-		);
-
-		return { data };
+		const data = await $axios.$get(`/vendor/4`);
+		return data;
 	},
 	methods: {
 		setSelected(tab) {

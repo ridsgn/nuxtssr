@@ -1,14 +1,14 @@
 <template>
   <div class="grid grid-cols-4 grid-rows-2 gap-6 mt-12 mb-12">
-    <vendor-project-list v-for="(item, index) in 8" :key="index"></vendor-project-list>
+    <vendor-project-list v-for="(project, index) in projects" :project="project" :key="index"></vendor-project-list>
   </div>
 </template>
 
 <script>
   export default {
     props: {
-      vendor: {
-        type: Object,
+      projects: {
+        type: Array,
         required: true
       }
     }
