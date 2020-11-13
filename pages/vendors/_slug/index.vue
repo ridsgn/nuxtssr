@@ -43,7 +43,7 @@ export default {
 		error,
 		$axios,
 	}) {
-		const data = await $axios.$get(`/vendor/${params.slug}`);
+		const data = await $axios.$get(`api/vendor/${params.slug}`);
 		return data;
 	},
 	methods: {
