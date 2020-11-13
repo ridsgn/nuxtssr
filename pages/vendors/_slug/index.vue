@@ -14,7 +14,7 @@
 				<LazyVendorReviews :vendor="data" />
 			</tab>
 		</tabs>
-		<!-- <pre>{{ data }}</pre> -->
+		<!-- <pre>{{ this.$route.params.slug }}</pre> -->
 	</div>
 </template>
 
@@ -43,7 +43,7 @@ export default {
 		error,
 		$axios,
 	}) {
-		const data = await $axios.$get(`/vendor/4`);
+		const data = await $axios.$get(`/vendor/${params.slug}`);
 		return data;
 	},
 	methods: {

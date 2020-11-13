@@ -16,7 +16,7 @@
 						class="text-lg font-semibold tracking-tight text-teal-600 truncate"
 					>
 						<nuxt-link :to="`/vendors/${vendor.id}`">{{
-							capitalize(vendor.vendors_name)
+							capitalize(vendor.name)
 						}}</nuxt-link>
 					</h1>
 					<ul class="flex items-center justify-center text-xs font-normal">

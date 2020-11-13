@@ -3,6 +3,7 @@ const getDefaultState = () => {
     products: [],
     product: {},
     cart: [],
+    vendor: []
   }
 }
 
@@ -75,6 +76,10 @@ export const mutations = {
     state.cart.push({ product, afterDiscount, quantity });
   },
 
+  VENDOR_PRODUCT(state, { product, date }) {
+    state.vendor.push({ product, date })
+  },
+
   UPDATE_QUANTITY(state, { productId, quantity }) {
     let productInCart = state.cart.find(item => {
       return item.product.id === productId
@@ -109,12 +114,6 @@ export const actions = {
   },
 
   async getProduct({ commit }, { slug, vendor }) {
-
-    // if (vendor) {
-    //   let product = await this.$axios.$get(`/vendor-product/${slug}`)
-    // } else {
-    //   let product = await this.$axios.$get(`/product/${slug}`)
-    // }
     const product = vendor ? await this.$axios.$get(`/vendor-product/${slug}`) : await this.$axios.$get(`/product/${slug}`)
     commit('SET_PRODUCT', product.data);
   },
@@ -169,13 +168,15 @@ export const actions = {
         }
       });
 
-      // window.open(midtrans.redirect_url, "_blank")
-
       // await commit('RESET_STATE')
 
     } catch (e) {
       console.log(e);
     }
+  },
+
+  addProductVendor({ commit }, { date, product }) {
+    commit('VENDOR_PRODUCT', { date, product })
   },
 
   addProductToCart({ commit }, { product, afterDiscount, quantity }) {

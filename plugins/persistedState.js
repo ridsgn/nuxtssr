@@ -42,4 +42,14 @@ export default ({ store, req }) => {
       return state
     }
   })(store)
+
+  createPersistedState({
+    key: 'vendor',
+    paths: ['cart.vendor'],
+    storage: {
+      getItem: key => ls.get(key),
+      setItem: (key, value) => ls.set(key, value),
+      removeItem: key => ls.remove(key)
+    }
+  })(store)
 };
