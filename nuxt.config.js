@@ -54,7 +54,7 @@ export default {
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
     '@nuxtjs/auth',
-    // '@nuxtjs/proxy',
+    '@nuxtjs/proxy',
     'nuxt-webfontloader'
   ],
 
@@ -89,36 +89,44 @@ export default {
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
   axios: {
     baseURL: "//dev.happywedding.id/api",
-    // proxy: true
+    proxy: true
+  },
+
+  proxy: {
+    '/api': {
+      target: '//dev.happywedding.id',
+      // pathRewrite: { '^/api': '/' }
+    }
   },
 
   auth: {
     strategies: {
       local: {
-        endpoints: {
-          login: {
-            url: 'login',
-            method: 'post',
-            propertyName: 'token'
-          },
-          user: {
-            url: 'user',
-            method: 'get',
-            propertyName: 'data'
-          },
-          logout: {
-            url: 'logout',
-            method: 'get'
-          }
+        provider: 'laravel/jwt',
+        url: '//dev.happywedding.id',
+        token: {
+          property: 'token',
+          maxAge: 1800,
+          // type: 'Bearer'
         },
-        globalToken: true,
-        tokenRequired: true,
-        tokenType: 'Bearer '
-      },
-      // google: {
-      //   client_id: '475757220288-debdsqphnplpt2v77q3jq377hmheak2r.apps.googleusercontent.com'
-      // }
-    },
+        refreshToken: {
+          property: 'access_token',
+          data: 'access_token',
+          maxAge: 60 * 60 * 24 * 30
+        },
+        user: {
+          property: 'user',
+          // autoFetch: true
+        },
+        endpoints: {
+          login: { url: 'api/login', method: 'post' },
+          refresh: { url: 'api/refresh/token', method: 'post' },
+          user: { url: 'api/user', method: 'get' },
+          logout: { url: 'api/logout', method: 'post' }
+        },
+        // autoLogout: false
+      }
+    }
   },
 
 

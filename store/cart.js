@@ -106,7 +106,7 @@ export const mutations = {
 export const actions = {
   async getProducts({ commit }) {
     try {
-      const products = await this.$axios.$get('/products')
+      const products = await this.$axios.$get('api/products')
       commit('SET_PRODUCTS', products.data);
     } catch (e) {
       console.log(e);
@@ -114,14 +114,14 @@ export const actions = {
   },
 
   async getProduct({ commit }, { slug, vendor }) {
-    const product = vendor ? await this.$axios.$get(`/vendor-product/${slug}`) : await this.$axios.$get(`/product/${slug}`)
+    const product = vendor ? await this.$axios.$get(`api/vendor-product/${slug}`) : await this.$axios.$get(`api/product/${slug}`)
     commit('SET_PRODUCT', product.data);
   },
 
   async storeProduct({ state }, user_id) {
     const item = state.cart.map(product => product.product)
 
-    await this.$axios.$post('/cart', {
+    await this.$axios.$post('api/cart', {
       user_id: user_id.id,
       product_id: item.map(ids => ids.id),
       quantity: state.cart.map(quantity => quantity.quantity)
@@ -146,12 +146,12 @@ export const actions = {
     }
 
     try {
-      const order = await this.$axios.$post('/order', {
+      const order = await this.$axios.$post('api/order', {
         data: clone,
         shipping: ship
       })
 
-      const midtrans = await this.$axios.$post('/payment/get-token', {
+      const midtrans = await this.$axios.$post('api/payment/get-token', {
         id_order: order.id_order
       })
 

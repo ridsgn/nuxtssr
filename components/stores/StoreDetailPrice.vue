@@ -95,7 +95,7 @@
 					placeholder="Please select your service date"
 				>
 					<template slot="day" slot-scope="{ day, dayFormatted }">
-						<span class="cursor-not-allowed select-none" v-if="day < new Date()"> &times; </span>
+						<span v-if="day < new Date()"> &times; </span>
 						<span v-else>
 							{{ dayFormatted }}
 						</span>

@@ -51,7 +51,7 @@ export default {
 	},
 	async asyncData({ $axios, error }) {
 		const vendors = await $axios
-			.$get("/vendors")
+			.$get("api/vendors")
 			// .then(res => console.log(res))
 			.catch((err) => {
 				error({ statusCode: err, message: "Error" });

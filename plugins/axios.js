@@ -14,14 +14,8 @@ export default function ({ $axios, store }) {
     return Promise.reject(error);
   });
 
-  $axios.onRequest(error => {
+  $axios.onRequest(() => {
     store.dispatch('validation/clearErrors')
-    const code = parseInt(error.response && error.response.status)
-
-    if (code === 401) {
-      store.dispatch('validation/setErrors', error.response.data)
-      store.dispatch('cart/checkAuth');
-    }
   });
 
   // const token = $auth.token.get()
