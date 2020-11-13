@@ -88,7 +88,7 @@ export default {
 
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
   axios: {
-    baseURL: "//api.eatmekitchens.com/api",
+    baseURL: "//dev.happywedding.id/api",
     // proxy: true
   },
 
