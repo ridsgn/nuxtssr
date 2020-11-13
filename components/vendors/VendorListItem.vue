@@ -8,7 +8,7 @@
 					class="flex items-center justify-center bg-teal-100 rounded-full w-28 h-28"
 				>
 					<a href="#">
-						<img class="w-24 h-24 rounded-full" :src="vendor.img" alt="pic" />
+						<img class="w-24 h-24 rounded-full" :src="vendor.image" alt="pic" />
 					</a>
 				</div>
 				<div class="flex flex-col items-center justify-center mt-5">
@@ -16,16 +16,16 @@
 						class="text-lg font-semibold tracking-tight text-teal-600 truncate"
 					>
 						<nuxt-link :to="`/vendors/${vendor.id}`">{{
-							vendor.title
+							capitalize(vendor.name)
 						}}</nuxt-link>
 					</h1>
 					<ul class="flex items-center justify-center text-xs font-normal">
 						<li>
-							<a href="#">Catering</a>
+							<a href="#">{{ vendor.service_category }}</a>
 						</li>
 						<span class="mx-1">|</span>
 						<li>
-							<a href="#">{{ vendor.location }}, {{ vendor.country }}</a>
+							<a href="#">{{ vendor.service_location }}</a>
 						</li>
 					</ul>
 					<div class="flex flex-col items-center justify-center">
@@ -34,7 +34,7 @@
 								class="mb-1"
 								:increment="0.01"
 								inactive-color="#858720"
-								:rating="4.9"
+								:rating="0"
 								:glow="10"
 								:star-size="18"
 								:show-rating="false"
@@ -44,11 +44,11 @@
 							></star-rating>
 						</client-only>
 						<div class="mb-4 text-xs font-light font-monts">
-							<a href="#">{{ vendor.review }} reviews</a>
+							<a href="#">{{ vendor.reviews }} reviews</a>
 						</div>
 					</div>
-					<a :href="`/vendors/${vendor.id}`" target="_blank">
-						<t-button class="w-24 text-xs font-semibold tracking-widest">{{ vendor.price }}</t-button>
+					<a :href="`/vendors/${vendor.id}`">
+						<t-button class="w-24 text-xs font-semibold whitespace-no-wrap">Price List</t-button>
 					</a>
 				</div>
 			</div>
@@ -96,6 +96,10 @@ export default {
 			],
 		};
 	},
-	computed: {},
+	methods: {
+		capitalize(value) {
+			return value.replace(/\w\S*/g, (w) => (w.replace(/^\w/, (c) => c.toUpperCase())));
+		}
+	},
 };
 </script>

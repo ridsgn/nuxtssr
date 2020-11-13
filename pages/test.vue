@@ -1,5 +1,25 @@
 <template>
-	<div>
+	<div class="relative mt-40">
+		<!-- <div v-for="(project, index) in data.data.projects" :key="project.id">
+			<button @click="toggler[index] = !toggler[index]" class="mr-4">
+				<img :src="project.image" alt="haha">
+			</button>
+
+			<FsLightbox
+				:toggler="toggler[index]"
+				:sources="project.images"
+				:key="project.id"
+			/>
+		</div> -->
+		<!-- <VuePureLightbox
+			style="width: 20em"
+			v-for="project in data.data.projects"
+			:key="project.id"
+			:thumbnail="project.image"
+			:images="project.images"
+		/> -->
+	</div>
+	<!-- <div>
 		<div class="flex items-center justify-center min-h-screen py-6 bg-gray-100">
 			<div class="flex w-full max-w-xs p-4 bg-white">
 				<ul class="flex flex-col w-full">
@@ -256,12 +276,45 @@
 				</ul>
 			</div>
 		</div>
-	</div>
+	</div> -->
 </template>
 
 <script>
-export default {};
+// import FsLightbox from "fslightbox-vue";
+import VuePureLightbox from "vue-pure-lightbox";
+import styles from "vue-pure-lightbox/dist/VuePureLightbox.css";
+
+export default {
+	components: { VuePureLightbox },
+	data() {
+		return {
+			toggler: [false, false],
+		};
+	},
+	async asyncData({
+		isDev,
+		route,
+		store,
+		env,
+		params,
+		query,
+		req,
+		res,
+		redirect,
+		error,
+		$axios,
+	}) {
+		const data = await $axios.$get(`/vendor/4`);
+		return data;
+	},
+};
 </script>
 
-<style scoped>
+<style>
+.lightbox {
+	z-index: 9999;
+}
+.lightbox__element {
+  width: 50em;
+}
 </style>

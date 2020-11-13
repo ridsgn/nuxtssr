@@ -3,6 +3,7 @@ const getDefaultState = () => {
     products: [],
     product: {},
     cart: [],
+    vendor: []
   }
 }
 
@@ -25,12 +26,13 @@ export const getters = {
   // },
   discount(state, getters) {
     const price = getters.oneProduct.price;
+    const disc = getters.oneProduct.disc;
     const formatter = new Intl.NumberFormat('id-ID', {
       style: 'decimal',
       currency: 'IDR',
     })
 
-    return price - (price * 0.24);
+    return price - (price * (disc / 100));
   },
   cartItemCount(state) {
     return state.cart.length;
@@ -74,6 +76,10 @@ export const mutations = {
     state.cart.push({ product, afterDiscount, quantity });
   },
 
+  VENDOR_PRODUCT(state, { product, date }) {
+    state.vendor.push({ product, date })
+  },
+
   UPDATE_QUANTITY(state, { productId, quantity }) {
     let productInCart = state.cart.find(item => {
       return item.product.id === productId
@@ -107,8 +113,8 @@ export const actions = {
     }
   },
 
-  async getProduct({ commit }, slug) {
-    const product = await this.$axios.$get(`/product/${slug}`);
+  async getProduct({ commit }, { slug, vendor }) {
+    const product = vendor ? await this.$axios.$get(`/vendor-product/${slug}`) : await this.$axios.$get(`/product/${slug}`)
     commit('SET_PRODUCT', product.data);
   },
 
@@ -126,14 +132,14 @@ export const actions = {
     const items = state.cart
     const clone = JSON.parse(JSON.stringify(items))
     const ship = Object.values(shipping)
-    
+
     for (let index = 0; index < clone.length; index++) {
       clone[index].price = clone[index].product.price
       clone[index].qty = clone[index]['quantity']
       clone[index].id_product = clone[index].product.id
       clone[index].id_vendor = null
-      clone[index].disc = 24
-      
+      clone[index].disc = clone[index].product.disc
+
       delete clone[index].afterDiscount
       delete clone[index].quantity
       delete clone[index].product
@@ -148,14 +154,29 @@ export const actions = {
       const midtrans = await this.$axios.$post('/payment/get-token', {
         id_order: order.id_order
       })
-      
-      window.open(midtrans.redirect_url, "_blank")
 
-      commit('RESET_STATE')
+      snap.pay(midtrans.token, {
+        onSuccess(result) {
+          console.log('success');
+          console.log(result);
+          // commit('RESET_STATE')
+        },
+        onPending(result) {
+          console.log('pending');
+          console.log(result);
+          commit('RESET_STATE')
+        }
+      });
+
+      // await commit('RESET_STATE')
 
     } catch (e) {
       console.log(e);
     }
+  },
+
+  addProductVendor({ commit }, { date, product }) {
+    commit('VENDOR_PRODUCT', { date, product })
   },
 
   addProductToCart({ commit }, { product, afterDiscount, quantity }) {
@@ -168,5 +189,13 @@ export const actions = {
 
   removeItemFromCart({ commit }, product) {
     commit('REMOVE_ITEM_CART', product);
+  },
+
+  async checkAuth({ commit }) {
+    if (this.$auth.loggedIn) {
+      await commit('RESET_STATE')
+      await this.$auth.logout()
+      await this.$router.push('/auth/login');
+    }
   }
 }

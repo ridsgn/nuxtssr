@@ -37,7 +37,4 @@ export const actions = {
 		commit("SET_VALIDATION_ERROR", {});
 		commit("SET_RESPONSE_MESSAGE", {});
 	},
-	async checkAuth() {
-		await this.$auth.logout()
-	}
 };

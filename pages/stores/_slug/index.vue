@@ -1,7 +1,7 @@
 <template>
 	<div class="container mx-auto mt-32">
-		<StoreDetail v-for="(product) in products" :key="product.id" />
-    <!-- <pre>{{ product[0] }}</pre> -->
+		<StoreDetail v-for="product in products" :key="product.id" />
+		<!-- <pre>{{ product[0] }}</pre> -->
 	</div>
 </template>
 
@@ -14,7 +14,10 @@ export default {
     },
   },
 	created() {
-		this.$store.dispatch("cart/getProduct", this.$route.params.slug);
+		this.$store.dispatch("cart/getProduct", {
+      slug: this.$route.params.slug,
+      vendor: this.$route.query.vendor
+    });
 	},
 };
 </script>

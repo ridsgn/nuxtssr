@@ -38,7 +38,7 @@
       To: "transform opacity-0 scale-95"
     -->
 				<div
-					class="absolute right-0 z-10 w-56 mt-2 origin-top-right rounded-md shadow-lg"
+					class="absolute right-0 z-10 hidden w-56 mt-2 origin-top-right rounded-md shadow-lg"
 				>
 					<div class="bg-white rounded-md shadow-xs">
 						<div
@@ -49,31 +49,13 @@
 						>
 							<a
 								href="#"
-								class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900"
+								class="block px-4 py-2 text-xs leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900"
 								role="menuitem"
-								>Account settings</a
+								@click="test(index)"
+								v-for="(item, index) in data"
+								:key="index"
+								>{{ item.name }}</a
 							>
-							<a
-								href="#"
-								class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900"
-								role="menuitem"
-								>Support</a
-							>
-							<a
-								href="#"
-								class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900"
-								role="menuitem"
-								>License</a
-							>
-							<form method="POST" action="#">
-								<button
-									type="submit"
-									class="block w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900"
-									role="menuitem"
-								>
-									Sign out
-								</button>
-							</form>
 						</div>
 					</div>
 				</div>
@@ -83,7 +65,18 @@
 </template>
 
 <script>
-export default {};
+export default {
+	props: {
+		data: {
+			type: Array,
+		},
+	},
+	methods: {
+		test(data) {
+			alert(data)
+		}
+	}
+};
 </script>
 
 <style lang="scss" scoped>

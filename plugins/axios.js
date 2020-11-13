@@ -1,4 +1,4 @@
-export default function ({ $axios, store, redirect, $auth }) {
+export default function ({ $axios, store }) {
   $axios.onError(error => {
     const code = parseInt(error.response && error.response.status)
 
@@ -8,15 +8,20 @@ export default function ({ $axios, store, redirect, $auth }) {
 
     if (code === 401) {
       store.dispatch('validation/setErrors', error.response.data)
-      store.dispatch('validation/checkAuth');
-		  // redirect('/auth/login')
+      store.dispatch('cart/checkAuth');
     } 
 
     return Promise.reject(error);
   });
 
-  $axios.onRequest(() => {
+  $axios.onRequest(error => {
     store.dispatch('validation/clearErrors')
+    const code = parseInt(error.response && error.response.status)
+
+    if (code === 401) {
+      store.dispatch('validation/setErrors', error.response.data)
+      store.dispatch('cart/checkAuth');
+    }
   });
 
   // const token = $auth.token.get()
