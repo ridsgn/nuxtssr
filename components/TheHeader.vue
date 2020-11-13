@@ -351,10 +351,17 @@ export default {
 					console.log(e);
 				}
 			} else {
-				await this.$store.dispatch(
-					"cart/storeProduct",
-					this.$store.state.auth.user
-				);
+				try {
+					await this.$store.dispatch(
+						"cart/storeProduct",
+						this.$store.state.auth.user
+					);
+
+					await this.$auth.logout();
+					location.replace("/auth/login");
+				} catch (e) {
+					console.log(e);
+				}
 			}
 		},
 		removeItem(product) {
