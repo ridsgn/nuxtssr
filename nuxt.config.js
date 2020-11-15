@@ -18,6 +18,7 @@ export default {
     middleware: [
       'clearValidationErrors',
       // 'isLoggedIn'
+      'auth'
     ]
   },
 
@@ -53,7 +54,7 @@ export default {
   modules: [
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
-    '@nuxtjs/auth',
+    '@nuxtjs/auth-next',
     '@nuxtjs/proxy',
     'nuxt-webfontloader'
   ],
@@ -88,7 +89,7 @@ export default {
 
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
   axios: {
-    baseURL: "https://dev.happywedding.id",
+    baseURL: "https://dev.happywedding.id/",
     proxy: true
   },
 
@@ -129,20 +130,22 @@ export default {
   },
 
   auth: {
+    redirect: {
+      login: '/auth/login',
+    },
+    localStorage: false,
     strategies: {
-      local: {
-        scheme: 'refresh',
+      'laravelJWT': {
+        // scheme: 'refresh',
         provider: 'laravel/jwt',
-        url: 'https://dev.happywedding.id',
+        url: 'https://dev.happywedding.id/',
         token: {
-          property: 'token',
-          maxAge: 1800,
+          property: 'access_token',
+          maxAge: 60 * 60, // 1 hour of ttl
           // type: 'Bearer'
         },
         refreshToken: {
-          property: 'access_token',
-          data: 'access_token',
-          maxAge: 60 * 60 * 24 * 30
+          maxAge: 20160 * 60 // 2 weeks of ttl
         },
         user: {
           property: 'user',

@@ -132,8 +132,8 @@ export default {
 	methods: {
 		async userLogin() {
 			try {
-				await this.$auth.loginWith("local", { data: this.form });
-				await this.$router.go(-1);
+				await this.$auth.loginWith("laravelJWT", { data: this.form });
+				// await this.$router.go(-1);
 				// await this.$axios.$get(`/cart/${this.$auth.user.id}`);
 			} catch (err) {
 				console.log(err);

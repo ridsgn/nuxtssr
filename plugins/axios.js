@@ -8,8 +8,8 @@ export default function ({ $axios, store }) {
 
     if (code === 401 || code === 403) {
       store.dispatch('validation/setErrors', error.response.data)
-      store.dispatch('cart/checkAuth');
-    } 
+      // store.dispatch('cart/checkAuth');
+    }
 
     return Promise.reject(error);
   });
