@@ -6,10 +6,10 @@ export default function ({ $axios, store }) {
       store.dispatch('validation/setErrors', error.response.data.errors)
     }
 
-    if (code === 401) {
+    if (code === 401 || code === 403) {
       store.dispatch('validation/setErrors', error.response.data)
-      store.dispatch('cart/checkAuth');
-    } 
+      // store.dispatch('cart/checkAuth');
+    }
 
     return Promise.reject(error);
   });

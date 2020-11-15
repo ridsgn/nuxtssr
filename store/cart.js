@@ -25,6 +25,8 @@ export const getters = {
   //   return getters.oneProduct.price.replace(/[IDR\s.]/g, '');
   // },
   discount(state, getters) {
+    if (!getters.oneProduct) { return }
+
     const price = getters.oneProduct.price;
     const disc = getters.oneProduct.disc;
     const formatter = new Intl.NumberFormat('id-ID', {
