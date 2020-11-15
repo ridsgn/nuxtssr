@@ -88,7 +88,7 @@ export default {
 
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
   axios: {
-    baseURL: "http://localhost:8000",
+    baseURL: "https://dev.happywedding.id",
     proxy: true
   },
 
@@ -123,7 +123,7 @@ export default {
 
   proxy: {
     '/api': {
-      target: 'http://localhost:8000',
+      target: 'https://dev.happywedding.id',
       // pathRewrite: { '^/api': '/' }
     }
   },
@@ -131,8 +131,9 @@ export default {
   auth: {
     strategies: {
       local: {
+        scheme: 'refresh',
         provider: 'laravel/jwt',
-        url: 'http://localhost:8000',
+        url: 'https://dev.happywedding.id',
         token: {
           property: 'token',
           maxAge: 1800,
@@ -153,7 +154,7 @@ export default {
           user: { url: 'api/user', method: 'get' },
           logout: { url: 'api/logout', method: 'post' }
         },
-        // autoLogout: false
+        autoLogout: true
       }
     }
   },

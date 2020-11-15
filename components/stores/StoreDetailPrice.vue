@@ -70,13 +70,13 @@
 						<t-button
 							variant="outline"
 							class="flex-1 flex-shrink w-2/4 font-medium"
-							>Chat</t-button
+							>{{ this.$route.query.vendor ? 'Chat Vendor' : 'Chat' }}</t-button
 						>
 						<t-button
 							:variant="qty == 0 ? 'disabled' : ''"
 							:disabled="qty == 0"
 							@click="addToCart()"
-							class="flex-grow w-2/4 font-medium"
+							class="flex-grow w-1/4 font-medium"
 							>Order Now</t-button
 						>
 					</div>
