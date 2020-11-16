@@ -11,6 +11,7 @@
 
 <script>
 export default {
+  auth: 'guest',
   name: "PageStore"
 };
 </script>

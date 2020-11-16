@@ -400,6 +400,7 @@ export default {
 
 			await this.$store.dispatch("cart/processOrder", {
 				shipping: this.checkbox ? false : this.shipping,
+        vendor: false
 			});
 
 			this.loading = false;

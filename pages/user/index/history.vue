@@ -26,12 +26,12 @@
 								<th
 									class="px-4 py-3 text-sm font-medium tracking-wider text-gray-900 bg-gray-200 title-font"
 								>
-									Speed
+									Item
 								</th>
 								<th
 									class="px-4 py-3 text-sm font-medium tracking-wider text-gray-900 bg-gray-200 title-font"
 								>
-									Storage
+									Total Price
 								</th>
 								<th
 									class="px-4 py-3 text-sm font-medium tracking-wider text-gray-900 bg-gray-200 rounded-tr rounded-br title-font"
@@ -41,14 +41,14 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-                <td class="px-4 py-3">1</td>
-								<td class="px-4 py-3">027350NSBF</td>
+							<tr v-for="(item, index) in data" :key="item.id">
+                <td class="px-4 py-3">{{ index+1 }}</td>
+								<td class="px-4 py-3">{{ item.id_order }}</td>
 								<td class="px-4 py-3">5 Mb/s</td>
 								<td class="px-4 py-3">15 GB</td>
-								<td class="px-4 py-3"><code class="inline-flex px-2 text-xs font-semibold leading-5 text-red-800 bg-red-100 rounded-full">Failed</code></td>
+								<td class="px-4 py-3"><code :class="{ 'text-yellow-800 bg-yellow-200' : item.status === 'pending' }" class="inline-flex px-2 text-xs font-semibold leading-5 rounded-full">{{ item.status }}</code></td>
 							</tr>
-							<tr>
+							<!-- <tr>
                 <td class="px-4 py-3 border-t-2 border-gray-200">2</td>
 								<td class="px-4 py-3 border-t-2 border-gray-200">658455KHAE</td>
 								<td class="px-4 py-3 border-t-2 border-gray-200">25 Mb/s</td>
@@ -86,7 +86,7 @@
 								>
 									<code class="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full">Success</code>
 								</td>
-							</tr>
+							</tr> -->
 						</tbody>
 					</table>
 				</div>
@@ -96,7 +96,17 @@
 </template>
 
 <script>
-export default {};
+export default {
+	data() {
+		return {}
+	},
+	async asyncData ({isDev, route, store, env, params, query, req, res, redirect, error, $axios}) {
+		const data = await $axios.$get(`api/payment/history`)
+
+		return {data}
+	
+	},
+};
 </script>
 
 <style scoped>
