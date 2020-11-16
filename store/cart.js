@@ -7,7 +7,7 @@ const getDefaultState = () => {
   }
 }
 
-export const state = getDefaultState()
+export const state = getDefaultState
 
 // GETTER
 
@@ -78,8 +78,8 @@ export const mutations = {
     state.cart.push({ product, afterDiscount, quantity });
   },
 
-  VENDOR_PRODUCT(state, { product, date }) {
-    state.vendor.push({ product, date })
+  VENDOR_PRODUCT(state, { product, date, qty }) {
+    state.vendor.push({ product, date, qty })
   },
 
   UPDATE_QUANTITY(state, { productId, quantity }) {
@@ -100,6 +100,10 @@ export const mutations = {
 
   RESET_STATE(state) {
     Object.assign(state, getDefaultState())
+  },
+
+  EMPTY_VENDOR(state) {
+    state.vendor = [];
   }
 }
 
@@ -130,26 +134,26 @@ export const actions = {
     });
   },
 
-  async processOrder({ state, commit }, shipping) {
-    const items = state.cart
-    const clone = JSON.parse(JSON.stringify(items))
-    const ship = Object.values(shipping)
+  async processOrder({ state, commit }, { shipping, vendor }) {
+    const items = vendor ? state.vendor : state.cart
+    const product = JSON.parse(JSON.stringify(items))
+    const ship = (vendor || !shipping) ? false : shipping
 
-    for (let index = 0; index < clone.length; index++) {
-      clone[index].price = clone[index].product.price
-      clone[index].qty = clone[index]['quantity']
-      clone[index].id_product = clone[index].product.id
-      clone[index].id_vendor = null
-      clone[index].disc = clone[index].product.disc
+    for (let index = 0; index < product.length; index++) {
+      product[index].price = product[index].product.price
+      product[index].qty = vendor ? product[index].qty : product[index]['quantity']
+      product[index].id_product = product[index].product.id
+      product[index].id_vendor = vendor ? product[index].product.vendor_id : null
+      product[index].disc = vendor ? null : product[index].product.disc
 
-      delete clone[index].afterDiscount
-      delete clone[index].quantity
-      delete clone[index].product
+      delete product[index].afterDiscount
+      delete product[index].quantity
+      delete product[index].product
     }
 
     try {
       const order = await this.$axios.$post('api/order', {
-        data: clone,
+        data: product,
         shipping: ship
       })
 
@@ -177,8 +181,9 @@ export const actions = {
     }
   },
 
-  addProductVendor({ commit }, { date, product }) {
-    commit('VENDOR_PRODUCT', { date, product })
+  addProductVendor({ commit }, { date, product, qty }) {
+    commit('EMPTY_VENDOR', [])
+    commit('VENDOR_PRODUCT', { date, product, qty })
   },
 
   addProductToCart({ commit }, { product, afterDiscount, quantity }) {
@@ -193,11 +198,11 @@ export const actions = {
     commit('REMOVE_ITEM_CART', product);
   },
 
-  async checkAuth({ commit }) {
-    if (this.$auth.loggedIn) {
-      await commit('RESET_STATE')
-      await this.$auth.logout()
-      await this.$router.push('/auth/login');
-    }
-  }
+  // async checkAuth({ commit }) {
+  //   if (this.$auth.loggedIn) {
+  //     await commit('RESET_STATE')
+  //     await this.$auth.logout()
+  //     await this.$router.push('/auth/login');
+  //   }
+  // }
 }

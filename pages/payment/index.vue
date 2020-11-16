@@ -23,7 +23,7 @@
 						<div>
 							<div class="flex flex-wrap items-center justify-between">
 								<div class="w-48">{{ oneProduct.name }}</div>
-								<div>IDR {{ this.$route.query.pay === 'down' ? cicil : price(oneProduct.price)  }}</div>
+								<div>IDR {{ this.$route.query.pay === 'down' ? firstPayment : price(oneProduct.price)  }}</div>
 							</div>
 						</div>
 					</div>
@@ -52,11 +52,25 @@ export default {
 
 			return formatter.format(value);
 		},
+    async processOrder() {
+      await this.$store.dispatch("cart/processOrder", {
+        shipping: false,
+        vendor: true
+      });
+    }
   },
   computed: {
-    cicil() {
-      return this.price(this.oneProduct.price * (this.oneProduct.down_payment / 100))
+    firstPayment() {
+      let price = this.oneProduct.price * (this.oneProduct.down_payment / 100)
+
+      return this.price(this.oneProduct.price - price)
     }
+  },
+  mounted() {
+    let midtrans = document.createElement('script')
+    midtrans.setAttribute('src', 'https://app.sandbox.midtrans.com/snap/snap.js')
+    midtrans.setAttribute('data-client-key', 'SB-Mid-client-Q0fAI3TTlUCQpc4X')
+    document.head.appendChild(midtrans)
   }
 };
 </script>

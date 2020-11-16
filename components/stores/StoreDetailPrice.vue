@@ -160,10 +160,11 @@ export default {
 		},
 		processOrder(value) {
 			this.loading = true;
-			
+
 			this.$store.dispatch("cart/addProductVendor", {
 				date: this.date,
-				product: this.oneProduct
+				product: this.oneProduct,
+        qty: parseInt(this.qty)
 			})
 
 			if (value === 'full')

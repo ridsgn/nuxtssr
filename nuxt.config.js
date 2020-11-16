@@ -141,7 +141,7 @@ export default {
         url: 'https://dev.happywedding.id/',
         token: {
           property: 'access_token',
-          maxAge: 60 * 60, // 1 hour of ttl
+          maxAge: 30 * 60, // 30 minutes of ttl
           // type: 'Bearer'
         },
         refreshToken: {
@@ -157,7 +157,7 @@ export default {
           user: { url: 'api/user', method: 'get' },
           logout: { url: 'api/logout', method: 'post' }
         },
-        autoLogout: true
+        // autoLogout: true
       }
     }
   },
