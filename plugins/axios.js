@@ -1,4 +1,4 @@
-export default function ({ $axios, store }) {
+export default function ({ $axios, store, $auth }) {
   $axios.onError(error => {
     const code = parseInt(error.response && error.response.status)
 
@@ -6,9 +6,9 @@ export default function ({ $axios, store }) {
       store.dispatch('validation/setErrors', error.response.data.errors)
     }
 
-    if (code === 401 || code === 403) {
+    if (code === 401) {
+      store.dispatch('cart/checkAuth');
       store.dispatch('validation/setErrors', error.response.data)
-      // store.dispatch('cart/checkAuth');
     }
 
     return Promise.reject(error);

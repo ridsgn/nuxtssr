@@ -21,12 +21,12 @@
 								<th
 									class="px-4 py-3 text-sm font-medium tracking-wider text-gray-900 bg-gray-200 title-font"
 								>
-									Trx. ID
+									Date
 								</th>
 								<th
 									class="px-4 py-3 text-sm font-medium tracking-wider text-gray-900 bg-gray-200 title-font"
 								>
-									Item
+									Trx. ID
 								</th>
 								<th
 									class="px-4 py-3 text-sm font-medium tracking-wider text-gray-900 bg-gray-200 title-font"
@@ -43,9 +43,9 @@
 						<tbody>
 							<tr v-for="(item, index) in data" :key="item.id">
                 <td class="px-4 py-3">{{ index+1 }}</td>
+								<td class="px-4 py-3">{{ new Date(item.created_at).toDateString() }}</td>
 								<td class="px-4 py-3">{{ item.id_order }}</td>
-								<td class="px-4 py-3">5 Mb/s</td>
-								<td class="px-4 py-3">15 GB</td>
+								<td class="px-4 py-3">{{ }}</td>
 								<td class="px-4 py-3"><code :class="{ 'text-yellow-800 bg-yellow-200' : item.status === 'pending' }" class="inline-flex px-2 text-xs font-semibold leading-5 rounded-full">{{ item.status }}</code></td>
 							</tr>
 							<!-- <tr>
@@ -106,6 +106,11 @@ export default {
 		return {data}
 	
 	},
+	computed: {
+		totalPrice: function () {
+			return this.data
+		}
+	}
 };
 </script>
 

@@ -198,11 +198,11 @@ export const actions = {
     commit('REMOVE_ITEM_CART', product);
   },
 
-  // async checkAuth({ commit }) {
-  //   if (this.$auth.loggedIn) {
-  //     await commit('RESET_STATE')
-  //     await this.$auth.logout()
-  //     await this.$router.push('/auth/login');
-  //   }
-  // }
+  async checkAuth({ commit }) {
+    if (this.$auth.loggedIn) {
+      await commit('RESET_STATE')
+      this.$auth.logout()
+      this.$router.push('/auth/login');
+    }
+  }
 }

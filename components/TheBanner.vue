@@ -13,6 +13,8 @@
 					>Slide {{ test }}</swiper-slide
 				>
 
+				<div class="swiper-button-prev" slot="button-prev"></div>
+				<div class="swiper-button-next" slot="button-next"></div>
 				<div class="swiper-pagination" slot="pagination"></div>
 			</swiper>
 		</client-only>
@@ -53,6 +55,10 @@ export default {
 				pagination: {
 					el: ".swiper-pagination",
 					dynamicBullets: true,
+				},
+				navigation: {
+					nextEl: ".swiper-button-next",
+					prevEl: ".swiper-button-prev",
 				},
 			},
 		};
@@ -97,8 +103,8 @@ export default {
 }
 
 @media (min-width: 640px) {
-  .example {
-    margin-top: 8rem;
-  }
+	.example {
+		margin-top: 8rem;
+	}
 }
 </style>
