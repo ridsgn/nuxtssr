@@ -6,11 +6,11 @@
 			:options="swiperOptionTop"
 			ref="swiperTop"
 		>
-			<swiper-slide class="slide-1"></swiper-slide>
-			<swiper-slide class="slide-2"></swiper-slide>
-			<swiper-slide class="slide-3"></swiper-slide>
-			<swiper-slide class="slide-4"></swiper-slide>
-			<swiper-slide class="slide-5"></swiper-slide>
+			<swiper-slide v-for="(item, index) in oneProduct.image" :key="index"><img class="swiper swiper-slide" :src="item" :alt="item" :style="{ borderRadius: radius + 'px' }"/></swiper-slide>
+			<!-- <swiper-slide class="slide-2" :style="slide2"></swiper-slide>
+			<swiper-slide class="slide-3" :style="slide3"></swiper-slide>
+			<swiper-slide class="slide-4" :style="slide4"></swiper-slide>
+			<swiper-slide class="slide-5" :style="slide5"></swiper-slide> -->
 		</swiper>
 		<!-- swiper2 Thumbs -->
 		<swiper
@@ -18,11 +18,11 @@
 			:options="swiperOptionThumbs"
 			ref="swiperThumbs"
 		>
-			<swiper-slide class="slide-1"></swiper-slide>
-			<swiper-slide class="slide-2"></swiper-slide>
+			<swiper-slide v-for="(item, index) in oneProduct.image" :key="index"><img class="swiper" :src="item" :alt="item" :style="{ borderRadius: radius + 'px' }"/></swiper-slide>
+			<!-- <swiper-slide class="slide-2"></swiper-slide>
 			<swiper-slide class="slide-3"></swiper-slide>
 			<swiper-slide class="slide-4"></swiper-slide>
-			<swiper-slide class="slide-5"></swiper-slide>
+			<swiper-slide class="slide-5"></swiper-slide> -->
 		</swiper>
 	</div>
 </template>
@@ -47,7 +47,8 @@ export default {
 				slidesPerView: "auto",
 				touchRatio: 0.2,
 				slideToClickedSlide: true,
-			},
+      },
+      radius: 8
 		};
 	},
 	mounted() {
@@ -69,26 +70,6 @@ export default {
 	.swiper-slide {
 		background-size: cover;
 		background-position: center;
-		&.slide-1 {
-			border-radius: 8px;
-			background-image: url("https://picsum.photos/854/424.jpg?random=1");
-		}
-		&.slide-2 {
-			border-radius: 8px;
-			background-image: url("https://picsum.photos/854/424.jpg?random=2");
-		}
-		&.slide-3 {
-			border-radius: 8px;
-			background-image: url("https://picsum.photos/854/424.jpg?random=3");
-		}
-		&.slide-4 {
-			border-radius: 8px;
-			background-image: url("https://picsum.photos/854/424.jpg?random=4");
-		}
-		&.slide-5 {
-			border-radius: 8px;
-			background-image: url("https://picsum.photos/854/424.jpg?random=5");
-		}
 	}
 	&.gallery-top {
 		height: 100%;

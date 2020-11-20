@@ -34,42 +34,26 @@
 									Total Price
 								</th>
 								<th
-									class="px-4 py-3 text-sm font-medium tracking-wider text-gray-900 bg-gray-200 rounded-tr rounded-br title-font"
+									class="px-4 py-3 text-sm font-medium tracking-wider text-gray-900 bg-gray-200 title-font"
 								>
 									Status
+								</th>
+								<th
+									class="px-4 py-3 text-sm font-medium tracking-wider text-gray-900 bg-gray-200 rounded-tr rounded-br title-font"
+								>
+									Action
 								</th>
 							</tr>
 						</thead>
 						<tbody>
-							<tr v-for="(item, index) in data" :key="item.id">
+							<tr v-for="(item, index) in data.data" :key="item.id">
                 <td class="px-4 py-3">{{ index+1 }}</td>
-								<td class="px-4 py-3">{{ new Date(item.created_at).toDateString() }}</td>
-								<td class="px-4 py-3">{{ item.id_order }}</td>
-								<td class="px-4 py-3">{{ }}</td>
+								<td class="px-4 py-3">{{ new Date(item.date).toDateString() }}</td>
+								<td class="px-4 py-3">{{ item.order_id }}</td>
+								<td class="px-4 py-3">{{ Number(item.price) }}</td>
 								<td class="px-4 py-3"><code :class="{ 'text-yellow-800 bg-yellow-200' : item.status === 'pending' }" class="inline-flex px-2 text-xs font-semibold leading-5 rounded-full">{{ item.status }}</code></td>
 							</tr>
-							<!-- <tr>
-                <td class="px-4 py-3 border-t-2 border-gray-200">2</td>
-								<td class="px-4 py-3 border-t-2 border-gray-200">658455KHAE</td>
-								<td class="px-4 py-3 border-t-2 border-gray-200">25 Mb/s</td>
-								<td class="px-4 py-3 border-t-2 border-gray-200">25 GB</td>
-								<td
-									class="px-4 py-3 text-lg text-gray-900 border-t-2 border-gray-200"
-								>
-									<code class="inline-flex px-2 text-xs font-semibold leading-5 text-red-800 bg-red-100 rounded-full">Failed</code>
-								</td>
-							</tr>
-							<tr>
-                <td class="px-4 py-3 border-t-2 border-gray-200">3</td>
-								<td class="px-4 py-3 border-t-2 border-gray-200">484657SUSL</td>
-								<td class="px-4 py-3 border-t-2 border-gray-200">36 Mb/s</td>
-								<td class="px-4 py-3 border-t-2 border-gray-200">40 GB</td>
-								<td
-									class="px-4 py-3 text-lg text-gray-900 border-t-2 border-gray-200"
-								>
-									<code class="inline-flex px-2 text-xs font-semibold leading-5 text-red-800 bg-red-100 rounded-full">Failed</code>
-								</td>
-							</tr>
+							<!--
 							<tr>
                 <td class="px-4 py-3 border-t-2 border-b-2 border-gray-200">4</td>
 								<td class="px-4 py-3 border-t-2 border-b-2 border-gray-200">
@@ -104,7 +88,7 @@ export default {
 		const data = await $axios.$get(`api/payment/history`)
 
 		return {data}
-	
+
 	},
 	computed: {
 		totalPrice: function () {

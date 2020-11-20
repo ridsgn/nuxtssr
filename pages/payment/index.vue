@@ -20,9 +20,15 @@
 				<div class="p-4">
 					<h4 class="font-bold text-gray-800">Order Summary</h4>
 					<div class="my-4">
-						<div>
+						<div class="space-y-2">
 							<div class="flex flex-wrap items-center justify-between">
 								<div class="w-48">{{ oneProduct.name }}</div>
+                <code>&times;{{ oneProduct.minimum_order }}</code>
+								<div>IDR {{ this.$route.query.pay === 'down' ? firstPayment : price(oneProduct.price)  }}</div>
+							</div>
+							<div class="flex flex-wrap items-center justify-between">
+								<div class="w-48">{{ oneProduct.name }}</div>
+                <code>&times;{{ oneProduct.minimum_order }}</code>
 								<div>IDR {{ this.$route.query.pay === 'down' ? firstPayment : price(oneProduct.price)  }}</div>
 							</div>
 						</div>
