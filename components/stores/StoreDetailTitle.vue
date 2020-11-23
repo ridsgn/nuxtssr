@@ -17,11 +17,11 @@
 					<div class="text-xs font-normal font-poppins">
 						by
 						<nuxt-link to="/vendors/1" class="font-semibold font-poppins"
-							>HLI Wedding ID</nuxt-link
+							>{{ oneProduct.category }}</nuxt-link
 						>
-						- Happy Merchandise
+						- {{ oneProduct.category }}
 					</div>
-					<div class="pt-1 text-xs font-light font-poppins">Jakarta, ID</div>
+					<div class="pt-1 text-xs font-light font-poppins">{{ oneProduct.city }}, ID</div>
 				</div>
 				<div class="flex items-center justify-end">
 					<div class="mr-2">

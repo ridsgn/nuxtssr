@@ -6,7 +6,7 @@
 					<div
 						class="relative col-span-3 border-2 border-gray-500 border-solid rounded-lg h-28"
 					>
-						<div v-show="afterDiscount" class="absolute -mt-4 -ml-2 lg :mt-1">
+						<div v-show="afterDiscount && isDiscounted" class="absolute -mt-4 -ml-2 lg :mt-1">
 							<div class="w-20 h-8 bg-teal-600 rounded-full">
 								<div class="flex items-center justify-center h-full">
 									<div class="text-sm font-bold text-white">
@@ -19,7 +19,7 @@
 
 						<div class="flex flex-col items-center justify-center h-full pt-2">
 							<div
-								v-show="afterDiscount"
+								v-show="afterDiscount && isDiscounted"
 								class="text-sm font-light leading-none line-through"
 							>
 								IDR {{ price(oneProduct.price) }}
@@ -176,10 +176,13 @@ export default {
 		},
 	},
 	created() {
-		return (this.qty = this.oneProduct.quantity
-			? this.oneProduct.quantity
-			: this.oneProduct.minimum_order);
-	},
+		return this.qty = this.oneProduct.quantity;
+  },
+  computed: {
+    isDiscounted() {
+      return ! this.afterDiscount === this.oneProduct.price
+    }
+  }
 };
 </script>
 

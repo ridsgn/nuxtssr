@@ -17,10 +17,15 @@ extend('confirmed', {
 });
 
 // Add a rule.
-extend('secret', {
-  validate: value => value === 'example',
-  message: 'This is not the magic word'
+extend('positive', {
+  validate: value => value >= 0,
+  message: 'Value must be positive'
 });
+
+// extend('positive', {
+//   validate: value => value >= 0,
+//   message: 'Value must be positive'
+// });
 
 configure({
   classes: {

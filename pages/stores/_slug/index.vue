@@ -1,5 +1,6 @@
 <template>
 	<div class="container mx-auto mt-32">
+    <!-- <the-breadcrumbs class="mb-4"/> -->
 		<StoreDetail v-for="product in products" :key="product.id" />
 		<!-- <pre>{{ product[0] }}</pre> -->
 	</div>

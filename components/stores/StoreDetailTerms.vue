@@ -10,7 +10,7 @@
 				class="p-4 text-xs font-normal leading-relaxed text-left font-poppins"
 			>
 				<p>
-					{{ this.$route.query.vendor ? oneProduct.terms_condition : oneProduct.description }}
+					{{ this.$route.query.vendor ? oneProduct.terms_and_conditions : oneProduct.description }}
 				</p>
 			</div>
 		</div>

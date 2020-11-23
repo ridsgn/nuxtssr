@@ -164,11 +164,13 @@ export const actions = {
     try {
       const order = await this.$axios.$post('api/order', {
         data: product,
-        shipping: ship
+        shipping: ship,
+        vendor: vendor,
       })
 
       const midtrans = await this.$axios.$post('api/payment/get-token', {
-        id_order: order.id_order
+        order_id: order.order_id,
+        vendor: vendor
       })
 
       snap.pay(midtrans.token, {

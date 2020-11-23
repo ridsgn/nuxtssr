@@ -300,6 +300,13 @@
 								>Events</nuxt-link
 							>
 						</li>
+						<li>
+							<nuxt-link
+								class="py-2 font-medium hover:text-teal-500"
+								:to="{ name: 'events' }"
+								>Blogs</nuxt-link
+							>
+						</li>
 						<!-- <li>
 							<nuxt-link class="py-2 hover:text-teal-500 on" :to="{ name: 'blog' }"
 								>Blog</nuxt-link

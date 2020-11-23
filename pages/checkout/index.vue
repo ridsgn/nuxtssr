@@ -37,7 +37,7 @@
 													</nuxt-link>
 												</div>
 												<div class="--product-price">
-													<del class="inline-block"
+													<del v-show="item.product.price !== item.afterDiscount" class="inline-block"
 														>IDR {{ price(item.product.price) }}
 													</del>
 													<b class="inline-block"
@@ -122,16 +122,20 @@
 															<line x1="9" y1="12" x2="15" y2="12" />
 														</svg>
 													</i>
+                          <!-- <ValidationProvider rules="positive" v-slot="{errors}"> -->
 													<input
 														type="text"
 														maxlength="3"
 														onkeyup="this.value = this.value.replace(/\D/g,'')"
 														@keyup="updateQty(item.product.id, $event)"
+														@keydown="updateQty(item.product.id, $event)"
 														@change="updateQty(item.product.id, $event)"
 														class="w-10 text-center bg-transparent"
 														:value="item.quantity"
 														ref="input"
 													/>
+                          <!-- <span>{{ errors[0] }}</span> -->
+                          <!-- </ValidationProvider> -->
 													<i>
 														<svg
 															xmlns="http://www.w3.org/2000/svg"
