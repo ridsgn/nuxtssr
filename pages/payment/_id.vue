@@ -22,8 +22,10 @@
 					<div class="my-4">
 						<div>
 							<div class="flex flex-wrap items-center justify-between">
-								<div class="w-48">{{ oneProduct.name }}</div>
-								<div>IDR {{ this.$route.query.pay === 'down' ? firstPayment : price(oneProduct.price)  }}</div>
+								<!-- <div class="w-48">{{ oneProduct.name }}</div> -->
+								<div class="w-48">oyy</div>
+								<!-- <div>IDR {{ this.$route.query.pay === 'down' ? firstPayment : price(oneProduct.price)  }}</div> -->
+								<div>IDR price(394797324)</div>
 							</div>
 						</div>
 					</div>
@@ -71,7 +73,15 @@ export default {
     midtrans.setAttribute('src', 'https://app.sandbox.midtrans.com/snap/snap.js')
     midtrans.setAttribute('data-client-key', 'SB-Mid-client-Q0fAI3TTlUCQpc4X')
     document.head.appendChild(midtrans)
-  }
+	},
+	created() {
+		this.$store.dispatch('cart/getNego', {
+			id: this.$route.params.id,
+			expires: this.$route.query.expires,
+			signature: this.$route.query.signature
+		});
+		// console.log(this.$route.params.id);
+	}
 };
 </script>
 

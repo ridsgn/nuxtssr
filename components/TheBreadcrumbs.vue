@@ -1,8 +1,5 @@
 <template>
-  <ol
-    vocab="http://schema.org/"
-    typeof="BreadcrumbList"
-  >
+  <ol>
     <li property="itemListElement" typeof="ListItem">
       <NLink property="item" typeof="WebPage" to="/">
         <span class="text-sm" property="name">Home</span>

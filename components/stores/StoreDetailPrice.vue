@@ -169,9 +169,9 @@ export default {
 
 			if (value === 'full')
 			{
-				this.$router.push('/payment?pay=full');
+				this.$router.push('/payment/ugiugiug?pay=full');
 			} else {
-				this.$router.push('/payment?pay=down');
+				this.$router.push('/payment/kuuttiugu?pay=down');
 			}
 		},
 	},

@@ -1,3 +1,5 @@
+// import router from '../.nuxt/router'
+
 const getDefaultState = () => {
   return {
     products: [],
@@ -20,6 +22,10 @@ export const getters = {
   // },
   oneProduct(state) {
     return state.product.product
+  },
+
+  vendorProduct(state) {
+    return state.vendor
   },
   // regex(state, getters) {
   //   return getters.oneProduct.price.replace(/[IDR\s.]/g, '');
@@ -80,6 +86,10 @@ export const mutations = {
 
   VENDOR_PRODUCT(state, { product, date, qty }) {
     state.vendor.push({ product, date, qty })
+  },
+
+  VENDOR_PRODUCT_NEGO(state, nego) {
+    state.vendor.push(nego)
   },
 
   UPDATE_QUANTITY(state, { productId, quantity }) {
@@ -177,8 +187,18 @@ export const actions = {
       // await commit('RESET_STATE')
 
     } catch (e) {
-      console.log(e);
+      // console.log(e);
     }
+  },
+
+  async getNego({ commit }, { id, expires, signature }) {
+    commit('EMPTY_VENDOR', [])
+
+    const nego = await this.$axios.$get(`http://localhost:8000/api/request-payment/${id}?expires=${expires}&signature=${signature}`);
+
+    commit('VENDOR_PRODUCT_NEGO', nego);
+
+    // console.log(nego);
   },
 
   addProductVendor({ commit }, { date, product, qty }) {
@@ -198,9 +218,9 @@ export const actions = {
     commit('REMOVE_ITEM_CART', product);
   },
 
-  async checkAuth({ commit }) {
+  checkAuth({ commit }) {
     if (this.$auth.loggedIn) {
-      await commit('RESET_STATE')
+      commit('RESET_STATE')
       this.$auth.logout()
       this.$router.push('/auth/login');
     }
