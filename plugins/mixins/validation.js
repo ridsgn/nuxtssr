@@ -11,6 +11,7 @@ const Validation = {
 					// souvenir: 'cart/productsSouvenir',
 					// weddingku: 'cart/productsWeddingku',
 					oneProduct: 'cart/oneProduct',
+					vendorProduct: 'cart/vendorProduct',
 					afterDiscount: 'cart/discount',
 					itemCount: 'cart/cartItemCount',
 					totalPrice: 'cart/cartTotalPrice',

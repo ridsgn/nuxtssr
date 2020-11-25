@@ -5,7 +5,7 @@ const getDefaultState = () => {
     products: [],
     product: {},
     cart: [],
-    vendor: []
+    vendor: {},
   }
 }
 
@@ -84,12 +84,12 @@ export const mutations = {
     state.cart.push({ product, afterDiscount, quantity });
   },
 
-  VENDOR_PRODUCT(state, { product, date, qty }) {
-    state.vendor.push({ product, date, qty })
+  VENDOR_PRODUCT(state, { product, date, qty, pay }) {
+    state.vendor.push({ product, date, qty, pay })
   },
 
   VENDOR_PRODUCT_NEGO(state, nego) {
-    state.vendor.push(nego)
+    state.vendor = nego
   },
 
   UPDATE_QUANTITY(state, { productId, quantity }) {
@@ -144,7 +144,7 @@ export const actions = {
     });
   },
 
-  async processOrder({ state, commit }, { shipping, vendor }) {
+  async processOrder({ state, commit }, { shipping, vendor, nego }) {
     const items = vendor ? state.vendor : state.cart
     const product = JSON.parse(JSON.stringify(items))
     const ship = (vendor || !shipping) ? false : shipping
@@ -170,7 +170,8 @@ export const actions = {
 
       const midtrans = await this.$axios.$post('api/payment/get-token', {
         order_id: order.order_id,
-        vendor: vendor
+        vendor: vendor,
+        nego: nego
       })
 
       snap.pay(midtrans.token, {
@@ -194,18 +195,23 @@ export const actions = {
   },
 
   async getNego({ commit }, { id, expires, signature }) {
-    commit('EMPTY_VENDOR', [])
-
-    const nego = await this.$axios.$get(`http://localhost:8000/api/request-payment/${id}?expires=${expires}&signature=${signature}`);
-
-    commit('VENDOR_PRODUCT_NEGO', nego);
+    // commit('EMPTY_VENDOR', [])
+    try {
+      const nego = await this.$axios.$get(`http://localhost:8000/api/request-payment/${id}?expires=${expires}&signature=${signature}`);
+  
+      commit('VENDOR_PRODUCT_NEGO', nego.data);
+    } catch (error) {
+      if (error.response.status === 404) {
+        //
+      }
+    }
 
     // console.log(nego);
   },
 
-  addProductVendor({ commit }, { date, product, qty }) {
+  addProductVendor({ commit }, { date, product, qty, pay }) {
     commit('EMPTY_VENDOR', [])
-    commit('VENDOR_PRODUCT', { date, product, qty })
+    commit('VENDOR_PRODUCT', { date, product, qty, pay })
   },
 
   addProductToCart({ commit }, { product, afterDiscount, quantity }) {

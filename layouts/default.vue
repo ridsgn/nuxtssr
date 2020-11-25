@@ -1,7 +1,6 @@
 <template>
 	<div>
 		<TheHeader />
-		<!-- <the-breadcrumbs class="mt-32" /> -->
 		<nuxt class="min-h-screen mb-10" />
 		<TheFooter />
 	</div>

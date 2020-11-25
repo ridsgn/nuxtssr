@@ -5,7 +5,7 @@
 				<a href="#" class="cursor-pointer">
 					<img
 						class="absolute object-cover w-full h-40 border-b rounded-lg shadow-md cursor-pointer md:h-full"
-						src="https://picsum.photos/160/160"
+						:src="product.admin_image_product"
 						:alt="product.name"
 					/>
 				</a>

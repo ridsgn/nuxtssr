@@ -21,18 +21,21 @@
 					<h4 class="font-bold text-gray-800">Order Summary</h4>
 					<div class="my-4">
 						<div class="space-y-2">
-							<div class="flex flex-wrap items-center justify-between">
-								<div class="w-48">{{ oneProduct.name }}</div>
-                <code>&times;{{ oneProduct.minimum_order }}</code>
-								<div>IDR {{ this.$route.query.pay === 'down' ? firstPayment : price(oneProduct.price)  }}</div>
-							</div>
-							<div class="flex flex-wrap items-center justify-between">
-								<!-- <div class="w-48">{{ oneProduct.name }}</div> -->
-								<div class="w-48">oyy</div>
-                <!-- <code>&times;{{ oneProduct.minimum_order }}</code> -->
-								<!-- <div>IDR {{ this.$route.query.pay === 'down' ? firstPayment : price(oneProduct.price)  }}</div> -->
-								<div>IDR price(394797324)</div>
-							</div>
+							<client-only>
+								<div
+									v-for="item in product"
+									:key="item.index"
+									class="flex flex-wrap items-center justify-between"
+								>
+									<!-- <div>1</div> -->
+									<div class="w-48">{{ item.product.name }}</div>
+									<!-- <div class="w-48">oyy</div> -->
+									<code>&times;{{ item.qty }}</code>
+									<div>IDR {{ item.pay === 'full' ? price(item.product.price) : price(item.product.price * (item.product.down_payment / 100)) }}</div>
+									<!-- <div>IDR {{ price(item.product.price) }}</div> -->
+									<!-- <div>IDR {{price(394797324)}}</div> -->
+								</div>
+							</client-only>
 						</div>
 					</div>
 					<div class="mt-6">
@@ -43,6 +46,7 @@
 						</div>
 					</div>
 				</div>
+				<!-- <pre> {{ product }} </pre> -->
 			</section>
 		</div>
 	</div>
@@ -60,34 +64,46 @@ export default {
 
 			return formatter.format(value);
 		},
-    async processOrder() {
-      await this.$store.dispatch("cart/processOrder", {
-        shipping: false,
-        vendor: true
-      });
-    }
-  },
-  computed: {
-    firstPayment() {
-      let price = this.oneProduct.price * (this.oneProduct.down_payment / 100)
+		async processOrder() {
+			try {
+				await this.$store.dispatch("cart/processOrder", {
+					shipping: false,
+					vendor: true,
+					nego: this.$route.params.id ? this.$route.params.id : false,
+				});
+			} catch (err) {
+				alert(err)
+			}
+		},
+	},
+	computed: {
+		firstPayment() {
+			let price = this.product.price * (this.product.down_payment / 100);
 
-      return this.price(this.oneProduct.price - price)
-    }
-  },
-  mounted() {
-    let midtrans = document.createElement('script')
-    midtrans.setAttribute('src', 'https://app.sandbox.midtrans.com/snap/snap.js')
-    midtrans.setAttribute('data-client-key', 'SB-Mid-client-Q0fAI3TTlUCQpc4X')
-    document.head.appendChild(midtrans)
+			return this.price(this.product.price - price);
+		},
+		product() {
+			return this.$store.state.cart.vendor;
+		},
+	},
+	mounted() {
+		let midtrans = document.createElement("script");
+		midtrans.setAttribute(
+			"src",
+			"https://app.sandbox.midtrans.com/snap/snap.js"
+		);
+		midtrans.setAttribute("data-client-key", "SB-Mid-client-Q0fAI3TTlUCQpc4X");
+		document.head.appendChild(midtrans);
 	},
 	created() {
-		this.$store.dispatch('cart/getNego', {
-			id: this.$route.params.id,
-			expires: this.$route.query.expires,
-			signature: this.$route.query.signature
-		});
-		// console.log(this.$route.params.id);
-	}
+		if (this.$route.query.expires) {
+			this.$store.dispatch("cart/getNego", {
+				id: this.$route.params.id,
+				expires: this.$route.query.expires,
+				signature: this.$route.query.signature,
+			});
+		}
+	},
 };
 </script>
 

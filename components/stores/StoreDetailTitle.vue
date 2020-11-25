@@ -4,7 +4,7 @@
 			<div class="flex flex-grow h-full mx-0">
 				<div class="flex items-center flex-shrink-0 mr-3">
 					<img
-						class="w-12 h-12 rounded-full"
+						class="w-16 h-16 rounded-full"
 						src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
 						alt="Avatar"
 						tabindex="0"
@@ -16,12 +16,12 @@
 					<p class="font-medium truncate font-poppins">{{ capitalize(oneProduct.name) }}</p>
 					<div class="text-xs font-normal font-poppins">
 						by
-						<nuxt-link to="/vendors/1" class="font-semibold font-poppins"
-							>{{ oneProduct.category }}</nuxt-link
+						<nuxt-link :to="`/vendors/${oneProduct.vendor_id}`" class="font-semibold font-poppins"
+							>{{ this.$route.query.vendor ? oneProduct.vendor_name : 'Happy Wedding ID' }}</nuxt-link
 						>
-						- {{ oneProduct.category }}
+						- {{ this.$route.query.vendor ? oneProduct.category : 'Product' }}
 					</div>
-					<div class="pt-1 text-xs font-light font-poppins">{{ oneProduct.city }}, ID</div>
+					<div class="pt-1 text-xs font-light font-poppins">{{ this.$route.query.vendor ? oneProduct.city : 'Jakarta' }}, ID</div>
 				</div>
 				<div class="flex items-center justify-end">
 					<div class="mr-2">

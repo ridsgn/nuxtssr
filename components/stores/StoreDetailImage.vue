@@ -6,7 +6,7 @@
 			:options="swiperOptionTop"
 			ref="swiperTop"
 		>
-			<swiper-slide v-for="(item, index) in oneProduct.image" :key="index"><img class="swiper swiper-slide" :src="item" :alt="item" :style="{ borderRadius: radius + 'px' }"/></swiper-slide>
+			<swiper-slide v-for="(item, index) in oneProduct.image" :key="index" :alt="item" :style="{ borderRadius: radius + 'px', backgroundImage: 'url(' + item + ')' }"></swiper-slide>
 			<!-- <swiper-slide class="slide-2" :style="slide2"></swiper-slide>
 			<swiper-slide class="slide-3" :style="slide3"></swiper-slide>
 			<swiper-slide class="slide-4" :style="slide4"></swiper-slide>
@@ -68,8 +68,9 @@ export default {
 }
 .swiper {
 	.swiper-slide {
-		background-size: cover;
+		background-size: contain;
 		background-position: center;
+		background-repeat: no-repeat; 
 	}
 	&.gallery-top {
 		height: 100%;
@@ -93,17 +94,17 @@ export default {
 
 @media (min-width: 1024px) {
 	.thumb-example {
-		height: 40rem;
+		height: auto;
 	}
 
 	.swiper {
 		&.gallery-top {
-			height: 424px;
+			height: 500px;
 			width: 100%;
 			margin-bottom: 1.3rem;
 		}
 		&.gallery-thumbs {
-			height: 20%;
+			height: 160px;
 			box-sizing: border-box;
 			padding: 2px 0;
 		}
