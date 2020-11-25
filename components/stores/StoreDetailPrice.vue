@@ -189,7 +189,7 @@ export default {
 	},
 	computed: {
 		isDiscounted() {
-			return !this.afterDiscount === this.oneProduct.price;
+			return this.afterDiscount !== this.oneProduct.price;
 		},
 	},
 };

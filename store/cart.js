@@ -123,7 +123,7 @@ export const actions = {
   async getProducts({ commit }) {
     try {
       const products = await this.$axios.$get('api/products')
-      commit('SET_PRODUCTS', products.data);
+      commit('SET_PRODUCTS', products.data.product);
     } catch (e) {
       console.log(e);
     }
