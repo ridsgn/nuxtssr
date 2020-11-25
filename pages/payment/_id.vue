@@ -27,13 +27,19 @@
 									:key="item.index"
 									class="flex flex-wrap items-center justify-between"
 								>
-									<!-- <div>1</div> -->
 									<div class="w-48">{{ item.product.name }}</div>
-									<!-- <div class="w-48">oyy</div> -->
 									<code>&times;{{ item.qty }}</code>
-									<div>IDR {{ item.pay === 'full' ? price(item.product.price) : price(item.product.price * (item.product.down_payment / 100)) }}</div>
-									<!-- <div>IDR {{ price(item.product.price) }}</div> -->
-									<!-- <div>IDR {{price(394797324)}}</div> -->
+									<div>
+										IDR
+										{{
+											item.pay === "full"
+												? price(item.product.price)
+												: price(
+														item.product.price *
+															(item.product.down_payment / 100)
+													)
+										}}
+									</div>
 								</div>
 							</client-only>
 						</div>
@@ -72,16 +78,11 @@ export default {
 					nego: this.$route.params.id ? this.$route.params.id : false,
 				});
 			} catch (err) {
-				alert(err)
+				alert(err);
 			}
 		},
 	},
 	computed: {
-		firstPayment() {
-			let price = this.product.price * (this.product.down_payment / 100);
-
-			return this.price(this.product.price - price);
-		},
 		product() {
 			return this.$store.state.cart.vendor;
 		},

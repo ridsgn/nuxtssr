@@ -71,7 +71,7 @@ export const mutations = {
     state.product = product;
   },
 
-  ADD_TO_CART(state, { product, afterDiscount, quantity }) {
+  ADD_TO_CART(state, { product, afterDiscount, quantity, pay = null }) {
     let productInCart = state.cart.find(item => {
       return item.product.id === product.id;
     })
@@ -81,7 +81,7 @@ export const mutations = {
       return;
     }
 
-    state.cart.push({ product, afterDiscount, quantity });
+    state.cart.push({ product, afterDiscount, quantity, pay });
   },
 
   VENDOR_PRODUCT(state, { product, date, qty, pay }) {
@@ -153,6 +153,7 @@ export const actions = {
       product[index].price = product[index].product.price
       product[index].qty = vendor ? product[index].qty : product[index]['quantity']
       product[index].id_product = product[index].product.id
+      product[index].down_payment = product[index].product.down_payment
       product[index].id_vendor = vendor ? product[index].product.vendor_id : null
       product[index].disc = vendor ? null : product[index].product.disc
 
