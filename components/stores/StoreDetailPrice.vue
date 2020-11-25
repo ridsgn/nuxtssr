@@ -6,7 +6,10 @@
 					<div
 						class="relative col-span-3 border-2 border-gray-500 border-solid rounded-lg h-28"
 					>
-						<div v-show="afterDiscount" class="absolute -mt-4 -ml-2 lg :mt-1">
+						<div
+							v-show="afterDiscount && isDiscounted"
+							class="absolute -mt-4 -ml-2 lg :mt-1"
+						>
 							<div class="w-20 h-8 bg-teal-600 rounded-full">
 								<div class="flex items-center justify-center h-full">
 									<div class="text-sm font-bold text-white">
@@ -19,7 +22,7 @@
 
 						<div class="flex flex-col items-center justify-center h-full pt-2">
 							<div
-								v-show="afterDiscount"
+								v-show="afterDiscount && isDiscounted"
 								class="text-sm font-light leading-none line-through"
 							>
 								IDR {{ price(oneProduct.price) }}
@@ -56,13 +59,19 @@
 						<div
 							class="max-w-sm p-4 text-xs font-normal leading-relaxed text-left font-poppins"
 						>
-							<p>
-								{{
+							<div
+								v-html="
 									this.$route.query.vendor
 										? oneProduct.description
 										: oneProduct.details
-								}}
-							</p>
+								"
+							>
+								<!-- {{
+									this.$route.query.vendor
+										? oneProduct.description
+										: oneProduct.details
+								}} -->
+							</div>
 						</div>
 					</div>
 
@@ -70,7 +79,7 @@
 						<t-button
 							variant="outline"
 							class="flex-1 flex-shrink w-2/4 font-medium"
-							>{{ this.$route.query.vendor ? 'Chat Vendor' : 'Chat' }}</t-button
+							>{{ this.$route.query.vendor ? "Chat Vendor" : "Chat" }}</t-button
 						>
 						<t-button
 							:variant="qty == 0 ? 'disabled' : ''"
@@ -84,9 +93,7 @@
 			</div>
 		</div>
 		<t-modal v-model="showModal" variant="clean">
-			<template v-slot:header>
-				Select Your Service Date
-			</template>
+			<template v-slot:header> Select Your Service Date </template>
 			<div class="flex items-center justify-center">
 				<t-datepicker
 					:disabled-dates="disabledDates"
@@ -104,7 +111,13 @@
 			</div>
 			<template v-slot:footer>
 				<div class="flex justify-between">
-					<t-button variant="outline" @click="processOrder('full')" type="button">{{ loading ? "Please wait..." : "Pay Full" }}</t-button>
+					<t-button
+						variant="outline"
+						@click="processOrder('full')"
+						:disabled="!date"
+						type="button"
+						>{{ loading ? "Please wait..." : "Pay Full" }}</t-button
+					>
 					<t-button
 						@click="processOrder('down')"
 						:disabled="!date"
@@ -164,21 +177,20 @@ export default {
 			this.$store.dispatch("cart/addProductVendor", {
 				date: this.date,
 				product: this.oneProduct,
-        qty: parseInt(this.qty)
-			})
+				qty: parseInt(this.qty),
+				pay: value
+			});
 
-			if (value === 'full')
-			{
-				this.$router.push('/payment?pay=full');
-			} else {
-				this.$router.push('/payment?pay=down');
-			}
+			this.$router.push("/payment");
 		},
 	},
 	created() {
-		return (this.qty = this.oneProduct.quantity
-			? this.oneProduct.quantity
-			: this.oneProduct.minimum_order);
+		return (this.qty = this.oneProduct.quantity);
+	},
+	computed: {
+		isDiscounted() {
+			return !this.afterDiscount === this.oneProduct.price;
+		},
 	},
 };
 </script>

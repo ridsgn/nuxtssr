@@ -1,9 +1,11 @@
+// import router from '../.nuxt/router'
+
 const getDefaultState = () => {
   return {
     products: [],
     product: {},
     cart: [],
-    vendor: []
+    vendor: {},
   }
 }
 
@@ -20,6 +22,10 @@ export const getters = {
   // },
   oneProduct(state) {
     return state.product.product
+  },
+
+  vendorProduct(state) {
+    return state.vendor
   },
   // regex(state, getters) {
   //   return getters.oneProduct.price.replace(/[IDR\s.]/g, '');
@@ -78,8 +84,12 @@ export const mutations = {
     state.cart.push({ product, afterDiscount, quantity });
   },
 
-  VENDOR_PRODUCT(state, { product, date, qty }) {
-    state.vendor.push({ product, date, qty })
+  VENDOR_PRODUCT(state, { product, date, qty, pay }) {
+    state.vendor.push({ product, date, qty, pay })
+  },
+
+  VENDOR_PRODUCT_NEGO(state, nego) {
+    state.vendor = nego
   },
 
   UPDATE_QUANTITY(state, { productId, quantity }) {
@@ -134,7 +144,7 @@ export const actions = {
     });
   },
 
-  async processOrder({ state, commit }, { shipping, vendor }) {
+  async processOrder({ state, commit }, { shipping, vendor, nego }) {
     const items = vendor ? state.vendor : state.cart
     const product = JSON.parse(JSON.stringify(items))
     const ship = (vendor || !shipping) ? false : shipping
@@ -154,11 +164,14 @@ export const actions = {
     try {
       const order = await this.$axios.$post('api/order', {
         data: product,
-        shipping: ship
+        shipping: ship,
+        vendor: vendor,
       })
 
       const midtrans = await this.$axios.$post('api/payment/get-token', {
-        id_order: order.id_order
+        order_id: order.order_id,
+        vendor: vendor,
+        nego: nego
       })
 
       snap.pay(midtrans.token, {
@@ -177,13 +190,28 @@ export const actions = {
       // await commit('RESET_STATE')
 
     } catch (e) {
-      console.log(e);
+      // console.log(e);
     }
   },
 
-  addProductVendor({ commit }, { date, product, qty }) {
+  async getNego({ commit }, { id, expires, signature }) {
+    // commit('EMPTY_VENDOR', [])
+    try {
+      const nego = await this.$axios.$get(`http://localhost:8000/api/request-payment/${id}?expires=${expires}&signature=${signature}`);
+  
+      commit('VENDOR_PRODUCT_NEGO', nego.data);
+    } catch (error) {
+      if (error.response.status === 404) {
+        //
+      }
+    }
+
+    // console.log(nego);
+  },
+
+  addProductVendor({ commit }, { date, product, qty, pay }) {
     commit('EMPTY_VENDOR', [])
-    commit('VENDOR_PRODUCT', { date, product, qty })
+    commit('VENDOR_PRODUCT', { date, product, qty, pay })
   },
 
   addProductToCart({ commit }, { product, afterDiscount, quantity }) {
@@ -198,11 +226,11 @@ export const actions = {
     commit('REMOVE_ITEM_CART', product);
   },
 
-  // async checkAuth({ commit }) {
-  //   if (this.$auth.loggedIn) {
-  //     await commit('RESET_STATE')
-  //     await this.$auth.logout()
-  //     await this.$router.push('/auth/login');
-  //   }
-  // }
+  checkAuth({ commit }) {
+    if (this.$auth.loggedIn) {
+      commit('RESET_STATE')
+      this.$auth.logout()
+      this.$router.push('/auth/login');
+    }
+  }
 }

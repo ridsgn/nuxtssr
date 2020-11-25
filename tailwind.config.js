@@ -5,6 +5,9 @@ module.exports = {
   },
   theme: {
     extend: {
+      screens: {
+        '2xl': '1536px',
+      },
       fontFamily: {
         'display': ['Montserrat'],
         'poppins': ['Poppins'],
