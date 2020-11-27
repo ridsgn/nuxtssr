@@ -5,13 +5,20 @@ module.exports = {
   },
   theme: {
     extend: {
+      colors: {
+        'hw-teal': '#50C3C5',
+        'hw-light-teal': '#E5FBFF',
+        'hw-brown': '#AF9577',
+        'hw-gray': '#B5C9D8',
+      },
       screens: {
         '2xl': '1536px',
       },
       fontFamily: {
         'display': ['Montserrat'],
         'poppins': ['Poppins'],
-        'body': ['Roboto']
+        'body': ['Roboto'],
+        'garamond': ['Cormorant Garamond']
       },
       gridTemplateColumns: {
         'card-4': 'repeat(4, minmax(min-content, max-content))',

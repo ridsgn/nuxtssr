@@ -9,6 +9,10 @@
 						Payment History
 					</h1>
 				</div>
+				<div class="inline-flex mb-2 space-x-2">
+					<t-button>Products</t-button>
+					<t-button>Services</t-button>
+				</div>
 				<div class="w-full mx-auto overflow-auto">
 					<table class="w-full text-left whitespace-no-wrap table-auto">
 						<thead>

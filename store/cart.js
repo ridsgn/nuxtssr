@@ -24,6 +24,14 @@ export const getters = {
     return state.product.product
   },
 
+  // isValid(state) {
+  //   return state.cart.some(product => {
+  //     if (product.product.quantity !== product.quantity) return true;
+
+  //     return false;
+  //   })
+  // },
+
   vendorProduct(state) {
     return state.vendor
   },
@@ -219,8 +227,8 @@ export const actions = {
     commit('ADD_TO_CART', { product, afterDiscount, quantity });
   },
 
-  quantityUpdate({ commit }, { productId, quantity }) {
-    commit('UPDATE_QUANTITY', { productId, quantity });
+  quantityUpdate({ commit }, { productId, quantity, isValid }) {
+    commit('UPDATE_QUANTITY', { productId, quantity, isValid });
   },
 
   removeItemFromCart({ commit }, product) {
