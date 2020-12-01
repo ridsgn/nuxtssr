@@ -68,7 +68,7 @@ export default {
 	},
 	
 	async fetch() {
-		this.vendors = await this.$axios.$get(`http://localhost:8000/api/vendors?filter[category]=${this.category}&filter[vendors_name]=&filter[location]=${this.location}`)
+		this.vendors = await this.$axios.$get(`api/vendors?filter[category]=${this.category}&filter[vendors_name]=&filter[location]=${this.location}`)
 	},
 	// async asyncData({ $axios, error }) {
 	// 	const vendors = await $axios
