@@ -46,12 +46,42 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr v-for="(item, index) in data.data" :key="item.id">
-                <td class="px-4 py-3">{{ index+1 }}</td>
-								<td class="px-4 py-3">{{ new Date(item.date).toDateString() }}</td>
-								<td class="px-4 py-3">{{ item.order_id }}</td>
-								<td class="px-4 py-3">{{ Number(item.price) }}</td>
-								<td class="px-4 py-3"><code :class="{ 'text-yellow-800 bg-yellow-200' : item.status === 'pending' }" class="inline-flex px-2 text-xs font-semibold leading-5 rounded-full">{{ item.status }}</code></td>
+							<tr v-for="(item, index) in data.data[0]" :key="item.id">
+								<td class="px-4 py-6">{{ index + 1 }}</td>
+								<td class="px-4 py-6">
+									{{ new Date(item.date).toDateString() }}
+								</td>
+								<td class="px-4 py-6">{{ item.order_id }}</td>
+								<td class="px-4 py-6">{{ Number(item.price) }}</td>
+								<td class="px-4 py-6">
+									<code
+										:class="{
+											'text-yellow-800 bg-yellow-200':
+												item.status === 'pending',
+										}"
+										class="inline-flex px-2 text-xs font-semibold leading-5 rounded-full"
+										>{{ item.status }}</code
+									>
+								</td>
+								<td>
+									<t-button variant="cta" class="text-xs"
+										><svg
+											xmlns="http://www.w3.org/2000/svg"
+											width="18"
+											height="18"
+											viewBox="0 0 24 24"
+											fill="none"
+											stroke="currentColor"
+											stroke-width="2"
+											stroke-linecap="round"
+											stroke-linejoin="round"
+											class="mr-2 feather feather-info"
+										>
+											<circle cx="12" cy="12" r="10"></circle>
+											<line x1="12" y1="16" x2="12" y2="12"></line>
+											<line x1="12" y1="8" x2="12.01" y2="8"></line></svg
+									><span>Detail</span></t-button>
+								</td>
 							</tr>
 							<!--
 							<tr>
@@ -82,19 +112,33 @@
 <script>
 export default {
 	data() {
-		return {}
+		return {
+			switcher: 0,
+		};
 	},
-	async asyncData ({isDev, route, store, env, params, query, req, res, redirect, error, $axios}) {
-		const data = await $axios.$get(`api/payment/history`)
+	async asyncData({
+		isDev,
+		route,
+		store,
+		env,
+		params,
+		query,
+		req,
+		res,
+		redirect,
+		error,
+		$axios,
+	}) {
+		const data = await $axios.$get(`api/payment/history`);
+		// console.log(data)
 
-		return {data}
-
+		return { data };
 	},
 	computed: {
 		totalPrice: function () {
-			return this.data
-		}
-	}
+			return this.data;
+		},
+	},
 };
 </script>
 

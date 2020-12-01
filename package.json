@@ -23,6 +23,7 @@
     "vee-validate": "^3.4.0",
     "vue-awesome-swiper": "^4.1.1",
     "vue-pure-lightbox": "^3.1.2",
+    "vue-select": "^3.10.8",
     "vue-slim-tabs": "^0.4.0",
     "vue-star-rating": "^1.6.1",
     "vue-tailwind": "^1.2.8",

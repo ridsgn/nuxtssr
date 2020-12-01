@@ -37,7 +37,9 @@
 													</nuxt-link>
 												</div>
 												<div class="--product-price">
-													<del v-show="item.product.price !== item.afterDiscount" class="inline-block"
+													<del
+														v-show="item.product.price !== item.afterDiscount"
+														class="inline-block"
 														>IDR {{ price(item.product.price) }}
 													</del>
 													<b class="inline-block"
@@ -50,8 +52,11 @@
 								</div>
 
 								<div class="--bottom-section">
-									<div class="flex justify-between">
-										<div class="--left-item">catatan</div>
+									<div class="flex items-center justify-between">
+										<div class="--left-item">
+											<!-- <input type="text" name="catatan" id="catatan" /> -->
+											<button type="button" class="text-xs font-medium underline">Tambah catatan</button>
+										</div>
 										<div class="--right-item">
 											<div class="inline-flex space-x-4">
 												<div>
@@ -100,7 +105,7 @@
 												</div>
 
 												<div class="flex">
-													<i>
+													<div>
 														<svg
 															xmlns="http://www.w3.org/2000/svg"
 															class="icon icon-tabler icon-tabler-circle-minus"
@@ -121,8 +126,8 @@
 															<circle cx="12" cy="12" r="9" />
 															<line x1="9" y1="12" x2="15" y2="12" />
 														</svg>
-													</i>
-                          <!-- <ValidationProvider rules="positive" v-slot="{errors}"> -->
+													</div>
+													<!-- <ValidationProvider rules="positive" v-slot="{errors}"> -->
 													<input
 														type="text"
 														maxlength="3"
@@ -134,9 +139,9 @@
 														:value="item.quantity"
 														ref="input"
 													/>
-                          <!-- <span>{{ errors[0] }}</span> -->
-                          <!-- </ValidationProvider> -->
-													<i>
+													<!-- <span>min</span> -->
+													<!-- </ValidationProvider> -->
+													<div>
 														<svg
 															xmlns="http://www.w3.org/2000/svg"
 															class="icon icon-tabler icon-tabler-circle-plus"
@@ -158,10 +163,15 @@
 															<line x1="9" y1="12" x2="15" y2="12" />
 															<line x1="12" y1="9" x2="12" y2="15" />
 														</svg>
-													</i>
+													</div>
 												</div>
 											</div>
 										</div>
+									</div>
+									<div class="flex justify-end">
+										<code v-show="!isValid" class="text-xs"
+											>min. order {{ item.product.quantity }}</code
+										>
 									</div>
 								</div>
 							</div>
@@ -207,8 +217,8 @@
 											<div class="mt-6">
 												<div>
 													<t-button
-														:disabled="totalQty === 0"
-														:variant="totalQty ? 'cta' : 'disabledCta'"
+														:disabled="!isValid"
+														:variant="isValid ? 'cta' : 'disabledCta'"
 														@click="showModal = true"
 														class="w-full"
 														>Buy ({{ totalQty }})
@@ -364,8 +374,8 @@
 							<t-button variant="outline" type="button"> Cancel</t-button>
 							<t-button
 								@click="processOrder()"
-								:disabled="(invalid && !checkbox ) || loading"
-								:variant="{ 'disabled' : (invalid && !checkbox ) || loading }"
+								:disabled="(invalid && !checkbox) || loading"
+								:variant="{ disabled: (invalid && !checkbox) || loading }"
 								>{{ loading ? "Please wait..." : "Proceed" }}</t-button
 							>
 						</div>
@@ -378,6 +388,7 @@
 
 <script>
 export default {
+	name: "Checkout",
 	data() {
 		return {
 			showModal: false,
@@ -404,7 +415,7 @@ export default {
 
 			await this.$store.dispatch("cart/processOrder", {
 				shipping: this.checkbox ? false : this.shipping,
-        vendor: false
+				vendor: false,
 			});
 
 			this.loading = false;
@@ -445,13 +456,28 @@ export default {
 
 			return total;
 		},
+		isValid() {
+			let data = true;
+
+			this.carts.some(item => {
+				if(item.quantity < item.product.quantity) {
+					data = false;
+					return false;
+				}
+			})
+
+			return data;
+		}
 	},
 	mounted() {
-		let midtrans = document.createElement('script')
-		midtrans.setAttribute('src', 'https://app.sandbox.midtrans.com/snap/snap.js')
-		midtrans.setAttribute('data-client-key', 'SB-Mid-client-Q0fAI3TTlUCQpc4X')
-		document.head.appendChild(midtrans)
-	}
+		let midtrans = document.createElement("script");
+		midtrans.setAttribute(
+			"src",
+			"https://app.sandbox.midtrans.com/snap/snap.js"
+		);
+		midtrans.setAttribute("data-client-key", "SB-Mid-client-Q0fAI3TTlUCQpc4X");
+		document.head.appendChild(midtrans);
+	},
 };
 </script>
 

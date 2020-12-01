@@ -1,5 +1,5 @@
 <template>
-	<div class="relative mt-40">
+	<!-- <div class="relative mt-40"> -->
 		<!-- <div v-for="(project, index) in data.data.projects" :key="project.id">
 			<button @click="toggler[index] = !toggler[index]" class="mr-4">
 				<img :src="project.image" alt="haha">
@@ -18,8 +18,8 @@
 			:thumbnail="project.image"
 			:images="project.images"
 		/> -->
-	</div>
-	<!-- <div>
+	<!-- </div> -->
+	<div>
 		<div class="flex items-center justify-center min-h-screen py-6 bg-gray-100">
 			<div class="flex w-full max-w-xs p-4 bg-white">
 				<ul class="flex flex-col w-full">
@@ -276,16 +276,16 @@
 				</ul>
 			</div>
 		</div>
-	</div> -->
+	</div>
 </template>
 
 <script>
 // import FsLightbox from "fslightbox-vue";
-import VuePureLightbox from "vue-pure-lightbox";
-import styles from "vue-pure-lightbox/dist/VuePureLightbox.css";
+// import VuePureLightbox from "vue-pure-lightbox";
+// import styles from "vue-pure-lightbox/dist/VuePureLightbox.css";
 
 export default {
-	components: { VuePureLightbox },
+	// components: { VuePureLightbox },
 	data() {
 		return {
 			toggler: [false, false],

@@ -273,7 +273,7 @@
 					<ul class="flex py-2 mt-6 -mb-px space-x-8 text-sm lg:mt-0">
 						<li>
 							<nuxt-link
-								:to="{ name: 'index' }"
+								:to="{ name: 'discovery' }"
 								class="py-2 font-medium hover:text-teal-500"
 								exact
 								>Home</nuxt-link
