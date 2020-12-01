@@ -18,8 +18,7 @@
 
 <script>
 import VendorList from "~/components/vendors/VendorList";
-// import 'vue-select/dist/vue-select.css';
-// import TheDropdown from "~/components/TheDropdown";
+
 export default {
 	name: "VendorsPage",
 	components: { VendorList },
@@ -61,6 +60,7 @@ export default {
 				{ name: 'Wedding Shoes', 						slug: 'wedding-shoes',					id: 32},
 			],
 			locations: [
+				{ name: 'All Cities', id: ''},
 				{ name: 'Banda Aceh', id: 20},
 				{ name: 'Banyuasin', id: 40}
 			]
@@ -68,7 +68,11 @@ export default {
 	},
 	
 	async fetch() {
-		this.vendors = await this.$axios.$get(`api/vendors?filter[category]=${this.category}&filter[vendors_name]=&filter[location]=${this.location}`)
+		if (this.category != null || this.location != null) {
+			this.vendors = await this.$axios.$get(`api/vendors?filter[category]=${this.category}&filter[vendors_name]=&filter[location]=${this.location}`)
+		} else {
+			this.vendors = await this.$axios.$get(`api/vendors`)
+		}
 	},
 	// async asyncData({ $axios, error }) {
 	// 	const vendors = await $axios
