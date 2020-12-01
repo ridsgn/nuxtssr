@@ -35,6 +35,7 @@ export default {
     { src: '~/plugins/vue-tailwind' },
     { src: '~/plugins/nuxt-swiper-plugin.js', mode: 'client' },
     { src: '~/plugins/persistedState.js', mode: 'client' },
+    { src: '~/plugins/vue-select.js', mode: 'client' },
 
     // "./plugins/mixins/user.js",
     "~/plugins/mixins/validation",
