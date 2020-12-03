@@ -237,7 +237,7 @@ export default {
 		async userRegister() {
 			this.loading = true;
 			try {
-				const res = await this.$axios.post("/register", this.form);
+				const res = await this.$axios.post("api/register", this.form);
 				this.loading = false;
 				if (res.status === 200) {
 					this.res = res.data.message;

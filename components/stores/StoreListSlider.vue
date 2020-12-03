@@ -13,7 +13,12 @@
 
 			<div class="relative px-2 -mt-32 md:px-4 md:-mt-16">
 				<div class="bg-white border rounded-lg shadow-lg">
-					<div class="px-4 pt-3 md:p-5">
+					<div
+						class="px-4 pt-3 md:px-5 md:pt-5"
+						:class="[
+							product.disc ? 'md:pb-3 md:mb-px' : 'pb-6 mb-px md:pb-6 md:mb-2',
+						]"
+					>
 						<div class="flex flex-wrap items-center justify-between">
 							<nuxt-link
 								class="block max-w-xs overflow-hidden text-sm font-medium leading-tight text-gray-800 lg:text-base hover:underline trunk"
@@ -34,10 +39,25 @@
 						</div>
 					</div>
 
-					<div class="flex items-center justify-between px-4 pb-3 mt-3 md:mt-1">
+					<div
+						v-show="product.disc"
+						class="px-4 mt-2 text-xs line-through md:mt-0 md:px-5"
+					>
+						IDR {{ price(product.price) }}
+					</div>
+					<div class="flex items-center justify-between px-4 pb-3 mt-0 md:px-5">
 						<div>
 							<div class="text-lg text-gray-800">
-								<span class="font-semibold">IDR {{ price(product.price) }}</span>
+								<span class="font-semibold"
+									>IDR
+									{{
+										product.disc
+											? price(
+													product.price - product.price * (product.disc / 100)
+											  )
+											: price(product.price)
+									}}</span
+								>
 							</div>
 						</div>
 
@@ -70,16 +90,18 @@ export default {
 	},
 	methods: {
 		price(value) {
-			const formatter = new Intl.NumberFormat('id-ID', {
-				style: 'decimal',
-				currency: 'IDR',
+			const formatter = new Intl.NumberFormat("id-ID", {
+				style: "decimal",
+				currency: "IDR",
 			});
 
 			return formatter.format(value);
 		},
 		capitalize(value) {
-			return value.replace(/\w\S*/g, (w) => (w.replace(/^\w/, (c) => c.toUpperCase())));
-		}
+			return value.replace(/\w\S*/g, (w) =>
+				w.replace(/^\w/, (c) => c.toUpperCase())
+			);
+		},
 	},
 };
 </script>
@@ -88,9 +110,18 @@ export default {
 .trunk {
 	max-height: 3rem;
 	display: -webkit-box;
-	-webkit-line-clamp: 2;
+	-webkit-line-clamp: 1;
 	-webkit-box-orient: vertical;
 }
+
+// .trunk:hover {
+// 	overflow: visible;
+// 	display: -webkit-box;
+// 	-webkit-line-clamp: 3;
+// 	-webkit-box-orient: vertical;
+// 	white-space: normal;
+// 	height: auto; /* just added this line */
+// }
 
 @media (min-width: 640px) {
 	.trunk {

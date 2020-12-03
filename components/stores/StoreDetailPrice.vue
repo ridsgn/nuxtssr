@@ -77,8 +77,11 @@
 
 					<div class="flex justify-between space-x-3">
 						<t-button
+							tagName="a"
+							:href="link"
 							variant="outline"
 							class="flex-1 flex-shrink w-2/4 font-medium"
+							target="_blank"
 							>{{ this.$route.query.vendor ? "Chat Vendor" : "Chat" }}</t-button
 						>
 						<t-button
@@ -86,7 +89,9 @@
 							:disabled="qty == 0"
 							@click="addToCart()"
 							class="flex-grow w-1/4 font-medium"
-							>Order Now</t-button
+							>{{
+								this.$route.query.vendor ? "Order Now" : "Add to Cart"
+							}}</t-button
 						>
 					</div>
 				</div>
@@ -109,10 +114,11 @@
 					</template>
 				</t-datepicker>
 			</div>
+			<p v-show="!oneProduct.down_payment" class="mt-2 text-xs text-center text-gray-500">*this product don't have installment payment method</p>
 			<template v-slot:footer>
 				<div class="flex justify-between">
 					<t-button
-						variant="outline"
+						:variant="{ outline: !date }"
 						@click="processOrder('full')"
 						:disabled="!date"
 						type="button"
@@ -120,8 +126,8 @@
 					>
 					<t-button
 						@click="processOrder('down')"
-						:disabled="!date"
-						:variant="{ disabled: !date }"
+						:disabled="!date || !oneProduct.down_payment"
+						:variant="{ disabled: !date || !oneProduct.down_payment }"
 						>{{ loading ? "Please wait..." : "Pay in Installments" }}</t-button
 					>
 				</div>
@@ -178,7 +184,7 @@ export default {
 				date: this.date,
 				product: this.oneProduct,
 				qty: parseInt(this.qty),
-				pay: value
+				pay: value,
 			});
 
 			this.$router.push("/payment");
@@ -191,6 +197,9 @@ export default {
 		isDiscounted() {
 			return this.afterDiscount !== this.oneProduct.price;
 		},
+		link() {
+			return `https://api.whatsapp.com/send/?phone=6285395814064&text=Hi+${this.oneProduct.vendor_name}+I%27m+interested+in+your+product+for+sale`
+		}
 	},
 };
 </script>

@@ -3,8 +3,8 @@
 		<!-- <the-dropdown :data="categories"></the-dropdown> -->
 		<client-only>
 
-				<v-select v-model="category" class="mb-4 style-chooser" label="name" :options="categories" :reduce="name => name.id" placeholder="Select Category"></v-select>
-				<v-select v-model="location" class="style-chooser" label="name" :options="locations" :reduce="name => name.id" placeholder="Select City"></v-select>
+				<v-select v-model="category" class="mb-4 style-chooser" label="name" :options="categories" :clearable="false" :reduce="name => name.id" placeholder="Select Category"></v-select>
+				<v-select v-model="location" class="style-chooser" label="name" :options="locations" :clearable="false" :reduce="name => name.id" placeholder="Select City"></v-select>
 
 		</client-only>
 		<button @click="$fetch">Click</button>

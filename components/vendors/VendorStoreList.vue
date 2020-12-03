@@ -59,9 +59,9 @@
 			</div>
 			<div class="flex min-w-0">
 				<div class="flex flex-col min-w-0 leading-none">
-					<p class="mb-1 text-xs font-thin line-through">25.000.000</p>
+					<p class="mb-1 text-xs font-thin line-through">IDR 25.000.000</p>
 					<h1 class="text-xl font-semibold tracking-wide">
-						{{ price(product.price) }}
+						IDR {{ price(product.price) }}
 					</h1>
 				</div>
 				<div

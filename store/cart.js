@@ -96,8 +96,8 @@ export const mutations = {
     state.vendor.push({ product, date, qty, pay })
   },
 
-  VENDOR_PRODUCT_NEGO(state, nego) {
-    state.vendor = nego
+  VENDOR_PRODUCT_NEGO(state, product) {
+    state.vendor = Object.values(product.product);
   },
 
   UPDATE_QUANTITY(state, { productId, quantity }) {
@@ -122,6 +122,12 @@ export const mutations = {
 
   EMPTY_VENDOR(state) {
     state.vendor = [];
+  },
+
+  REDIRECT(state, url) {
+    if (process.browser) {
+      window.location.replace(url);
+    }
   }
 }
 
@@ -170,54 +176,51 @@ export const actions = {
       delete product[index].product
     }
 
-    try {
-      const order = await this.$axios.$post('api/order', {
-        data: product,
-        shipping: ship,
-        vendor: vendor,
-      })
+    const order = await this.$axios.$post('api/order', {
+      data: product,
+      shipping: ship,
+      vendor: vendor,
+    })
 
-      const midtrans = await this.$axios.$post('api/payment/get-token', {
-        order_id: order.order_id,
-        vendor: vendor,
-        nego: nego
-      })
+    const midtrans = await this.$axios.$post('api/payment/get-token', {
+      order_id: order.order_id,
+      vendor: vendor,
+      nego: nego
+    })
 
-      snap.pay(midtrans.token, {
-        onSuccess(result) {
-          console.log('success');
-          console.log(result);
-          // commit('RESET_STATE')
-        },
-        onPending(result) {
-          console.log('pending');
-          console.log(result);
-          commit('RESET_STATE')
-        }
-      });
-
-      // await commit('RESET_STATE')
-
-    } catch (e) {
-      // console.log(e);
-    }
+    snap.pay(midtrans.token, {
+      onSuccess(result) {
+        console.log('success');
+        // this.app.router.push(result.finish_redirect_url)
+        commit('RESET_STATE')
+      },
+      onPending(result) {
+        console.log('pending');
+        // console.log(result);
+        commit('REDIRECT', result.finish_redirect_url)
+        commit('RESET_STATE')
+      }
+    });
   },
 
   async getNego({ commit }, { id, expires, signature }) {
     // commit('EMPTY_VENDOR', [])
-    try {
-      const nego = await this.$axios.$get(`http://localhost:8000/api/request-payment/${id}?expires=${expires}&signature=${signature}`);
-  
-      commit('VENDOR_PRODUCT_NEGO', nego.data);
-    } catch (error) {
-      if (error.response.status === 404) {
-        //
-      }
-    }
-
-    // console.log(nego);
+    // commit('RESET_STATE')
+    const nego = await this.$axios.$get(`api/request-payment/${id}?expires=${expires}&signature=${signature}`);
+    console.log(nego);
+    commit('VENDOR_PRODUCT_NEGO', nego.data);
   },
 
+  mampus({ commit }) {
+    commit('EMPTY_VENDOR', [])
+    // commit('RESET_STATE')
+  },
+
+  addProductNegoVendor({ commit }, product) {
+    commit('EMPTY_VENDOR', [])
+    commit('VENDOR_PRODUCT_NEGO', product )
+  },
+  
   addProductVendor({ commit }, { date, product, qty, pay }) {
     commit('EMPTY_VENDOR', [])
     commit('VENDOR_PRODUCT', { date, product, qty, pay })

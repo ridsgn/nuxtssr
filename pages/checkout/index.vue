@@ -394,13 +394,13 @@ export default {
 			showModal: false,
 			loading: false,
 			shipping: {
-				name: "ada isi",
-				phone: "",
-				city: "",
-				postal: "",
-				address: "",
+				name: this.$auth.user.name,
+				phone: this.$auth.user.phone,
+				city: this.$auth.user.city,
+				postal: this.$auth.user.postal_code,
+				address: this.$auth.user.address,
 			},
-			checkbox: false,
+			checkbox: true,
 		};
 	},
 	methods: {
@@ -414,7 +414,7 @@ export default {
 			this.loading = true;
 
 			await this.$store.dispatch("cart/processOrder", {
-				shipping: this.checkbox ? false : this.shipping,
+				shipping: this.shipping,
 				vendor: false,
 			});
 
