@@ -18,7 +18,7 @@ export default {
     middleware: [
       'clearValidationErrors',
       // 'isLoggedIn'
-      // 'auth'
+      'auth'
     ]
   },
 
