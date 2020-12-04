@@ -21,7 +21,7 @@ export default {
 				// 	signature: query.signature,
 				// });
 				// console.log(data)
-				const data = await app.$axios.$get(`http://localhost:8000/api/request-payment/${params.id}?expires=${query.expires}&signature=${query.signature}`);
+				const data = await app.$axios.$get(`api/request-payment/${params.id}?expires=${query.expires}&signature=${query.signature}`);
 				
 				return { data }
 			}
