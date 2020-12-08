@@ -22,7 +22,7 @@ export default {
 				// });
 				// console.log(data)
 				const data = await app.$axios.$get(`api/request-payment/${params.id}?expires=${query.expires}&signature=${query.signature}`);
-				
+				// console.log(data)
 				return { data }
 			}
 			else return;
