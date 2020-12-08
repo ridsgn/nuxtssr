@@ -1,6 +1,44 @@
 import Indonesian from 'vue-tailwind/dist/l10n/id';
 
 export default {
+    TPagination: {
+        classes: {
+            wrapper: 'table border-collapse text-center bg-white mx-auto mt-2',
+            element: 'w-8 h-8 border table-cell',
+            disabledElement: 'w-8 h-8 border table-cell',
+            ellipsisElement: 'w-8 h-8 border table-cell',
+            activeButton: 'bg-gray-300 w-full h-full',
+            disabledButton: 'opacity-25 w-full h-full cursor-not-allowed',
+            button: 'hover:bg-gray-200 w-full h-full',
+            ellipsis: ''
+        },
+        variants: {
+            rounded: {
+                wrapper: 'flex',
+                element: 'w-8 h-8 mx-1',
+                disabledElement: 'w-8 h-8 mx-1',
+                ellipsisElement: 'w-8 h-8 mx-1',
+                activeButton: 'bg-blue-500 w-full h-full text-white rounded-full ',
+                disabledButton: 'opacity-25 w-full h-full cursor-not-allowed rounded-full',
+                button: 'hover:bg-blue-100 w-full h-full text-blue-500 rounded-full ',
+                ellipsis: 'text-gray-500'
+            }
+        }
+    },
+    TTable: {
+        classes: {
+            table: 'shadow min-w-full divide-y divide-gray-200',
+            tbody: 'bg-white divide-y divide-gray-200',
+            td: 'px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-700',
+            theadTh: 'px-6 py-3 border-b border-gray-200 bg-gray-100 text-left text-xs leading-4 text-gray-700 uppercase tracking-wider'
+        },
+        variants: {
+            thin: {
+                td: 'p-1 whitespace-no-wrap text-sm leading-4 text-gray-700',
+                theadTh: 'p-1 border-b border-gray-200 bg-gray-100 text-left text-xs leading-4 font-medium text-gray-700 uppercase tracking-wider'
+            }
+        }
+    },
     TDatepicker: {
         locale: Indonesian,
         fixedClasses: {
@@ -139,6 +177,13 @@ export default {
                 footer: 'bg-gray-100 ',
                 body: 'p-4 text-sm text-gray-700',
                 close: 'bg-blue-100 p-1 flex items-center justify-center leading-normal rounded-full text-blue-80 hover:bg-blue-200'
+            },
+            'clean-full': {
+                modal: 'rounded shadow-lg',
+                wrapper: 'z-50 relative mx-auto my-0 max-w-6xl mt-12',
+                footer: 'bg-gray-100 ',
+                body: 'p-4 text-sm text-gray-700',
+                close: 'bg-blue-100 p-1 flex items-center justify-center leading-normal rounded-full text-blue-80 hover:bg-blue-200'
             }
         }
     },
@@ -179,5 +224,5 @@ export default {
             success: 'text-teal-500 ',
             orange: 'text-orange-500 '
         }
-    }
+    },
 }
