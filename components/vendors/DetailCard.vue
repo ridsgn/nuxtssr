@@ -3,10 +3,7 @@
 		<div
 			class="flex max-w-full mx-auto overflow-hidden bg-white rounded-lg shadow-lg"
 		>
-			<img
-				class="w-32"
-				:src="vendor.image"
-			/>
+			<img class="w-32" :src="vendor.image" />
 
 			<div class="flex flex-col w-6/12 p-4 md:p-4">
 				<h1 class="text-2xl font-bold text-gray-900">{{ vendor.name }}</h1>
@@ -37,7 +34,7 @@
 								<h1 class="text-lg font-medium">Ratings</h1>
 								<div class="flex flex-row">
 									<div class="mr-2 text-2xl font-bold">
-										4.0
+										{{ vendor.rating }}
 									</div>
 									<div>
 										<client-only>
@@ -45,7 +42,7 @@
 												class="mb-1"
 												:increment="0.01"
 												inactive-color="#858720"
-												:rating="4"
+												:rating="vendor.rating"
 												:glow="10"
 												:star-size="18"
 												:show-rating="false"
@@ -56,9 +53,9 @@
 										</client-only>
 									</div>
 								</div>
-								<div class="text-xs font-medium text-teal-500">
+								<!-- <div class="text-xs font-medium text-teal-500">
 									<a class="hover:underline" href>See vendor's statistic</a>
-								</div>
+								</div> -->
 							</div>
 						</div>
 					</div>
@@ -70,7 +67,9 @@
 			<template v-slot:header>
 				<p class="capitalize">{{ vendor.name }}'s Info</p>
 			</template>
-			Lorem, ipsum dolor sit amet consectetur adipisicing elit. Hic, laboriosam quibusdam. Odio debitis id esse libero voluptates doloribus modi assumenda impedit repellat, vel, nostrum totam deleniti laborum quas unde eos.
+			Lorem, ipsum dolor sit amet consectetur adipisicing elit. Hic, laboriosam
+			quibusdam. Odio debitis id esse libero voluptates doloribus modi assumenda
+			impedit repellat, vel, nostrum totam deleniti laborum quas unde eos.
 		</t-modal>
 	</div>
 </template>

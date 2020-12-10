@@ -11,7 +11,7 @@
 				<LazyVendorStores :products="data.products" />
 			</tab>
 			<tab title="Reviews">
-				<LazyVendorReviews :vendor="data" />
+				<LazyVendorReviews :reviews="[data.reviews, data.id]" />
 			</tab>
 		</tabs>
 		<!-- <pre>{{ this.$route.params.slug }}</pre> -->

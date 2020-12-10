@@ -146,7 +146,7 @@ export default {
           user: { url: 'api/user', method: 'get' },
           logout: { url: 'api/logout', method: 'post' }
         },
-        // autoLogout: true
+        autoLogout: true
       }
     }
   },
