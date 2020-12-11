@@ -3,7 +3,7 @@
     <div class="flex">
       <img
         class="w-12 h-12 mr-4 rounded-full"
-        :src="`https://ui-avatars.com/api/?background=random&color=fff&name=${review.username}`"
+        src="https://picsum.photos/100/100.jpg"
         alt="ava"
       />
       <div class="flex flex-col flex-1 min-w-0">

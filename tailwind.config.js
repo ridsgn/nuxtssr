@@ -37,14 +37,9 @@ module.exports = {
       },
     }
   },
-  variants: {
-    extend: {
-      opacity: ['disabled'],
-      cursor: ['disabled'],
-    }
-  },
+  variants: {},
   plugins: [
-    require('@tailwindcss/forms')
+    require('@tailwindcss/custom-forms')
   ],
   purge: {
     // Learn more on https://tailwindcss.com/docs/controlling-file-size/#removing-unused-css
