@@ -48,7 +48,7 @@ export const getters = {
       currency: 'IDR',
     })
 
-    return price - (price * (disc / 100));
+    return disc ? price - (price * (disc / 100)) : 0;
   },
   cartItemCount(state) {
     return state.cart.length;
@@ -180,6 +180,7 @@ export const actions = {
       data: product,
       shipping: ship,
       vendor: vendor,
+      nego: nego
     })
 
     const midtrans = await this.$axios.$post('api/payment/get-token', {
@@ -203,13 +204,13 @@ export const actions = {
     });
   },
 
-  async getNego({ commit }, { id, expires, signature }) {
-    // commit('EMPTY_VENDOR', [])
-    // commit('RESET_STATE')
-    const nego = await this.$axios.$get(`api/request-payment/${id}?expires=${expires}&signature=${signature}`);
-    console.log(nego);
-    commit('VENDOR_PRODUCT_NEGO', nego.data);
-  },
+  // async getNego({ commit }, { id, expires, signature }) {
+  //   // commit('EMPTY_VENDOR', [])
+  //   // commit('RESET_STATE')
+  //   const nego = await this.$axios.$get(`api/request-payment/${id}?expires=${expires}&signature=${signature}`);
+  //   console.log(nego);
+  //   commit('VENDOR_PRODUCT_NEGO', nego.data);
+  // },
 
   mampus({ commit }) {
     commit('EMPTY_VENDOR', [])

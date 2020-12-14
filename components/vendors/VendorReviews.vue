@@ -7,7 +7,7 @@
       <div class="flex">
         <img
           class="w-12 h-12 mr-4 rounded-full"
-          :src="`https://ui-avatars.com/api/?background=random&color=fff&name=${myReview.username}`"
+          :src="`https://ui-avatars.com/api/?background=38b2ac&color=fff&name=${myReview.username}`"
           alt="ava"
         />
         <div class="flex flex-col flex-1 min-w-0">

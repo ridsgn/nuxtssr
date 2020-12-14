@@ -65,7 +65,6 @@
       <t-modal name="details" @before-open="onBeforeOpen" variant="clean-full">
         <template v-slot:header> Order Details </template>
         <div v-if="detail">
-          <detail-history :detail="detail"></detail-history>
           <pre>{{ detail }}</pre>
           <div
             class="flex mb-4 space-x-4"
@@ -111,7 +110,7 @@ export default {
   props: {
     data: {
       required: true,
-      type: Array,
+      type: Object,
     },
   },
 
