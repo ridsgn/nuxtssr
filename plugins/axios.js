@@ -6,6 +6,10 @@ export default function ({ $axios, store, $auth }) {
       store.dispatch('validation/setErrors', error.response.data.errors)
     }
 
+    if (code === 403) {
+      store.dispatch('validation/setErrors', error.response.data.error)
+    }
+
     if (code === 401) {
       store.dispatch('cart/checkAuth');
       store.dispatch('validation/setErrors', error.response.data)

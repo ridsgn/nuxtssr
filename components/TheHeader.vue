@@ -184,83 +184,75 @@
               </div>
             </client-only>
           </div>
-          <client-only>
-            <div
-              class="relative ml-4"
-              @mouseleave="isAva = false"
-              @mouseenter="isAva = true"
-              v-if="$auth.loggedIn"
-            >
-              <div class="flex items-center">
+
+          <div class="ml-4" v-if="$auth.loggedIn">
+            <t-dropdown>
+              <div
+                slot="trigger"
+                slot-scope="{
+                  mousedownHandler,
+                  focusHandler,
+                  blurHandler,
+                  keydownHandler,
+                  isShown,
+                }"
+              >
                 <button
                   id="user-menu"
-                  aria-label="User Menu"
+                  class="flex items-center pr-3 text-sm text-gray-700 transition duration-150 ease-in-out bg-gray-300 border-2 border-gray-200 rounded-full focus:outline-none focus:shadow-solid"
+                  :class="{
+                    'border-gray-300 bg-gray-500 text-white ': isShown,
+                  }"
+                  aria-label="User menu"
                   aria-haspopup="true"
-                  class="transition duration-150 ease-in-out border-2 border-transparent rounded-full focus:outline-none focus:border-gray-700"
+                  @mousedown="mousedownHandler"
+                  @focus="focusHandler"
+                  @blur="blurHandler"
+                  @keydown="keydownHandler"
                 >
                   <img
+                    class="w-8 h-8 mr-2 rounded-full"
                     src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                    alt="avatar"
-                    class="w-6 rounded-full"
+                    alt=""
                   />
+
+                  Hi, {{ $auth.user.name }}!
                 </button>
-                <p class="hidden ml-2 md:block">{{ $auth.user.name }}</p>
               </div>
-              <transition
-                enter-active-class="transition duration-100 ease-out"
-                enter-class="transform scale-95 opacity-0"
-                enter-to-class="transform scale-100 opacity-100"
-                leave-active-class="transition duration-75 ease-in"
-                leave-class="transform scale-100 opacity-100"
-                leave-to-class="transform scale-95 opacity-0"
-              >
-                <div
-                  v-show="isAva"
-                  class="absolute right-0 w-40 mt-1 origin-top-right rounded-md shadow-lg"
-                  @mouseleave="isAva = false"
-                  @mouseenter="isAva = true"
+
+              <div slot-scope="{ hide, blurHandler }">
+                <button
+                  class="block w-full px-4 py-2 text-sm leading-5 text-gray-700 transition duration-150 ease-in-out hover:bg-gray-100 focus:outline-none focus:bg-gray-100"
+                  role="menuitem"
+                  @blur="blurHandler"
                 >
-                  <div
-                    class="py-1 bg-white rounded-md shadow-xs"
-                    role="menu"
-                    aria-orientation="vertical"
-                    aria-labelledby="user-menu"
-                  >
-                    <nuxt-link
-                      :to="{
-                        name: 'user-index',
-                      }"
-                      class="block px-4 py-2 text-sm leading-5 text-gray-700 transition duration-150 ease-in-out hover:bg-gray-100 focus:outline-none focus:bg-gray-100"
-                      role="menuitem"
-                      >{{ $auth.user.name }}</nuxt-link
-                    >
-                    <nuxt-link
-                      :to="{
-                        name: 'user-index',
-                      }"
-                      class="block px-4 py-2 text-sm leading-5 text-gray-700 transition duration-150 ease-in-out hover:bg-gray-100 focus:outline-none focus:bg-gray-100"
-                      role="menuitem"
-                      >Settings</nuxt-link
-                    >
-                    <a
-                      @click.prevent="logout"
-                      role="menuitem"
-                      class="block w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 transition duration-150 ease-in-out cursor-pointer hover:bg-gray-100 focus:outline-none focus:bg-gray-100"
-                      >Logout</a
-                    >
-                  </div>
-                </div>
-              </transition>
-            </div>
-            <div class="ml-4 cursor-pointer" v-else>
-              <t-button
-                class="text-sm font-medium truncate"
-                tagName="a"
-                :to="{ name: 'auth-login' }"
-                >Sign In</t-button
-              >
-            </div>
-          </client-only>
+                  Your Profile
+                </button>
+                <button
+                  class="block w-full px-4 py-2 text-sm leading-5 text-gray-700 transition duration-150 ease-in-out hover:bg-gray-100 focus:outline-none focus:bg-gray-100"
+                  role="menuitem"
+                  @blur="blurHandler"
+                >
+                  Settings
+                </button>
+
+                <button
+                  class="block w-full px-4 py-2 text-sm leading-5 text-red-500 transition duration-150 ease-in-out border-t hover:bg-gray-100 focus:outline-none focus:bg-gray-100"
+                  @click="logout"
+                >
+                  Logout
+                </button>
+              </div>
+            </t-dropdown>
+          </div>
+          <div class="ml-4 cursor-pointer" v-else>
+            <t-button
+              class="text-sm font-medium truncate"
+              tagName="a"
+              :to="{ name: 'auth-login' }"
+              >Sign In</t-button
+            >
+          </div>
         </div>
       </div>
     </header>

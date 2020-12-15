@@ -19,7 +19,7 @@
                             <div class="absolute top-0 left-0 w-20 h-20">
                               <img
                                 class="w-20 h-20 rounded-md"
-                                :src="item.product.img"
+                                :src="item.product.image[0]"
                                 alt="#"
                               />
                             </div>
@@ -35,12 +35,19 @@
                           </nuxt-link>
                         </div>
                         <div class="--product-price">
-                          <del
-                            v-show="item.product.price !== item.afterDiscount"
-                            class="inline-block"
+                          <del v-show="item.afterDiscount" class="inline-block"
                             >IDR {{ price(item.product.price) }}
                           </del>
-                          <b class="inline-block">IDR {{ price(item.afterDiscount) }}</b>
+                          <b class="inline-block"
+                            >IDR
+                            {{
+                              price(
+                                item.afterDiscount
+                                  ? item.afterDiscount
+                                  : item.product.price
+                              )
+                            }}</b
+                          >
                         </div>
                       </div>
                     </div>

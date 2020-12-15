@@ -1,17 +1,17 @@
 <template>
-  <div>this is account</div>
+  <h2>this is notification</h2>
 </template>
 
 <script>
 export default {
   head: {
-    title: "Happy Wedding | User Information",
+    title: "Happy Wedding | Notification",
   },
 };
 </script>
 
 <style scoped>
-div {
+h2 {
   text-align: center;
   margin-top: 100px;
   font-family: sans-serif;

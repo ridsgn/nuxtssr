@@ -1,6 +1,38 @@
 import Indonesian from 'vue-tailwind/dist/l10n/id';
 
 export default {
+    TDropdown: {
+        fixedClasses: {
+            button: 'flex items-center text-white block px-4 py-2 transition duration-100 ease-in-out border border-transparent rounded shadow-sm focus:border-hw-teal focus:ring-2 focus:ring-hw-teal focus:outline-none focus:ring-opacity-50 disabled:opacity-50 disabled:cursor-not-allowed',
+            wrapper: 'inline-flex flex-col',
+            dropdownWrapper: 'relative z-10',
+            dropdown: 'origin-top-left absolute right-0 w-56 rounded shadow mt-1',
+            enterClass: '',
+            enterActiveClass: 'transition ease-out duration-100 transform opacity-0 scale-95',
+            enterToClass: 'transform opacity-100 scale-100',
+            leaveClass: 'transition ease-in transform opacity-100 scale-100',
+            leaveActiveClass: '',
+            leaveToClass: 'transform opacity-0 scale-95 duration-75'
+        },
+        classes: {
+            button: 'bg-gray-200 hover:bg-gray-300',
+            dropdown: 'bg-white'
+        },
+    },
+    TCard: {
+        fixedClasses: {
+            wrapper: 'border rounded shadow-sm ',
+            body: 'px-3 py-8 text-center font-bold',
+            header: 'border-b p-3 rounded-t bg-gray-400 font-semibold',
+            footer: 'border-t p-3 rounded-b'
+        },
+        classes: {
+            wrapper: 'bg-white border-gray-100',
+            body: '',
+            header: 'border-gray-100',
+            footer: 'border-gray-100'
+        },
+    },
     TPagination: {
         classes: {
             wrapper: 'table border-collapse text-center bg-white mx-auto mt-2',
@@ -30,7 +62,7 @@ export default {
             table: 'shadow min-w-full divide-y divide-gray-200',
             tbody: 'bg-white divide-y divide-gray-200',
             td: 'px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-700',
-            theadTh: 'px-6 py-3 border-b border-gray-200 bg-gray-100 text-left text-xs leading-4 text-gray-700 uppercase tracking-wider'
+            theadTh: 'px-6 py-3 border-b border-gray-200 bg-gray-300 text-center text-xs leading-4 text-gray-700 uppercase tracking-wider'
         },
         variants: {
             thin: {

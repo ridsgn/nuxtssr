@@ -1,14 +1,6 @@
 <template>
-  <h2>Please select an user.</h2>
+  <h2>Dashboard</h2>
 </template>
-
-<script>
-export default {
-  head: {
-    title: 'Please select an user'
-  }
-}
-</script>
 
 <style scoped>
 h2 {
