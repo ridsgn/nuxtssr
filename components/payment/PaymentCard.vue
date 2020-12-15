@@ -47,7 +47,7 @@
         </div>
       </div>
     </section>
-    <pre> {{ product }} </pre>
+    <!-- <pre> {{ product }} </pre> -->
   </div>
 </template>
 
