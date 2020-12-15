@@ -1,11 +1,11 @@
 <template>
-  <div>this is account</div>
+  <div>this is password</div>
 </template>
 
 <script>
 export default {
   head: {
-    title: "Happy Wedding | User Information",
+    title: "Happy Wedding | Password",
   },
 };
 </script>
