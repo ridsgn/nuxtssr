@@ -61,7 +61,11 @@ export const getters = {
     let total = 0;
 
     state.cart.forEach(item => {
-      total += (item.afterDiscount * item.quantity)
+      if (item.afterDiscount) {
+        total += (item.afterDiscount * item.quantity)
+      } else {
+        total += (item.product.price * item.quantity)
+      }
     });
 
     return total;
