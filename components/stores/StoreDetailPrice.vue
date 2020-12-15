@@ -26,10 +26,10 @@
               </div>
               <div class="text-2xl font-semibold">
                 IDR
-                {{ price(afterDiscount ? afterDiscount : perItem * qty) }}
+                {{ price(afterDiscount ? afterDiscount * qty : perItem * qty) }}
               </div>
               <code
-                v-if="oneProduct.quantity > 1"
+                v-if="oneProduct.quantity > 1 && this.$route.query.vendor"
                 class="absolute text-xs bottom-0 right-0 mr-1"
               >
                 {{ perItem }} / pcs
