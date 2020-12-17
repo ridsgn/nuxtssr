@@ -7,9 +7,9 @@
       :show="vErrors.length || vErrors.error"
     >
       <ul class="ml-4 list-disc">
-        <li>
-          {{ vErrors.error || vErrors }}
-        </li>
+        {{
+          vErrors.error || vErrors
+        }}
       </ul>
     </t-alert>
     <div
