@@ -106,7 +106,7 @@
                       >
                         <img
                           class="flex items-center justify-center flex-shrink-0 w-10 h-10 mr-4 bg-gray-300 rounded-md"
-                          :src="item.product.img"
+                          :src="item.product.image[0]"
                           alt="#"
                         />
                         <div class="flex max-w-sm">
@@ -118,7 +118,7 @@
                               <div class="text-xs text-gray-600">
                                 {{ item.quantity }} pcs
                               </div>
-                              <div class="self-center text-xs text-gray-600">
+                              <div class="text-xs text-gray-600">
                                 &times;
                                 {{
                                   price(
@@ -225,6 +225,7 @@
                   class="block w-full px-4 py-2 text-sm leading-5 text-gray-700 transition duration-150 ease-in-out hover:bg-gray-100 focus:outline-none focus:bg-gray-100"
                   role="menuitem"
                   @blur="blurHandler"
+                  @click="toProfile"
                 >
                   Your Profile
                 </button>
@@ -232,6 +233,7 @@
                   class="block w-full px-4 py-2 text-sm leading-5 text-gray-700 transition duration-150 ease-in-out hover:bg-gray-100 focus:outline-none focus:bg-gray-100"
                   role="menuitem"
                   @blur="blurHandler"
+                  @click="toSetting"
                 >
                   Settings
                 </button>
@@ -298,21 +300,6 @@
                 >Blogs</nuxt-link
               >
             </li>
-            <!-- <li>
-							<nuxt-link class="py-2 hover:text-teal-500 on" :to="{ name: 'blog' }"
-								>Blog</nuxt-link
-							>
-						</li>
-						<li>
-							<nuxt-link class="py-2 hover:text-teal-500 on" :to="{ name: 'real-wedding' }"
-								>Real Wedding</nuxt-link
-							>
-						</li>
-						<li>
-							<nuxt-link class="py-2 hover:text-teal-500 on" :to="{ name: 'app' }"
-								>Get Our App</nuxt-link
-							>
-						</li> -->
           </ul>
         </div>
       </div>
@@ -328,14 +315,6 @@ export default {
       isAva: false,
       cart: false,
     };
-  },
-  computed: {
-    carts() {
-      return this.$store.state.cart.cart;
-    },
-    isEmptyCart() {
-      return !(typeof this.carts !== "undefined" && this.carts.length > 0);
-    },
   },
   methods: {
     async logout() {
@@ -369,6 +348,20 @@ export default {
       });
 
       return formatter.format(value);
+    },
+    toSetting() {
+      this.$router.push("/user/account");
+    },
+    toProfile() {
+      this.$router.push("/user");
+    },
+  },
+  computed: {
+    carts() {
+      return this.$store.state.cart.cart;
+    },
+    isEmptyCart() {
+      return !(typeof this.carts !== "undefined" && this.carts.length > 0);
     },
   },
 };

@@ -11,7 +11,6 @@
           switcher ? "HLI's Product" : "Vendor's Product"
         }}</t-button>
         <HistoryComponent :data="product" />
-        <!-- <pre>{{ rows.data.historyPayment }}</pre> -->
       </div>
     </section>
   </div>
