@@ -354,8 +354,10 @@
               <t-button variant="outline" type="button"> Cancel</t-button>
               <t-button
                 @click="processOrder()"
-                :disabled="(invalid && !checkbox) || loading"
-                :variant="{ disabled: (invalid && !checkbox) || loading }"
+                :disabled="(invalid && !checkbox) || loading || !shipping.address"
+                :variant="{
+                  disabled: (invalid && !checkbox) || loading || !shipping.address,
+                }"
                 >{{ loading ? "Please wait..." : "Proceed" }}</t-button
               >
             </div>
@@ -469,5 +471,9 @@ export default {
 
 .flex-basis {
   flex-basis: 60%;
+}
+
+textarea {
+  resize: none;
 }
 </style>

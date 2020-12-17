@@ -15,6 +15,10 @@ export default function ({ $axios, store, $auth }) {
       store.dispatch('validation/setErrors', error.response.data)
     }
 
+    // if (code === 200 || code === 201) {
+    //   store.dispatch('validation/setMessage')
+    // }
+
     return Promise.reject(error);
   });
 
