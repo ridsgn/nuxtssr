@@ -22,9 +22,9 @@
           </ul>
         </t-alert>
 
-        <div class="max-w-md mx-auto">
-          <ValidationObserver ref="form" v-slot="{ invalid, reset }">
-            <form action="">
+        <div class="max-w-md mx-auto mt-8">
+          <ValidationObserver readonly ref="form" v-slot="{ invalid }">
+            <form @submit.prevent="save">
               <div class="flex justify-center mb-4 space-x-4">
                 <ValidationProvider
                   class="flex-grow"
@@ -32,18 +32,18 @@
                   v-slot="{ errors, classes }"
                 >
                   <label
-                    class="block mb-2 text-sm font-medium text-gray-600"
-                    for="Recipient Name"
-                    >Recipient Name</label
+                    class="block mb-2 text-xs font-medium text-gray-600"
+                    for="Full Name"
+                    >Full Name</label
                   >
                   <div class="content" :class="classes">
                     <input
-                      id="Recipient Name"
+                      id="Full Name"
                       v-model="shipping.name"
                       class="w-full px-3 py-2 leading-none border border-gray-300 rounded outline-none border-box focus:border-teal-500"
                       type="text"
                       :class="classes"
-                      :disabled="checkbox"
+                      :disabled="!edit"
                     />
                     <span>{{ errors[0] }}</span>
                   </div>
@@ -60,7 +60,7 @@
                       v-model.trim="shipping.phone"
                       class="w-full px-3 py-2 leading-none border border-gray-300 rounded outline-none border-box focus:border-teal-500"
                       type="text"
-                      :disabled="checkbox"
+                      :disabled="!edit"
                       :class="classes"
                     />
                     <span>{{ errors[0] }}</span>
@@ -82,7 +82,7 @@
                       v-model="shipping.city"
                       class="w-full px-3 py-2 leading-none border border-gray-300 rounded outline-none border-box focus:border-teal-500"
                       type="text"
-                      :disabled="checkbox"
+                      :disabled="!edit"
                       :class="classes"
                     />
                     <span>{{ errors[0] }}</span>
@@ -104,7 +104,7 @@
                       v-model.trim="shipping.postal"
                       class="w-full px-3 py-2 leading-none border border-gray-300 rounded outline-none border-box focus:border-teal-500"
                       type="text"
-                      :disabled="checkbox"
+                      :disabled="!edit"
                       :class="classes"
                     />
                     <span>{{ errors[0] }}</span>
@@ -129,12 +129,25 @@
                       class="w-full px-3 py-2 leading-none border border-gray-300 rounded outline-none border-box focus:border-teal-500"
                       type="text"
                       :class="classes"
-                      :disabled="checkbox"
+                      :disabled="!edit"
                       maxlength="200"
                     ></textarea>
                     <span>{{ errors[0] }}</span>
                   </div>
                 </ValidationProvider>
+              </div>
+
+              <div class="mt-8">
+                <t-button
+                  type="submit"
+                  :class="[
+                    'inline float-right font-bold',
+                    { 'cursor-not-allowed': invalid || loading },
+                  ]"
+                  :disabled="invalid || loading"
+                  :variant="{ disabled: invalid || loading }"
+                  >{{ loading ? "Please wait..." : edit ? "Save" : "Edit" }}</t-button
+                >
               </div>
             </form>
           </ValidationObserver>
@@ -151,6 +164,11 @@ export default {
   },
   data() {
     return {
+      res: undefined,
+      alert: false,
+      success: false,
+      loading: false,
+      edit: false,
       shipping: {
         name: this.$auth.user.name,
         phone: this.$auth.user.phone,
@@ -159,6 +177,40 @@ export default {
         address: this.$auth.user.address,
       },
     };
+  },
+  methods: {
+    async save() {
+      if (!this.edit) {
+        this.edit = true;
+        return;
+      }
+
+      try {
+        const res = await this.$axios.$post("api/user", this.shipping);
+        const user = await this.$auth.fetchUser();
+        // console.log(user);
+        this.success = true;
+        this.alert = true;
+
+        this.res = res.message;
+
+        return { res };
+      } catch (err) {
+        this.alert = true;
+      }
+    },
+  },
+  computed: {
+    isCompleted() {
+      return Object.values(this.$auth.user).includes(null) ? false : true;
+    },
+  },
+  mounted() {
+    if (Object.values(this.shipping).includes(null)) {
+      this.edit = true;
+    } else {
+      this.edit = false;
+    }
   },
 };
 </script>
