@@ -100,7 +100,7 @@
                 <t-button
                   type="submit"
                   :class="[
-                    'w-full font-bold',
+                    'inline float-right font-bold',
                     { 'cursor-not-allowed': invalid || loading },
                   ]"
                   :disabled="invalid || loading"
