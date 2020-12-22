@@ -174,6 +174,7 @@ export default {
             cta: 'text-white bg-orange-500 border-0 py-2 px-5 focus:outline-none hover:bg-orange-600 rounded-lg',
             disabledCta: 'text-white bg-orange-500 border-0 py-2 px-5 focus:outline-none rounded-lg opacity-50 cursor-not-allowed',
             outline: 'text-teal-500 bg-transparent border-2 py-2 px-5 focus:outline-none hover:text-teal-600 hover:border-teal-600 rounded-lg',
+            disabledOutline: 'text-gray-500 bg-transparent border-2 py-2 px-5 focus:outline-none cursor-not-allowed rounded-lg',
         }
     },
     TModal: {

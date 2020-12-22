@@ -17,7 +17,12 @@
           </tbody>
         </template>
         <template v-else slot="row" slot-scope="props">
-          <tr :class="[props.trClass, props.rowIndex % 2 === 0 ? 'bg-gray-100' : '']">
+          <tr
+            :class="[
+              props.trClass,
+              props.rowIndex % 2 === 0 ? 'bg-gray-100' : '',
+            ]"
+          >
             <td :class="props.tdClass">
               {{ props.rowIndex + 1 }}
             </td>
@@ -48,8 +53,19 @@
               <t-button
                 @click="$modal.show('details', props.row.order_details)"
                 variant="cta"
+                class="float-left mr-4"
               >
                 <span class="text-xs">Details</span>
+              </t-button>
+              <t-button
+                :disabled="props.row.status !== 'pending'"
+                @click="$modal.show('cancel', props.row.order_id)"
+                :variant="{
+                  outline: props.row.status === 'pending',
+                  disabledOutline: props.row.status !== 'pending',
+                }"
+              >
+                <span class="text-xs">Cancel Order</span>
               </t-button>
             </td>
           </tr>
@@ -88,7 +104,15 @@
           <div class="mb-8">
             <t-card header="Product Details">
               <t-table
-                :headers="['ID', 'Product', 'Price', 'Qty', 'Category', 'Type', 'Action']"
+                :headers="[
+                  'ID',
+                  'Product',
+                  'Price',
+                  'Qty',
+                  'Category',
+                  'Type',
+                  'Action',
+                ]"
                 :data="detail.item_detail"
               >
                 <template v-if="!rows.length" v-slot:tbody="props">
@@ -102,8 +126,13 @@
                     </tr>
                   </tbody>
                 </template>
-                <template slot="row" slot-scope="{ trClass, tdClass, rowIndex, row }">
-                  <tr :class="[trClass, rowIndex % 2 === 0 ? 'bg-gray-100' : '']">
+                <template
+                  slot="row"
+                  slot-scope="{ trClass, tdClass, rowIndex, row }"
+                >
+                  <tr
+                    :class="[trClass, rowIndex % 2 === 0 ? 'bg-gray-100' : '']"
+                  >
                     <td :class="[tdClass]">{{ rowIndex + 1 }}</td>
                     <td :class="[tdClass]">
                       {{ row.product.name }}
@@ -180,11 +209,21 @@
 
       <t-modal name="approve" @before-open="approveBeforeOpen" variant="clean">
         <template v-slot:header> Are you sure ? </template>
-        <p>oyyyy {{ id }}</p>
+        <p>{{ id }}</p>
         <template v-slot:footer>
           <div class="flex justify-between">
             <t-button variant="outline" type="button">Cancel</t-button>
             <t-button @click="processApprove(id)">Terima Barang</t-button>
+          </div>
+        </template>
+      </t-modal>
+      <t-modal name="cancel" @before-open="cancelBeforeOpen" variant="clean">
+        <template v-slot:header> Are you sure to cancel your order ? </template>
+        <p>{{ orderId }}</p>
+        <template v-slot:footer>
+          <div class="flex justify-between">
+            <t-button variant="outline" type="button">No</t-button>
+            <t-button @click="processCancel(orderId)">Yes</t-button>
           </div>
         </template>
       </t-modal>
@@ -203,6 +242,7 @@ export default {
       sortColumn: "",
       detail: undefined,
       id: undefined,
+      orderId: undefined,
       approvedModal: false,
     };
   },
@@ -230,6 +270,19 @@ export default {
         this.$toast.error("Error while approving");
       }
     },
+    async processCancel(id) {
+      try {
+        this.$toast.show("Processing...").goAway(1500);
+        await this.$axios.$post(`api/payment/cancel/${id}`);
+        this.$modal.hide("approve");
+        this.$modal.hide("details");
+        this.$toast.success("Successfully approve").goAway(1500);
+        window.location.reload();
+      } catch (e) {
+        this.$toast.global.my_error();
+        this.$toast.error("Error while approving");
+      }
+    },
     approveBeforeOpen({ params, cancel }) {
       // you can add a condition to cancel the modal opening
       if (false) {
@@ -237,6 +290,14 @@ export default {
       }
 
       this.id = params;
+    },
+    cancelBeforeOpen({ params, cancel }) {
+      // you can add a condition to cancel the modal opening
+      if (false) {
+        cancel();
+      }
+
+      this.orderId = params;
     },
     onBeforeOpen({ params, cancel }) {
       // you can add a condition to cancel the modal opening
