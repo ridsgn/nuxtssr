@@ -112,7 +112,7 @@ export default {
     '/api': {
       target: 'https://dev.happywedding.id',
       // target: 'http://localhost:8000',
-      pathRewrite: { '^/api': '/' }
+      // pathRewrite: { '^/api': '/' }
     }
   },
 
