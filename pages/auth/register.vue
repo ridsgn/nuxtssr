@@ -1,6 +1,6 @@
 <template>
   <div>
-    <!-- <t-alert
+    <t-alert
 			:dismissible="false"
 			variant="danger"
 			class="container w-full max-w-lg mx-auto mt-32"
@@ -21,7 +21,7 @@
 			<ul class="ml-4 list-disc">
 				<li>{{ res }}</li>
 			</ul>
-		</t-alert> -->
+		</t-alert>
     <div
       class="flex flex-col max-w-sm mx-auto mt-20 overflow-hidden bg-white rounded-lg shadow-lg lg:max-w-4xl"
       :class="

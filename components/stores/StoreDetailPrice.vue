@@ -29,7 +29,7 @@
                 {{ price(afterDiscount ? afterDiscount * qty : perItem * qty) }}
               </div>
               <code
-                v-if="oneProduct.quantity > 1 && this.$route.query.vendor"
+                v-if="oneProduct.capacity > 1 && this.$route.query.vendor"
                 class="absolute text-xs bottom-0 right-0 mr-1"
               >
                 {{ perItem }} / pcs
@@ -45,8 +45,8 @@
               v-model="qty"
               class="w-full border-2 border-gray-500 border-solid rounded-lg outline-none justify-self-end p-2 bg-transparent bg-none"
             />
-            <span v-if="qty < oneProduct.quantity" class="text-xs w-full center absolute"
-              >min.order {{ oneProduct.quantity }}</span
+            <span v-if="qty < oneProduct.capacity" class="text-xs w-full center absolute"
+              >min.order {{ oneProduct.capacity }}</span
             >
           </div>
           <cite class="flex items-center justify-start">pcs</cite>
@@ -86,8 +86,8 @@
               >{{ this.$route.query.vendor ? "Chat Vendor" : "Chat" }}</t-button
             >
             <t-button
-              :variant="qty < oneProduct.quantity ? 'disabled' : ''"
-              :disabled="qty < oneProduct.quantity"
+              :variant="qty < oneProduct.capacity ? 'disabled' : ''"
+              :disabled="qty < oneProduct.capacity"
               @click="addToCart()"
               class="flex-grow w-1/4 font-medium"
               >{{ this.$route.query.vendor ? "Order Now" : "Add to Cart" }}</t-button
@@ -192,7 +192,7 @@ export default {
     },
   },
   created() {
-    return (this.qty = this.oneProduct.quantity);
+    return (this.qty = this.oneProduct.capacity);
   },
   computed: {
     isDiscounted() {
@@ -202,7 +202,7 @@ export default {
       return `https://api.whatsapp.com/send/?phone=6285395814064&text=Hi+${this.oneProduct.vendor_name}+I%27m+interested+in+your+product+for+sale`;
     },
     perItem() {
-      return this.oneProduct.price / this.oneProduct.quantity;
+      return this.oneProduct.price / this.oneProduct.capacity;
     },
   },
 };

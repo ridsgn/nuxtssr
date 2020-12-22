@@ -9,7 +9,6 @@
         </div>
 
         <t-alert
-          :dismissible="false"
           :variant="{ danger: !success, success: success }"
           class="container w-full max-w-lg mx-auto"
           :show="alert"
@@ -188,11 +187,12 @@ export default {
       try {
         const res = await this.$axios.$post("api/user", this.shipping);
         const user = await this.$auth.fetchUser();
-        // console.log(user);
+
         this.success = true;
         this.alert = true;
 
         this.res = res.message;
+        this.edit = false;
 
         return { res };
       } catch (err) {

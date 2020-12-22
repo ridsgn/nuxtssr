@@ -15,7 +15,7 @@
 					</p>
 
 					<t-button>
-						<nuxt-link :to="{ name: 'index' }">back to homepage</nuxt-link>
+						<nuxt-link :to="{ name: 'discovery' }">back to homepage</nuxt-link>
 					</t-button>
 				</div>
 				<div class="max-w-lg">
