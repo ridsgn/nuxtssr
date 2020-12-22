@@ -104,15 +104,14 @@ export default {
 
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
   axios: {
-    // baseURL: "https://dev.happywedding.id/",
-    baseURL: "http://ecommerce.test/",
-    // proxy: true
+//     baseURL: "https://dev.happywedding.id/",
+    proxy: true
   },
 
   proxy: {
     '/api': {
-      // target: 'https://dev.happywedding.id',
-      target: 'http://ecommerce.test',
+      target: 'https://dev.happywedding.id',
+      // target: 'http://localhost:8000',
       // pathRewrite: { '^/api': '/' }
     }
   },
@@ -126,8 +125,8 @@ export default {
       'laravelJWT': {
         // scheme: 'refresh',
         provider: 'laravel/jwt',
-        // url: 'https://dev.happywedding.id/',
-        url: 'http://ecommerce.test/',
+        url: 'https://dev.happywedding.id/',
+        // url: 'http://localhost:8000/',
         token: {
           property: 'access_token',
           maxAge: 30 * 60, // 30 minutes of ttl
