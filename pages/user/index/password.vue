@@ -133,10 +133,6 @@ export default {
     };
   },
   methods: {
-    onReset() {
-      this.$refs.form.reset();
-    },
-
     async change() {
       this.$refs.form.validate().then(async (success) => {
         if (!success) {

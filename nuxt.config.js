@@ -104,8 +104,7 @@ export default {
 
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
   axios: {
-    // baseURL: "https://dev.happywedding.id/",
-    // baseURL: "http://localhost:8000/",
+//     baseURL: "https://dev.happywedding.id/",
     proxy: true
   },
 
