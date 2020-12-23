@@ -29,7 +29,7 @@
                 {{ price(afterDiscount ? afterDiscount * qty : perItem * qty) }}
               </div>
               <code
-                v-if="oneProduct.quantity > 1 && this.$route.query.vendor"
+                v-if="oneProduct.quantity > 1 && isVendor"
                 class="absolute text-xs bottom-0 right-0 mr-1"
               >
                 {{ perItem }} / pcs
@@ -45,7 +45,9 @@
               v-model="qty"
               class="w-full border-2 border-gray-500 border-solid rounded-lg outline-none justify-self-end p-2 bg-transparent bg-none"
             />
-            <span v-if="qty < oneProduct.quantity" class="text-xs w-full center absolute"
+            <span
+              v-if="qty < oneProduct.quantity"
+              class="text-xs w-full center absolute"
               >min.order {{ oneProduct.quantity }}</span
             >
           </div>
@@ -62,17 +64,7 @@
             <div
               class="max-w-sm p-4 text-xs font-normal leading-relaxed text-left font-poppins"
             >
-              <div
-                v-html="
-                  this.$route.query.vendor ? oneProduct.description : oneProduct.details
-                "
-              >
-                <!-- {{
-									this.$route.query.vendor
-										? oneProduct.description
-										: oneProduct.details
-								}} -->
-              </div>
+              <div v-html="oneProduct.details"></div>
             </div>
           </div>
 
@@ -80,17 +72,20 @@
             <t-button
               tagName="a"
               :href="link"
+              v-if="isVendor"
               variant="outline"
               class="flex-1 flex-shrink w-2/4 font-medium"
               target="_blank"
-              >{{ this.$route.query.vendor ? "Chat Vendor" : "Chat" }}</t-button
+              >Chat Me</t-button
             >
             <t-button
               :variant="qty < oneProduct.quantity ? 'disabled' : ''"
               :disabled="qty < oneProduct.quantity"
               @click="addToCart()"
               class="flex-grow w-1/4 font-medium"
-              >{{ this.$route.query.vendor ? "Order Now" : "Add to Cart" }}</t-button
+              >{{
+                isVendor ? "Order Now" : "Add to Cart"
+              }}</t-button
             >
           </div>
         </div>
@@ -113,7 +108,10 @@
           </template>
         </t-datepicker>
       </div>
-      <p v-show="!oneProduct.down_payment" class="mt-2 text-xs text-center text-gray-500">
+      <p
+        v-show="!oneProduct.down_payment"
+        class="mt-2 text-xs text-center text-gray-500"
+      >
         *this product don't have installment payment method
       </p>
       <template v-slot:footer>
@@ -139,6 +137,12 @@
 
 <script>
 export default {
+  props: {
+    isVendor: {
+      type: Boolean,
+      required: true
+    }
+  },
   data() {
     return {
       qty: 1,
@@ -167,7 +171,7 @@ export default {
       if (!this.$store.state.auth.loggedIn) {
         this.$router.push("/auth/login");
       } else {
-        if (this.$route.query.vendor) {
+        if (this.isVendor) {
           this.showModal = true;
         } else {
           this.$store.dispatch("cart/addProductToCart", {
@@ -191,8 +195,10 @@ export default {
       this.$router.push("/payment");
     },
   },
-  created() {
-    return (this.qty = this.oneProduct.quantity);
+  mounted() {
+    this.$nextTick(() => {
+      this.qty = this.oneProduct.quantity;
+    });
   },
   computed: {
     isDiscounted() {

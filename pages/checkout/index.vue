@@ -371,6 +371,16 @@
 <script>
 export default {
   name: "Checkout",
+  head() {
+    return {
+      script: [
+        {
+          src: "https://app.sandbox.midtrans.com/snap/snap.js",
+          "data-client-key": "SB-Mid-client-Q0fAI3TTlUCQpc4X",
+        },
+      ],
+    };
+  },
   data() {
     return {
       showModal: false,
@@ -450,12 +460,6 @@ export default {
 
       return data;
     },
-  },
-  mounted() {
-    let midtrans = document.createElement("script");
-    midtrans.setAttribute("src", "https://app.sandbox.midtrans.com/snap/snap.js");
-    midtrans.setAttribute("data-client-key", "SB-Mid-client-Q0fAI3TTlUCQpc4X");
-    document.head.appendChild(midtrans);
   },
 };
 </script>

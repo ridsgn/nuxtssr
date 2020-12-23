@@ -17,11 +17,11 @@
 					<div class="text-xs font-normal font-poppins">
 						by
 						<nuxt-link :to="`/vendors/${oneProduct.vendor_id}`" class="font-semibold font-poppins"
-							>{{ this.$route.query.vendor ? oneProduct.vendor_name : 'Happy Wedding ID' }}</nuxt-link
+							>{{ isVendor ? oneProduct.vendor_name : 'Happy Wedding ID' }}</nuxt-link
 						>
-						- {{ this.$route.query.vendor ? oneProduct.category : 'Product' }}
+						- {{ isVendor ? oneProduct.category : 'Product' }}
 					</div>
-					<div class="pt-1 text-xs font-light font-poppins">{{ this.$route.query.vendor ? oneProduct.city : 'Jakarta' }}, ID</div>
+					<div class="pt-1 text-xs font-light font-poppins">{{ isVendor ? oneProduct.city : 'Jakarta' }}, ID</div>
 				</div>
 				<div class="flex items-center justify-end">
 					<div class="mr-2">
@@ -77,6 +77,12 @@
 
 <script>
 export default {
+  props: {
+    isVendor: {
+      type: Boolean,
+      required: true
+    }
+  },
 	methods: {
 		capitalize(value) {
 			return value.replace(/\w\S*/g, (w) => (w.replace(/^\w/, (c) => c.toUpperCase())));

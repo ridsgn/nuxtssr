@@ -2,7 +2,7 @@
 	<div>
 		<div class="lg:w-8/12">
 			<the-breadcrumbs class="px-4 mb-4 lg:px-0" />
-			<store-detail-title />
+			<store-detail-title :is-vendor="isVendor" />
 		</div>
 		<div class="lg:flex">
 			<div class="lg:w-8/12">
@@ -11,17 +11,24 @@
 				</client-only>
 			</div>
 			<div class="lg:w-4/12">
-				<store-detail-price />
+				<store-detail-price :is-vendor="isVendor" />
 			</div>
 		</div>
 		<div class="lg:w-8/12">
-			<store-detail-terms />
+			<store-detail-terms :is-vendor="isVendor" />
 		</div>
 	</div>
 </template>
 
 <script>
-export default {};
+export default {
+  props: {
+    isVendor: {
+      type: Boolean,
+      required: true
+    }
+  }
+};
 </script>
 
 <style lang="scss" scoped>

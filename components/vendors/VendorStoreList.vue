@@ -2,7 +2,7 @@
 	<div class="">
 		<!-- image wrapper -->
 		<div class="flex items-center justify-center rounded-lg">
-			<nuxt-link :to="{ name: 'stores-slug', params: { slug: product.slug }, query: { vendor: 'true' } }">
+			<nuxt-link :to="{ name: 'stores-vendor-slug', params: { slug: product.slug } }">
 				<img
 					class="rounded-lg"
 					:src="product.images"
