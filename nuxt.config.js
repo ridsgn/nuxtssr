@@ -104,8 +104,8 @@ export default {
 
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
   axios: {
-    baseURL: "http://ecommerce.test/",
-    // proxy: true
+    // baseURL: "http://ecommerce.test/",
+    proxy: true
   },
 
   proxy: {
@@ -125,8 +125,8 @@ export default {
       'laravelJWT': {
         // scheme: 'refresh',
         provider: 'laravel/jwt',
-        // url: 'https://dev.happywedding.id/',
-        url: 'http://ecommerce.test/',
+        url: 'https://dev.happywedding.id/',
+        // url: 'http://ecommerce.test/',
         token: {
           property: 'access_token',
           maxAge: 30 * 60, // 30 minutes of ttl
