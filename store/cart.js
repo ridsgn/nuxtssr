@@ -20,9 +20,9 @@ export const getters = {
   // productsWeddingku(state) {
   //   return state.products.filter(product => product.category === "Wedding Merchandise");
   // },
-  oneProduct(state) {
-    return state.product.product
-  },
+  // oneProduct(state) {
+  //   return state.product.product
+  // },
 
   // isValid(state) {
   //   return state.cart.some(product => {
@@ -125,7 +125,11 @@ export const mutations = {
   },
 
   EMPTY_VENDOR(state) {
-    state.vendor = [];
+    state.vendor = {};
+  },
+
+  EMPTY_PRODUCT(state) {
+    state.product = {}
   },
 
   REDIRECT(state, url) {
@@ -221,11 +225,15 @@ export const actions = {
     // commit('RESET_STATE')
   },
 
+  emptyProduct({ commit }) {
+    commit('EMPTY_PRODUCT', [])
+  },
+
   addProductNegoVendor({ commit }, product) {
     commit('EMPTY_VENDOR', [])
     commit('VENDOR_PRODUCT_NEGO', product )
   },
-  
+
   addProductVendor({ commit }, { date, product, qty, pay }) {
     commit('EMPTY_VENDOR', [])
     commit('VENDOR_PRODUCT', { date, product, qty, pay })

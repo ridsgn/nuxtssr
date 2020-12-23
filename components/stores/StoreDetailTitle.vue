@@ -5,7 +5,7 @@
 				<div class="flex items-center flex-shrink-0 mr-3">
 					<img
 						class="w-16 h-16 rounded-full"
-						:src="oneProduct.photo_profile ? oneProduct.photo_profile : 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80'"
+						:src="product.photo_profile ? product.photo_profile : 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80'"
 						alt="Avatar"
 						tabindex="0"
 					/>
@@ -13,15 +13,15 @@
 				<div
 					class="flex flex-col items-start justify-between flex-grow max-w-xs py-1 mr-2 truncate xl:max-w-full xl:mr-8"
 				>
-					<p class="font-medium truncate font-poppins">{{ capitalize(oneProduct.name) }}</p>
+					<p class="font-medium truncate font-poppins">{{ capitalize(product.name) }}</p>
 					<div class="text-xs font-normal font-poppins">
 						by
-						<nuxt-link :to="`/vendors/${oneProduct.vendor_id}`" class="font-semibold font-poppins"
-							>{{ this.$route.query.vendor ? oneProduct.vendor_name : 'Happy Wedding ID' }}</nuxt-link
+						<nuxt-link :to="`/vendors/${product.vendor_id}`" class="font-semibold font-poppins"
+							>{{ this.$route.query.vendor ? product.vendor_name : 'Happy Wedding ID' }}</nuxt-link
 						>
-						- {{ this.$route.query.vendor ? oneProduct.category : 'Product' }}
+						- {{ this.$route.query.vendor ? product.category : 'Product' }}
 					</div>
-					<div class="pt-1 text-xs font-light font-poppins">{{ this.$route.query.vendor ? oneProduct.city : 'Jakarta' }}, ID</div>
+					<div class="pt-1 text-xs font-light font-poppins">{{ this.$route.query.vendor ? product.city : 'Jakarta' }}, ID</div>
 				</div>
 				<div class="flex items-center justify-end">
 					<div class="mr-2">
@@ -77,6 +77,12 @@
 
 <script>
 export default {
+  props: {
+    product: {
+      type: Object,
+      required: true,
+    }
+  },
 	methods: {
 		capitalize(value) {
 			return value.replace(/\w\S*/g, (w) => (w.replace(/^\w/, (c) => c.toUpperCase())));

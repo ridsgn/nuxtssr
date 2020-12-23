@@ -12,8 +12,8 @@
 				<div
 					v-html="
 						this.$route.query.vendor
-							? oneProduct.terms_and_conditions
-							: oneProduct.description
+							? product.terms_and_conditions
+							: product.description
 					"
 				>
 					<!-- {{ this.$route.query.vendor ? oneProduct.terms_and_conditions : oneProduct.description }} -->
@@ -24,7 +24,14 @@
 </template>
 
 <script>
-export default {};
+export default {
+  props: {
+    product: {
+      type: Object,
+      required: true
+    }
+  }
+};
 </script>
 
 <style lang="scss" scoped>

@@ -10,7 +10,7 @@ const Validation = {
 					message: "validation/message",
 					// souvenir: 'cart/productsSouvenir',
 					// weddingku: 'cart/productsWeddingku',
-					oneProduct: 'cart/oneProduct',
+					// oneProduct: 'cart/oneProduct',
 					vendorProduct: 'cart/vendorProduct',
 					afterDiscount: 'cart/discount',
 					itemCount: 'cart/cartItemCount',

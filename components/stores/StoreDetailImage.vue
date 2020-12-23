@@ -6,7 +6,7 @@
 			:options="swiperOptionTop"
 			ref="swiperTop"
 		>
-			<swiper-slide v-for="(item, index) in oneProduct.image" :key="index" :alt="item" :style="{ backgroundImage: 'url(' + item + ')' }"></swiper-slide>
+			<swiper-slide v-for="(item, index) in product.image" :key="index" :alt="item" :style="{ backgroundImage: 'url(' + item + ')' }"></swiper-slide>
 			<!-- <swiper-slide class="slide-2" :style="slide2"></swiper-slide>
 			<swiper-slide class="slide-3" :style="slide3"></swiper-slide>
 			<swiper-slide class="slide-4" :style="slide4"></swiper-slide>
@@ -18,7 +18,7 @@
 			:options="swiperOptionThumbs"
 			ref="swiperThumbs"
 		>
-			<swiper-slide v-for="(item, index) in oneProduct.image" :key="index" :alt="item" :style="{ backgroundImage: 'url(' + item + ')' }"></swiper-slide>
+			<swiper-slide v-for="(item, index) in product.image" :key="index" :alt="item" :style="{ backgroundImage: 'url(' + item + ')' }"></swiper-slide>
 			<!-- <swiper-slide class="slide-2"></swiper-slide>
 			<swiper-slide class="slide-3"></swiper-slide>
 			<swiper-slide class="slide-4"></swiper-slide>
@@ -32,6 +32,12 @@ export default {
 	name: "StoreDetailImage",
 	title: "Thumbs gallery with Two-way control",
 
+  props: {
+    product: {
+      type: Object,
+      required: true,
+    }
+  },
 	data() {
 		return {
 			swiperOptionTop: {
@@ -70,7 +76,7 @@ export default {
 	.swiper-slide {
 		background-size: contain;
 		background-position: center;
-		background-repeat: no-repeat; 
+		background-repeat: no-repeat;
 	}
 	&.gallery-top {
 		height: 100%;

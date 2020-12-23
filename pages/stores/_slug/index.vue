@@ -1,6 +1,6 @@
 <template>
 	<div class="container mx-auto mt-20 lg:mt-32">
-		<StoreDetail v-for="product in products" :key="product.id" />
+		<StoreDetail v-for="product in products" :key="product.id" :product="products.product" />
 		<!-- <pre>{{ product[0] }}</pre> -->
 	</div>
 </template>
@@ -18,7 +18,7 @@ export default {
 			slug: this.$route.params.slug,
 			vendor: this.$route.query.vendor,
 		});
-	},
+  },
 };
 </script>
 
