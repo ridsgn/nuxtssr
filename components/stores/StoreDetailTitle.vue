@@ -16,12 +16,12 @@
 					<p class="font-medium truncate font-poppins">{{ capitalize(product.name) }}</p>
 					<div class="text-xs font-normal font-poppins">
 						by
-						<nuxt-link :to="`/vendors/${product.vendor_id}`" class="font-semibold font-poppins"
-							>{{ this.$route.query.vendor ? product.vendor_name : 'Happy Wedding ID' }}</nuxt-link
+						<nuxt-link :to="`/vendors/${oneProduct.vendor_id}`" class="font-semibold font-poppins"
+							>{{ isVendor ? oneProduct.vendor_name : 'Happy Wedding ID' }}</nuxt-link
 						>
-						- {{ this.$route.query.vendor ? product.category : 'Product' }}
+						- {{ isVendor ? oneProduct.category : 'Product' }}
 					</div>
-					<div class="pt-1 text-xs font-light font-poppins">{{ this.$route.query.vendor ? product.city : 'Jakarta' }}, ID</div>
+					<div class="pt-1 text-xs font-light font-poppins">{{ isVendor ? oneProduct.city : 'Jakarta' }}, ID</div>
 				</div>
 				<div class="flex items-center justify-end">
 					<div class="mr-2">
@@ -78,9 +78,9 @@
 <script>
 export default {
   props: {
-    product: {
-      type: Object,
-      required: true,
+    isVendor: {
+      type: Boolean,
+      required: true
     }
   },
 	methods: {

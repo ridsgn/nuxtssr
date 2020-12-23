@@ -132,6 +132,10 @@ export const mutations = {
     state.product = {}
   },
 
+  CLEAR_PRODUCT(state) {
+    state.product = {};
+  },
+
   REDIRECT(state, url) {
     if (process.browser) {
       window.location.replace(url);
@@ -152,7 +156,14 @@ export const actions = {
   },
 
   async getProduct({ commit }, { slug, vendor }) {
-    const product = vendor ? await this.$axios.$get(`api/vendor-product/${slug}`) : await this.$axios.$get(`api/product/${slug}`)
+    const product = await this.$axios.$get(`api/product/${slug}`)
+    await commit('CLEAR_PRODUCT', {})
+    commit('SET_PRODUCT', product.data);
+  },
+
+  async vendorProduct({ commit }, { slug } ) {
+    const product = await this.$axios.$get(`api/vendor-product/${slug}`)
+    await commit('CLEAR_PRODUCT', {})
     commit('SET_PRODUCT', product.data);
   },
 
@@ -225,8 +236,8 @@ export const actions = {
     // commit('RESET_STATE')
   },
 
-  emptyProduct({ commit }) {
-    commit('EMPTY_PRODUCT', [])
+  clearProduct({ commit }) {
+    commit('CLEAR_PRODUCT', {})
   },
 
   addProductNegoVendor({ commit }, product) {
