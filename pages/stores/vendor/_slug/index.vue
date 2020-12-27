@@ -1,7 +1,7 @@
 <template>
   <div class="container mx-auto mt-20 lg:mt-32">
-    <StoreDetail v-for="product in products" :key="product.id" is-vendor="isVendor" />
-    <pre>{{ products }}</pre>
+    <StoreDetail v-for="product in products" :key="product.id" :is-vendor="isVendor" />
+    <!-- <pre>{{ products }}</pre> -->
   </div>
 </template>
 

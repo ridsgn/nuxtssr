@@ -104,12 +104,8 @@ export default {
 
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
   axios: {
-<<<<<<< HEAD
-    // baseURL: "http://ecommerce.test/",
-=======
     // baseURL: "https://dev.happywedding.id/",
     // baseURL: "http://localhost:8000/",
->>>>>>> testing-old-branch
     proxy: true
   },
 
@@ -131,11 +127,7 @@ export default {
         // scheme: 'refresh',
         provider: 'laravel/jwt',
         url: 'https://dev.happywedding.id/',
-<<<<<<< HEAD
-        // url: 'http://ecommerce.test/',
-=======
         // url: 'http://localhost:8000/',
->>>>>>> testing-old-branch
         token: {
           property: 'access_token',
           maxAge: 30 * 60, // 30 minutes of ttl

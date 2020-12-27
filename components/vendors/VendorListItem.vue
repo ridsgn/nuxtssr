@@ -11,7 +11,7 @@
         </div>
         <div class="flex flex-col items-center justify-center mt-5">
           <h1 class="text-lg font-semibold tracking-tight text-teal-600 truncate">
-            <nuxt-link :to="`/vendors/${vendor.id}`">{{
+            <nuxt-link :to="`/vendors/${vendor.slug}`">{{
               capitalize(vendor.name)
             }}</nuxt-link>
           </h1>
@@ -43,7 +43,7 @@
               <a href="#">{{ vendor.reviews }} reviews</a>
             </div>
           </div>
-          <a :href="`/vendors/${vendor.id}`">
+          <a :href="`/vendors/${vendor.slug}`">
             <t-button class="w-24 text-xs font-semibold whitespace-no-wrap"
               >Price List</t-button
             >

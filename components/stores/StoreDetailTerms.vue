@@ -1,7 +1,7 @@
 <template>
   <div class="px-4 mt-8 lg:px-0">
     <div
-      class="relative h-full mb-8 border-2 border-gray-500 border-solid rounded-lg xl:inline-flex"
+      class="relative h-full mb-8 border-2 border-gray-500 border-solid rounded-lg xl:flex"
     >
       <div class="absolute pr-1 ml-1 -mt-4 bg-gray-200">
         <div class="font-medium font-poppins">Terms & Conditions</div>

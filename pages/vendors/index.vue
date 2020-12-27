@@ -1,14 +1,13 @@
 <template>
 	<div class="container flex flex-col justify-center mx-auto">
-		<!-- <the-dropdown :data="categories"></the-dropdown> -->
 		<client-only>
 
 				<v-select v-model="category" class="mb-4 style-chooser" label="name" :options="categories" :clearable="false" :reduce="name => name.id" placeholder="Select Category"></v-select>
 				<v-select v-model="location" class="style-chooser" label="name" :options="locations" :clearable="false" :reduce="name => name.id" placeholder="Select City"></v-select>
 
 		</client-only>
-		<button @click="$fetch">Click</button>
-		<p v-if="$fetchState.pending">
+		<t-button :class="['mt-4']" @click="$fetch">Search</t-button>
+		<p v-if="$fetchState.pending" class="flex mt-40 w-full justify-center items-center">
       <span class="loading"></span>
     </p>
     <p v-else-if="$fetchState.error">Error while fetching mountains 🤬</p>
@@ -66,7 +65,7 @@ export default {
 			]
 		};
 	},
-	
+
 	async fetch() {
 		if (this.category != null || this.location != null) {
 			this.vendors = await this.$axios.$get(`api/vendors?filter[category]=${this.category}&filter[vendors_name]=&filter[location]=${this.location}`)

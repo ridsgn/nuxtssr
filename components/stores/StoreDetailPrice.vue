@@ -10,7 +10,7 @@
               <div class="w-20 h-8 bg-teal-600 rounded-full">
                 <div class="flex items-center justify-center h-full">
                   <div class="text-sm font-bold text-white">
-                    {{ product.disc }}%&nbsp;
+                    {{ oneProduct.disc }}%&nbsp;
                   </div>
                   <div class="text-xs font-light text-white">OFF</div>
                 </div>
@@ -22,14 +22,14 @@
                 v-show="afterDiscount && isDiscounted"
                 class="text-sm font-light leading-none line-through"
               >
-                IDR {{ price(product.price) }}
+                IDR {{ price(oneProduct.price) }}
               </div>
               <div class="text-2xl font-semibold">
                 IDR
-                {{ price(afterDiscount ? afterDiscount * qty : perItem * qty) }}
+                {{ price(afterDiscount ? afterDiscount * qty : (qty == oneProduct.capacity ? oneProduct.price : perItem * qty)) }}
               </div>
               <code
-                v-if="oneProduct.quantity > 1 && isVendor"
+                v-if="oneProduct.capacity > 1 && isVendor"
                 class="absolute text-xs bottom-0 right-0 mr-1"
               >
                 {{ perItem }} / pcs
@@ -46,9 +46,9 @@
               class="w-full border-2 border-gray-500 border-solid rounded-lg outline-none justify-self-end p-2 bg-transparent bg-none"
             />
             <span
-              v-if="qty < oneProduct.quantity"
+              v-if="qty < oneProduct.capacity"
               class="text-xs w-full center absolute"
-              >min.order {{ oneProduct.quantity }}</span
+              >min.order {{ oneProduct.capacity }}</span
             >
           </div>
           <cite class="flex items-center justify-start">pcs</cite>
@@ -79,8 +79,8 @@
               >Chat Me</t-button
             >
             <t-button
-              :variant="qty < product.capacity ? 'disabled' : ''"
-              :disabled="qty < product.capacity"
+              :variant="qty < oneProduct.capacity ? 'disabled' : ''"
+              :disabled="qty < oneProduct.capacity"
               @click="addToCart()"
               class="flex-grow w-1/4 font-medium"
               >{{
@@ -109,7 +109,7 @@
         </t-datepicker>
       </div>
       <p
-        v-show="!oneProduct.down_payment"
+        v-if="!oneProduct.down_payment"
         class="mt-2 text-xs text-center text-gray-500"
       >
         *this product don't have installment payment method
@@ -125,8 +125,8 @@
           >
           <t-button
             @click="processOrder('down')"
-            :disabled="!date || !product.down_payment"
-            :variant="{ disabled: !date || !product.down_payment }"
+            :disabled="!date || !oneProduct.down_payment"
+            :variant="{ disabled: !date || !oneProduct.down_payment }"
             >{{ loading ? "Please wait..." : "Pay in Installments" }}</t-button
           >
         </div>
@@ -145,7 +145,7 @@ export default {
   },
   data() {
     return {
-      qty: 2,
+      qty: 1,
       showModal: false,
       loading: false,
       date: "",
@@ -176,7 +176,7 @@ export default {
           this.showModal = true;
         } else {
           this.$store.dispatch("cart/addProductToCart", {
-            product: this.product,
+            product: this.oneProduct,
             afterDiscount: parseInt(this.afterDiscount),
             quantity: parseInt(this.qty),
           });
@@ -188,7 +188,7 @@ export default {
 
       this.$store.dispatch("cart/addProductVendor", {
         date: this.date,
-        product: this.product,
+        product: this.oneProduct,
         qty: parseInt(this.qty),
         pay: value,
       });
@@ -198,19 +198,19 @@ export default {
   },
   mounted() {
     this.$nextTick(() => {
-      this.qty = this.oneProduct.quantity;
+      this.qty = this.oneProduct.capacity;
     });
   },
 
   computed: {
     isDiscounted() {
-      return this.afterDiscount === this.product.price;
+      return this.afterDiscount === this.oneProduct.price;
     },
     link() {
-      return `https://api.whatsapp.com/send/?phone=6285395814064&text=Hi+${this.product.vendor_name}+I%27m+interested+in+your+product+for+sale`;
+      return `https://api.whatsapp.com/send/?phone=6285395814064&text=Hi+${this.oneProduct.vendor_name}+I%27m+interested+in+your+product+for+sale`;
     },
     perItem() {
-      return this.product.price / this.product.capacity;
+      return this.isVendor ? Math.ceil(this.oneProduct.price / this.oneProduct.capacity) : this.oneProduct.price;
     },
   },
 };

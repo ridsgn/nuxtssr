@@ -5,7 +5,7 @@ const getDefaultState = () => {
     products: [],
     product: {},
     cart: [],
-    vendor: {},
+    vendor: [],
   }
 }
 
@@ -20,9 +20,9 @@ export const getters = {
   // productsWeddingku(state) {
   //   return state.products.filter(product => product.category === "Wedding Merchandise");
   // },
-  // oneProduct(state) {
-  //   return state.product.product
-  // },
+  oneProduct(state) {
+    return state.product.product
+  },
 
   // isValid(state) {
   //   return state.cart.some(product => {
@@ -125,11 +125,7 @@ export const mutations = {
   },
 
   EMPTY_VENDOR(state) {
-    state.vendor = {};
-  },
-
-  EMPTY_PRODUCT(state) {
-    state.product = {}
+    state.vendor = [];
   },
 
   CLEAR_PRODUCT(state) {

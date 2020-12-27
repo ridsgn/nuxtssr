@@ -31,7 +31,7 @@
                   item.pay === "full"
                     ? ((item.unit_type === "pax" || item.product.unit_type === "pax")
                       ? price(item.product.price / (item.product.capacity || item.product.quantity))
-                      : price(item.product.price))
+                      : price((item.product.price / item.product.quantity)))
                     : price(item.product.price * (item.product.down_payment / 100))
                 }}
               </div>

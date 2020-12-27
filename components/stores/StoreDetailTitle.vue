@@ -5,7 +5,7 @@
 				<div class="flex items-center flex-shrink-0 mr-3">
 					<img
 						class="w-16 h-16 rounded-full"
-						:src="product.photo_profile ? product.photo_profile : 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80'"
+						:src="oneProduct.photo_profile ? oneProduct.photo_profile : 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80'"
 						alt="Avatar"
 						tabindex="0"
 					/>
@@ -13,7 +13,7 @@
 				<div
 					class="flex flex-col items-start justify-between flex-grow max-w-xs py-1 mr-2 truncate xl:max-w-full xl:mr-8"
 				>
-					<p class="font-medium truncate font-poppins">{{ capitalize(product.name) }}</p>
+					<p class="font-medium truncate font-poppins">{{ capitalize(oneProduct.name) }}</p>
 					<div class="text-xs font-normal font-poppins">
 						by
 						<nuxt-link :to="`/vendors/${oneProduct.vendor_id}`" class="font-semibold font-poppins"
