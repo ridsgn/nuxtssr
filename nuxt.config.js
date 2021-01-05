@@ -62,7 +62,7 @@ export default {
   ],
 
   toast: {
-    position: 'top-center',
+    position: 'bottom-center',
     register: [ // Register custom toasts
       {
         name: 'my-error',
@@ -120,6 +120,7 @@ export default {
   auth: {
     redirect: {
       login: '/auth/login',
+      home: '/discovery'
     },
     localStorage: false,
     strategies: {
@@ -147,7 +148,10 @@ export default {
           logout: { url: 'api/logout', method: 'post' }
         },
         // autoLogout: true
-      }
+      },
+      // google: {
+      //   clientId: '557204879404-bo27uaaiue02pu91spnq15ffni9q5l8e.apps.googleusercontent.com'
+      // }
     }
   },
 

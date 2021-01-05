@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<div class="grid justify-center grid-cols-none gap-5 mt-10 sm:grid-cols-card-2 lg:grid-cols-card-3 xl:grid-cols-card-4">
+		<div class="grid justify-center grid-cols-none gap-5 mt-6 sm:grid-cols-card-2 lg:grid-cols-card-3 xl:grid-cols-card-4">
 			<!-- <p v-if="vendors.data.length < 0">Vendor Not Found</p> -->
       <div class="grid justify-center grid-cols-none gap-5 mt-10 sm:grid-cols-card-2 lg:grid-cols-card-3 xl:grid-cols-card-4" v-if="vendors.length > 0">
         <VendorListItem

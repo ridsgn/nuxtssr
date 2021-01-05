@@ -96,8 +96,8 @@ export const mutations = {
     state.cart.push({ product, afterDiscount, quantity, pay });
   },
 
-  VENDOR_PRODUCT(state, { product, date, qty, pay }) {
-    state.vendor.push({ product, date, qty, pay })
+  VENDOR_PRODUCT(state, { product, date, price, qty, pay }) {
+    state.vendor.push({ product, date, price, qty, pay })
   },
 
   VENDOR_PRODUCT_NEGO(state, product) {
@@ -179,7 +179,7 @@ export const actions = {
     const ship = (vendor || !shipping) ? false : shipping
 
     for (let index = 0; index < product.length; index++) {
-      product[index].price = product[index].product.price
+      product[index].price = vendor && !nego ? product[index].price : product[index].product.price;
       product[index].qty = vendor ? product[index].qty : product[index]['quantity']
       product[index].id_product = nego ? product[index].product.id_product : product[index].product.id
       product[index].down_payment = product[index].product.down_payment
@@ -241,9 +241,9 @@ export const actions = {
     commit('VENDOR_PRODUCT_NEGO', product )
   },
 
-  addProductVendor({ commit }, { date, product, qty, pay }) {
+  addProductVendor({ commit }, { date, product, price, qty, pay }) {
     commit('EMPTY_VENDOR', [])
-    commit('VENDOR_PRODUCT', { date, product, qty, pay })
+    commit('VENDOR_PRODUCT', { date, product, price, qty, pay })
   },
 
   addProductToCart({ commit }, { product, afterDiscount, quantity }) {

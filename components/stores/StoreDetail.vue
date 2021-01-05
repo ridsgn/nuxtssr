@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<div class="lg:w-8/12">
-			<the-breadcrumbs class="px-4 mb-4 lg:px-0" />
+			<the-breadcrumbs class="hidden lg:block px-4 mb-4 lg:px-0" />
 			<store-detail-title :is-vendor="isVendor" />
 		</div>
 		<div class="lg:flex">

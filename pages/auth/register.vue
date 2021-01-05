@@ -82,12 +82,12 @@
                 <ValidationProvider rules="required" v-slot="{ errors, classes }">
                   <label
                     class="block mb-2 text-sm font-medium text-gray-600"
-                    for="Username"
-                    >Username</label
+                    for="Fullname"
+                    >Full Name</label
                   >
                   <div class="content" :class="classes">
                     <input
-                      id="Username"
+                      id="Fullname"
                       v-model.trim="form.username"
                       class="w-full px-3 py-2 leading-none border border-gray-300 rounded outline-none border-box focus:border-teal-500"
                       type="text"
@@ -203,6 +203,7 @@
 <script>
 export default {
   auth: false,
+  // middleware: 'guest',
   data() {
     return {
       res: null,

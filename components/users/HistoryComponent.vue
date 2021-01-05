@@ -266,7 +266,6 @@ export default {
         this.$toast.success("Successfully approve").goAway(1500);
         window.location.reload();
       } catch (e) {
-        this.$toast.global.my_error();
         this.$toast.error("Error while approving");
       }
     },
@@ -279,7 +278,6 @@ export default {
         this.$toast.success("Successfully approve").goAway(1500);
         window.location.reload();
       } catch (e) {
-        this.$toast.global.my_error();
         this.$toast.error("Error while approving");
       }
     },

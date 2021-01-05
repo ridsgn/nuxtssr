@@ -2,72 +2,83 @@
   <div>
     <div
       v-if="myReview"
-      class="py-4 pl-3 pr-6 bg-white border rounded-md shadow-md card mt-6"
+      class=" bg-white hover:bg-gray-100 cursor-pointer border rounded-md shadow-md card mt-6 relative"
     >
-      <div class="flex">
-        <img
-          class="w-12 h-12 mr-4 rounded-full"
-          :src="`https://ui-avatars.com/api/?background=38b2ac&color=fff&name=${myReview.username}`"
-          alt="ava"
-        />
-        <div class="flex flex-col flex-1 min-w-0">
-          <div class="flex items-center justify-between mb-4">
-            <div class="flex flex-col leading-tight">
-              <p class="text-base font-medium">{{ myReview.username }}</p>
-              <span class="text-xs italic font-medium text-gray-400">{{
-                myReview.time
-              }}</span>
-            </div>
-            <div class="flex">
-              <div>
-                <client-only>
-                  <star-rating
-                    class="mb-1"
-                    inactive-color="#858720"
-                    :rating="myReview.rating"
-                    :glow="10"
-                    :star-size="18"
-                    :show-rating="false"
-                    :rounded-corners="true"
-                    :read-only="true"
-                    :star-points="[
-                      23,
-                      2,
-                      14,
-                      17,
-                      0,
-                      19,
-                      10,
-                      34,
-                      7,
-                      50,
-                      23,
-                      43,
-                      38,
-                      50,
-                      36,
-                      34,
-                      46,
-                      19,
-                      31,
-                      17,
-                    ]"
-                  ></star-rating>
-                </client-only>
+    <div class="">
+      <div class="py-4 pl-3 pr-6">
+        <div class="flex">
+          <img
+            class="w-12 h-12 mr-4 rounded-full"
+            :src="`https://ui-avatars.com/api/?background=38b2ac&color=fff&name=${myReview.username}`"
+            alt="ava"
+          />
+          <div class="flex flex-col flex-1 min-w-0">
+            <div class="flex items-center justify-between mb-4">
+              <div class="flex flex-col leading-tight">
+                <p class="text-base font-medium">{{ myReview.username }}</p>
+                <span class="text-xs italic font-medium text-gray-400">{{
+                  myReview.time
+                }}</span>
+              </div>
+              <div class="flex">
+                <div>
+                  <client-only>
+                    <star-rating
+                      class="mb-1"
+                      inactive-color="#858720"
+                      :rating="myReview.rating"
+                      :glow="10"
+                      :star-size="18"
+                      :show-rating="false"
+                      :rounded-corners="true"
+                      :read-only="true"
+                      :star-points="[
+                        23,
+                        2,
+                        14,
+                        17,
+                        0,
+                        19,
+                        10,
+                        34,
+                        7,
+                        50,
+                        23,
+                        43,
+                        38,
+                        50,
+                        36,
+                        34,
+                        46,
+                        19,
+                        31,
+                        17,
+                      ]"
+                    ></star-rating>
+                  </client-only>
+                </div>
               </div>
             </div>
+            <h1 class="mb-4 text-xs italic font-bold">{{ myReview.title }}</h1>
+            <p
+              class="flex flex-wrap text-xs font-normal tracking-tight text-justify"
+            >
+              {{ myReview.review }}
+            </p>
           </div>
-          <h1 class="mb-4 text-xs italic font-bold">{{ myReview.title }}</h1>
-          <p class="flex flex-wrap text-xs font-normal tracking-tight text-justify">
-            {{ myReview.review }}
-          </p>
         </div>
       </div>
     </div>
-    <div v-else class="max-w-sm px-4 py-4 mx-auto mt-6 bg-white rounded-lg shadow-lg">
+    </div>
+    <div
+      v-else
+      class="max-w-sm px-4 py-4 mx-auto mt-6 bg-white rounded-lg shadow-lg"
+    >
       <div class="w-full px-4">
         <h3 class="font-medium tracking-tight">Review this vendor</h3>
-        <p class="py-1 text-sm text-gray-700">give your opinion about this vendor.</p>
+        <p class="py-1 text-sm text-gray-700">
+          give your opinion about this vendor.
+        </p>
         <button
           class="px-3 py-1 mt-2 text-gray-800 bg-gray-100 border border-gray-400 rounded"
           @click="$modal.show('review', reviews[1])"
@@ -184,7 +195,7 @@
     <!-- Review List -->
     <div class="grid grid-flow-row-dense grid-cols-2 gap-6 mt-12 mb-12">
       <vendor-review-list
-        v-for="review in reviewsWithoutMe"
+        v-for="review in publishedReview"
         :key="review.id"
         :review="review"
       ></vendor-review-list>
@@ -241,9 +252,11 @@ export default {
   },
 
   computed: {
-    reviewsWithoutMe() {
+    publishedReview() {
       return this.reviews[0].filter((review) => {
-        return review.user_id !== this.$auth.user.id;
+        return (
+          review.user_id !== this.$auth.user.id && review.status === "publish"
+        );
       });
     },
 

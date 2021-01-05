@@ -44,7 +44,11 @@
               </svg>
             </div>
           </div>
-          <div class="relative ml-4" @mouseenter="cart = true" @mouseleave="cart = false">
+          <div
+            class="hidden lg:block relative ml-4"
+            @mouseenter="cart = true"
+            @mouseleave="cart = false"
+          >
             <div
               v-show="itemCount"
               class="absolute top-0 right-0 px-1 -mt-1 -mr-2 text-xs font-bold text-white bg-red-700 rounded-full"
@@ -88,9 +92,20 @@
                 >
                   <ul
                     class="flex flex-col items-center flex-grow py-4 pr-4 space-y-4"
-                    :class="isEmptyCart ? '' : 'max-h overflow-hidden overflow-y-scroll'"
+                    :class="
+                      isEmptyCart
+                        ? ''
+                        : 'max-h overflow-hidden overflow-y-scroll'
+                    "
                   >
                     <li
+                      v-if="isEmptyCart"
+                      class="flex justify-center w-64 p-4 text-xs bg-gray-200 rounded-md"
+                    >
+                      Its empty, order some at our store
+                    </li>
+                    <li
+                      v-else
                       v-for="item in carts"
                       :key="item.product.id"
                       @click="cart = false"
@@ -157,12 +172,6 @@
                         </svg>
                       </div>
                     </li>
-                    <li
-                      v-show="isEmptyCart"
-                      class="flex justify-center w-64 p-4 text-xs bg-gray-200 rounded-md"
-                    >
-                      Its empty, order some at our store
-                    </li>
                   </ul>
                   <div class="mt-4 mr-4">
                     <div class="flex items-center justify-between py-4">
@@ -200,9 +209,9 @@
                 >
                   <button
                     id="user-menu"
-                    class="flex items-center pr-3 text-sm text-gray-700 transition duration-150 ease-in-out bg-gray-300 border-2 border-gray-200 rounded-full focus:outline-none focus:shadow-solid"
+                    class="flex items-center lg:pr-3 text-sm text-gray-700 transition duration-150 ease-in-out lg:bg-gray-300 lg:border-2 lg:border-gray-200 rounded-full focus:outline-none focus:shadow-solid"
                     :class="{
-                      'border-gray-300 bg-gray-500 text-white ': isShown,
+                      'lg:border-gray-300 lg:bg-gray-500 text-white ': isShown,
                     }"
                     aria-label="User menu"
                     aria-haspopup="true"
@@ -211,17 +220,21 @@
                     @blur="blurHandler"
                     @keydown="keydownHandler"
                   >
-                    <img
-                      class="w-8 h-8 mr-2 rounded-full"
-                      src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                      alt=""
-                    />
+                    <div class="flex-none">
+                      <img
+                        class="w-8 h-8 lg:mr-2 rounded-full"
+                        src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                        alt=""
+                      />
+                    </div>
 
-                    Hi, {{ $auth.user.name }}!
+                    <span class="hidden lg:block"
+                      >Hi, {{ $auth.user.name }}!</span
+                    >
                   </button>
                 </div>
 
-                <div slot-scope="{ hide, blurHandler }">
+                <div slot-scope="{ blurHandler }">
                   <button
                     class="block w-full px-4 py-2 text-sm leading-5 text-gray-700 transition duration-150 ease-in-out hover:bg-gray-100 focus:outline-none focus:bg-gray-100"
                     role="menuitem"
@@ -314,6 +327,7 @@ export default {
   name: "TheHeading",
   data() {
     return {
+      isShown: true,
       isAva: false,
       cart: false,
     };
@@ -331,7 +345,10 @@ export default {
         }
       } else {
         try {
-          await this.$store.dispatch("cart/storeProduct", this.$store.state.auth.user);
+          await this.$store.dispatch(
+            "cart/storeProduct",
+            this.$store.state.auth.user
+          );
 
           await this.$auth.logout();
           location.replace("/auth/login");

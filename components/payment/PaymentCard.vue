@@ -1,7 +1,7 @@
 <template>
   <div class="container flex items-center justify-center h-screen mx-auto">
-    <section class="relative p-0 m-0 overflow-visible bg-white rounded-md shadow">
-      <div class="p-4 border-b-4">
+    <section class="lg:relative p-0 m-0 overflow-visible bg-white rounded-md shadow">
+      <!-- <div class="p-4 border-b-4">
         <div class="">
           <div class="flex">
             <input
@@ -13,7 +13,7 @@
             <t-button variant="disabled" class="w-full">Apply</t-button>
           </div>
         </div>
-      </div>
+      </div> -->
       <div class="p-4">
         <h4 class="font-bold text-gray-800">Order Summary</h4>
         <div class="my-4">
@@ -40,8 +40,8 @@
         </div>
         <div class="mt-6">
           <div>
-            <t-button variant="cta" @click="processOrder()" class="w-full"
-              >Pay Now
+            <t-button :variant="{disabledCta : loading, cta : !loading}" :disabled="loading" @click="processOrder()" class="w-full"
+              >{{loading ? "Please wait..." : "Pay Now"}}
             </t-button>
           </div>
         </div>
@@ -53,6 +53,11 @@
 
 <script>
 export default {
+  data() {
+    return {
+      loading: false,
+    }
+  },
   props: {
     product: {
       required: true,
@@ -70,6 +75,8 @@ export default {
       return formatter.format(value);
     },
     async processOrder() {
+      this.loading = true;
+
       try {
         if (this.$route.query.expires) {
           await this.$store.dispatch("cart/addProductNegoVendor", {
@@ -82,15 +89,24 @@ export default {
             vendor: true,
             nego: this.$route.params.id ? this.$route.params.id : false,
           });
+
+          setTimeout(() => {
+            this.loading = false;
+          }, 2000)
         } else {
           await this.$store.dispatch("cart/processOrder", {
             shipping: false,
             vendor: true,
             nego: this.$route.params.id ? this.$route.params.id : false,
           });
+
+          setTimeout(() => {
+            this.loading = false;
+          }, 2000)
         }
       } catch (err) {
         alert(err);
+        this.loading = false;
       }
     },
   },

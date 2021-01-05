@@ -11,7 +11,7 @@
 
 <script>
 export default {
-  // auth: 'guest',
+  // layout: "mobile",
   name: "PageStore"
 };
 </script>

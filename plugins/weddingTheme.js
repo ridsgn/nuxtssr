@@ -206,7 +206,7 @@ export default {
                 close: 'text-red-700 hover:text-red-600'
             },
             clean: {
-                modal: 'rounded shadow-lg',
+                modal: 'rounded shadow-lg mx-4 lg:mx-0',
                 footer: 'bg-gray-100 ',
                 body: 'p-4 text-sm text-gray-700',
                 close: 'bg-blue-100 p-1 flex items-center justify-center leading-normal rounded-full text-blue-80 hover:bg-blue-200'

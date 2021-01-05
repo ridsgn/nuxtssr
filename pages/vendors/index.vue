@@ -1,12 +1,12 @@
 <template>
-	<div class="container flex flex-col justify-center mx-auto">
+	<div class="container flex flex-col justify-center mt-24 lg:mt-32 mx-auto">
 		<client-only>
 
-				<v-select v-model="category" class="mb-4 style-chooser" label="name" :options="categories" :clearable="false" :reduce="name => name.id" placeholder="Select Category"></v-select>
-				<v-select v-model="location" class="style-chooser" label="name" :options="locations" :clearable="false" :reduce="name => name.id" placeholder="Select City"></v-select>
+				<v-select v-model="category" class="mb-4 px-4 style-chooser" label="name" :options="categories" :clearable="false" :reduce="name => name.id" placeholder="Select Category"></v-select>
+				<v-select v-model="location" class="px-4 style-chooser" label="name" :options="locations" :clearable="false" :reduce="name => name.id" placeholder="Select City"></v-select>
 
 		</client-only>
-		<t-button :class="['mt-4']" @click="$fetch">Search</t-button>
+		<t-button class="mt-4 mx-4" @click="$fetch">Search</t-button>
 		<p v-if="$fetchState.pending" class="flex mt-40 w-full justify-center items-center">
       <span class="loading"></span>
     </p>

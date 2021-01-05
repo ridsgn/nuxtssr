@@ -1,9 +1,7 @@
 <template>
-	<div class="flex flex-col h-screen">
+	<div>
 		<TheHeader />
-		<nuxt class="flex-1 mb-6" />
-		<BottomNavigation class="block lg:hidden"/>
-		<TheFooter class="hidden lg:block" />
+		<nuxt />
 	</div>
 </template>
 

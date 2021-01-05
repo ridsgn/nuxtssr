@@ -26,7 +26,7 @@
               </div>
               <div class="text-2xl font-semibold">
                 IDR
-                {{ price(afterDiscount ? afterDiscount * qty : (qty == oneProduct.capacity ? oneProduct.price : perItem * qty)) }}
+                {{ price(afterDiscount ? afterDiscount * qty : totalPrice) }}
               </div>
               <code
                 v-if="oneProduct.capacity > 1 && isVendor"
@@ -68,19 +68,30 @@
             </div>
           </div>
 
-          <div class="flex justify-between space-x-3">
+          <div :class="['flex justify-between', {'space-x-3': isVendor}]">
+            <div class="flex w-2/4 font-medium" v-if="oneProduct.vendor_phone">
+              <t-button
+                tagName="a"
+                :href="oneProduct.vendor_phone ? link : ''"
+                v-if="isVendor"
+                variant="outline"
+                class="flex-1 flex-shrink w-2/4 font-medium"
+                target="_blank"
+                >Chat Me</t-button
+              >
+            </div>
+            <div class="hidden lg:flex w-2/4 font-medium" v-else>
+              <t-button
+                v-if="isVendor"
+                variant="disabledOutline"
+                class="flex-1 flex-shrink w-2/4 font-medium"
+                disabled
+                >Chat Me</t-button
+              >
+            </div>
             <t-button
-              tagName="a"
-              :href="link"
-              v-if="isVendor"
-              variant="outline"
-              class="flex-1 flex-shrink w-2/4 font-medium"
-              target="_blank"
-              >Chat Me</t-button
-            >
-            <t-button
-              :variant="qty < oneProduct.capacity ? 'disabled' : ''"
-              :disabled="qty < oneProduct.capacity"
+              :variant="qty < oneProduct.capacity || !qty ? 'disabled' : ''"
+              :disabled="qty < oneProduct.capacity || !qty"
               @click="addToCart()"
               class="flex-grow w-1/4 font-medium"
               >{{
@@ -88,6 +99,7 @@
               }}</t-button
             >
           </div>
+          <!-- <span class="text-xs text-gray-500 mt-px w-48">*This vendor doesn't seem to have entered a phone number</span> -->
         </div>
       </div>
     </div>
@@ -116,19 +128,22 @@
       </p>
       <template v-slot:footer>
         <div class="flex justify-between">
-          <t-button
-            :variant="{ outline: !date }"
-            @click="processOrder('full')"
-            :disabled="!date"
-            type="button"
-            >{{ loading ? "Please wait..." : "Pay Full" }}</t-button
-          >
-          <t-button
-            @click="processOrder('down')"
-            :disabled="!date || !oneProduct.down_payment"
-            :variant="{ disabled: !date || !oneProduct.down_payment }"
-            >{{ loading ? "Please wait..." : "Pay in Installments" }}</t-button
-          >
+          <div @mouseenter="hover1 = true" @mouseleave="hover1 = false">
+            <t-button
+              @click="processOrder('full')"
+              :disabled="!date"
+              :variant="{ disabledOutline: !date, outline: date }"
+              >{{ loading ? "Please wait..." : hover1 ? "Pay IDR " + price(totalPrice) : "Pay Full" }}</t-button
+            >
+          </div>
+          <div @mouseenter="hover2 = true" @mouseleave="hover2 = false">
+            <t-button
+              @click="processOrder('down')"
+              :disabled="!date || !oneProduct.down_payment"
+              :variant="{ disabled: !date || !oneProduct.down_payment }"
+              >{{ loading ? "Please wait..." : hover2 ? "Pay IDR " + price(payDown) : "Pay in Installments" }}</t-button
+            >
+          </div>
         </div>
       </template>
     </t-modal>
@@ -146,6 +161,8 @@ export default {
   data() {
     return {
       qty: 1,
+      hover1: false,
+      hover2: false,
       showModal: false,
       loading: false,
       date: "",
@@ -189,6 +206,7 @@ export default {
       this.$store.dispatch("cart/addProductVendor", {
         date: this.date,
         product: this.oneProduct,
+        price: this.totalPrice,
         qty: parseInt(this.qty),
         pay: value,
       });
@@ -207,11 +225,17 @@ export default {
       return this.afterDiscount === this.oneProduct.price;
     },
     link() {
-      return `https://api.whatsapp.com/send/?phone=6285395814064&text=Hi+${this.oneProduct.vendor_name}+I%27m+interested+in+your+product+for+sale`;
+      return `https://api.whatsapp.com/send/?phone=${this.oneProduct.vendor_phone}&text=Hi+${this.oneProduct.vendor_name}+I%27m+interested+in+your+${this.oneProduct.name}+for+sale`;
     },
     perItem() {
       return this.isVendor ? Math.ceil(this.oneProduct.price / this.oneProduct.capacity) : this.oneProduct.price;
     },
+    totalPrice() {
+      return this.qty == this.oneProduct.capacity ? this.oneProduct.price : this.perItem * this.qty
+    },
+    payDown() {
+      return this.totalPrice * (this.oneProduct.down_payment / 100);
+    }
   },
 };
 </script>

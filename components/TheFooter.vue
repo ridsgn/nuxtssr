@@ -28,48 +28,6 @@
 						<h2
 							class="mb-3 text-sm font-medium tracking-widest text-gray-900 title-font"
 						>
-							CATEGORIES
-						</h2>
-						<nav class="mb-10 list-none">
-							<li>
-								<a class="text-gray-600 hover:text-gray-800">First Link</a>
-							</li>
-							<li>
-								<a class="text-gray-600 hover:text-gray-800">Second Link</a>
-							</li>
-							<li>
-								<a class="text-gray-600 hover:text-gray-800">Third Link</a>
-							</li>
-							<li>
-								<a class="text-gray-600 hover:text-gray-800">Fourth Link</a>
-							</li>
-						</nav>
-					</div>
-					<div class="w-full px-4 lg:w-1/4 md:w-1/2">
-						<h2
-							class="mb-3 text-sm font-medium tracking-widest text-gray-900 title-font"
-						>
-							CATEGORIES
-						</h2>
-						<nav class="mb-10 list-none">
-							<li>
-								<a class="text-gray-600 hover:text-gray-800">First Link</a>
-							</li>
-							<li>
-								<a class="text-gray-600 hover:text-gray-800">Second Link</a>
-							</li>
-							<li>
-								<a class="text-gray-600 hover:text-gray-800">Third Link</a>
-							</li>
-							<li>
-								<a class="text-gray-600 hover:text-gray-800">Fourth Link</a>
-							</li>
-						</nav>
-					</div>
-					<div class="w-full px-4 lg:w-1/4 md:w-1/2">
-						<h2
-							class="mb-3 text-sm font-medium tracking-widest text-gray-900 title-font"
-						>
 							SUBSCRIBE
 						</h2>
 						<div
@@ -114,7 +72,7 @@
 								d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"
 							></path>
 						</svg>
-						<span class="ml-3 text-xl">Happy Life ID</span>
+						<span class="ml-3 text-xl">Happy Wedding</span>
 					</a>
 					<p class="mt-4 text-sm text-gray-500 sm:ml-6 sm:mt-0">
 						© 2020 Happy Life ID —

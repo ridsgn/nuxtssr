@@ -13,8 +13,8 @@
           >Slide {{ test }}</swiper-slide
         >
 
-        <div class="swiper-button-prev" slot="button-prev"></div>
-        <div class="swiper-button-next" slot="button-next"></div>
+        <div class="swiper-button-prev swiper-button-white" slot="button-prev"></div>
+        <div class="swiper-button-next swiper-button-white" slot="button-next"></div>
         <div class="swiper-pagination" slot="pagination"></div>
       </swiper>
     </client-only>
@@ -84,7 +84,7 @@ export default {
 <style lang="scss" scoped>
 .example {
   height: auto;
-  margin-top: 6rem;
+  margin-top: 4.6rem;
   .swiper {
     height: 250px;
     width: 100%;
@@ -98,17 +98,22 @@ export default {
       justify-content: center;
       align-items: center;
     }
-    .swiper-pagination {
-      > .swiper-pagination-bullet-active {
-        background: red !important;
-      }
-    }
   }
+
+  // .swiper-button-next, .swiper-button-prev {
+  //   display: none;
+  // }
 }
 
 @media (min-width: 640px) {
   .example {
     margin-top: 8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .swiper-button-next, .swiper-button-prev {
+    display: none;
   }
 }
 </style>

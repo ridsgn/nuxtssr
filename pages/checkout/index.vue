@@ -1,10 +1,12 @@
 <template>
   <div>
-    <div class="container flex px-5 mx-auto mt-32 mother-container">
+    <div class="container flex flex-col lg:flex-row px-5 mx-auto mt-20 lg:mt-32 mother-container">
       <div class="mb-10 mr-10 mother-container-left-side">
         <div class="min-h-full p-4 bg-white rounded-md shadow left-side-content">
           <ul class="space-y-4">
+            <li v-if="!itemCount" class="min-w-full p-4 bg-gray-200 rounded-md text-xs text-center">Oops.., its empty here. <br> Go buy some at our <b>store</b>.</li>
             <li
+              v-else
               v-for="item in carts"
               :key="item.product.id"
               class="min-w-full p-4 bg-gray-200 rounded-md"
@@ -13,12 +15,12 @@
                 <div class="mb-2 --top-section">
                   <div class="flex items-start">
                     <div class="img-wrapper">
-                      <div class="relative flex-shrink-0 w-20 h-20">
-                        <div class="absolute top-0 left-0 w-20 h-20">
+                      <div class="relative flex-shrink-0 w-16 h-16 lg:w-20 lg:h-20">
+                        <div class="absolute top-0 left-0 w-16 h-16 lg:w-20 lg:h-20">
                           <div class="relative">
-                            <div class="absolute top-0 left-0 w-20 h-20">
+                            <div class="absolute top-0 left-0 w-16 h-16 lg:w-20 lg:h-20">
                               <img
-                                class="w-20 h-20 rounded-md"
+                                class="w-16 h-16 lg:w-20 lg:h-20 rounded-md"
                                 :src="item.product.image[0]"
                                 alt="#"
                               />
@@ -64,7 +66,7 @@
                     </div>
                     <div class="--right-item">
                       <div class="inline-flex space-x-4">
-                        <div>
+                        <!-- <div>
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             class="icon icon-tabler icon-tabler-heart"
@@ -82,8 +84,8 @@
                               d="M19.5 13.572l-7.5 7.428l-7.5 -7.428m0 0a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572"
                             />
                           </svg>
-                        </div>
-                        <div @click="removeItem(item.product)" role="button">
+                        </div> -->
+                        <button @click="$modal.show('delete', item.product)" role="button">
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             class="icon icon-tabler icon-tabler-trash"
@@ -103,10 +105,10 @@
                             <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
                             <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
                           </svg>
-                        </div>
+                        </button>
 
                         <div class="flex">
-                          <div>
+                          <button @click="min(item.product.id, $refs.quantity)">
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
                               class="icon icon-tabler icon-tabler-circle-minus"
@@ -123,7 +125,7 @@
                               <circle cx="12" cy="12" r="9" />
                               <line x1="9" y1="12" x2="15" y2="12" />
                             </svg>
-                          </div>
+                          </button>
                           <!-- <ValidationProvider rules="positive" v-slot="{errors}"> -->
                           <input
                             type="text"
@@ -134,11 +136,11 @@
                             @change="updateQty(item.product.id, $event)"
                             class="w-10 text-center bg-transparent"
                             :value="item.quantity"
-                            ref="input"
+                            ref="quantity"
                           />
                           <!-- <span>min</span> -->
                           <!-- </ValidationProvider> -->
-                          <div>
+                          <button @click="plus(item.product.id, $refs.quantity)">
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
                               class="icon icon-tabler icon-tabler-circle-plus"
@@ -156,7 +158,7 @@
                               <line x1="9" y1="12" x2="15" y2="12" />
                               <line x1="12" y1="9" x2="12" y2="15" />
                             </svg>
-                          </div>
+                          </button>
                         </div>
                       </div>
                     </div>
@@ -173,16 +175,16 @@
         </div>
       </div>
 
-      <div class="flex-shrink-0 w-4/12 mother-container-right-side">
+      <div class="flex-shrink-0 lg:w-4/12 mother-container-right-side">
         <div class="sticky top right-side-content">
-          <div class="absolute top-0 left-0 bottom-auto right-auto z-10 w-full">
-            <div class="relative">
+          <div class="lg:absolute top-0 left-0 bottom-auto mb-4 right-auto z-10 w-full">
+            <div class="lg:relative">
               <div class="translate-y-0 opacity-100">
                 <div>
                   <section
-                    class="relative p-0 m-0 overflow-visible bg-white rounded-md shadow"
+                    class="p-0 m-0 overflow-visible bg-white rounded-md shadow"
                   >
-                    <div class="p-4 border-b-4">
+                    <!-- <div class="p-4 border-b-4">
                       <div class="">
                         <div class="flex">
                           <input
@@ -194,7 +196,7 @@
                           <t-button variant="disabled" class="w-full">Apply</t-button>
                         </div>
                       </div>
-                    </div>
+                    </div> -->
                     <div class="p-4">
                       <h4 class="font-bold text-gray-800">Order Summary</h4>
                       <div class="my-4">
@@ -225,8 +227,20 @@
         </div>
       </div>
 
+      <t-modal name="delete" @before-open="deleteBeforeOpen" variant="clean">
+        <template v-slot:header> Are you sure ? </template>
+        <p v-if="product">{{ product.name }}</p>
+        <p v-else>what ?</p>
+        <template v-slot:footer>
+          <div class="flex justify-between">
+            <t-button variant="outline" type="button">Cancel</t-button>
+            <t-button @click="removeItem(product)">Delete</t-button>
+          </div>
+        </template>
+      </t-modal>
+
       <ValidationObserver ref="form" v-slot="{ invalid }">
-        <t-modal :clickToClose="false" v-model="showModal" variant="clean">
+        <t-modal v-model="showModal" variant="clean">
           <template v-slot:header>
             Shipping
             <div class="flex mt-4">
@@ -385,6 +399,7 @@ export default {
     return {
       showModal: false,
       loading: false,
+      product: undefined,
       shipping: {
         name: this.$auth.user.name,
         phone: this.$auth.user.phone,
@@ -396,10 +411,30 @@ export default {
     };
   },
   methods: {
+    deleteBeforeOpen({ params, cancel }) {
+      // you can add a condition to cancel the modal opening
+      if (false) {
+        cancel();
+      }
+
+      this.product = params;
+    },
     updateQty(id, event) {
       this.$store.dispatch("cart/quantityUpdate", {
         productId: id,
         quantity: event.target.value !== "" ? event.target.value : 1,
+      });
+    },
+    plus(id, ref) {
+      this.$store.dispatch("cart/quantityUpdate", {
+        productId: id,
+        quantity: Number(ref[id-1].value) + 1,
+      });
+    },
+    min(id, ref) {
+      this.$store.dispatch("cart/quantityUpdate", {
+        productId: id,
+        quantity: Number(ref[id-1].value) - 1,
       });
     },
     async processOrder() {
@@ -433,6 +468,7 @@ export default {
     // },
     removeItem(product) {
       this.$store.dispatch("cart/removeItemFromCart", product);
+      this.$modal.hide('delete');
     },
   },
   computed: {
@@ -466,7 +502,8 @@ export default {
 
 <style lang="scss" scoped>
 .mother-container-left-side {
-  width: calc(100% - 400px);
+  // width: calc(100% - 400px);
+  width: 100%;
 }
 
 .top {
@@ -479,5 +516,12 @@ export default {
 
 textarea {
   resize: none;
+}
+
+@media (min-width: 680px) {
+  .mother-container-left-side {
+    width: calc(100% - 400px);
+  // width: 100%;
+  }
 }
 </style>

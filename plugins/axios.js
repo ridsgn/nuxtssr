@@ -7,7 +7,7 @@ export default function ({ $axios, store, $auth }) {
     }
 
     if (code === 403) {
-      store.dispatch('validation/setErrors', error.response.data.error)
+      store.dispatch('validation/setErrors', error.response.data)
     }
 
     if (code === 401) {
