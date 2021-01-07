@@ -1,6 +1,6 @@
 <template>
   <div>
-    <t-alert
+    <!-- <t-alert
 			:dismissible="false"
 			variant="danger"
 			class="container w-full max-w-lg mx-auto mt-32"
@@ -21,26 +21,19 @@
 			<ul class="ml-4 list-disc">
 				<li>{{ res }}</li>
 			</ul>
-		</t-alert>
-    <div
-      class="flex flex-col max-w-sm mx-auto mt-20 overflow-hidden bg-white rounded-lg shadow-lg lg:max-w-4xl"
-      :class="
-        vErrors.email || vErrors.username || vErrors.password || res
-          ? 'lg:mt-8'
-          : 'lg:mt-32'
-      "
-    >
-      <div class="flex max-w-sm min-w-full overflow-hidden bg-white rounded-lg shadow-lg">
-        <img
-          class="hidden bg-cover lg:block lg:w-1/2"
-          src="https://images.unsplash.com/photo-1546032996-6dfacbacbf3f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=655&q=80"
-        />
+		</t-alert> -->
+    <div class="bg-white mx-auto lg:max-w-4xl lg:rounded-lg h-screen lg:h-auto flex justify-center items-center lg:block">
+      <div
+        class="lg:flex rounded-lg max-w-sm mx-auto overflow-hidden lg:max-w-4xl mt-0 lg:mt-32"
+      >
+        <div class="hidden bg-cover lg:block lg:w-1/2 img"></div>
+
         <div class="w-full px-6 py-8 md:px-8 lg:w-1/2">
           <!-- <h2 class="text-2xl font-semibold text-center text-gray-700 font-poppins">Happy Life</h2> -->
 
           <a
-            href="#"
-            class="relative flex items-center justify-center mt-4 text-white rounded-lg shadow-md hover:bg-gray-100"
+            @click="socialLogin('google')"
+            class="relative flex items-center justify-center mt-4 cursor-pointer text-white rounded-lg shadow-md hover:bg-gray-100"
           >
             <div class="absolute left-0 px-4 py-3">
               <svg class="w-6 h-6" viewBox="0 0 40 40">
@@ -176,6 +169,7 @@
                     'w-full font-bold',
                     { 'cursor-not-allowed': invalid || loading },
                   ]"
+                  :variant="{ disabled: invalid || loading }"
                   :disabled="invalid || loading"
                   >{{ loading ? "Please wait..." : "Sign Up" }}</t-button
                 >
@@ -188,8 +182,8 @@
 
             <nuxt-link
               :to="{ name: 'auth-login' }"
-              class="text-xs text-gray-500 uppercase hover:underline"
-              >Already have an account ?</nuxt-link
+              class="text-xs text-gray-500 uppercase underline"
+              >login instead</nuxt-link
             >
 
             <span class="w-1/6 border-b md:w-1/5"></span>
@@ -204,6 +198,7 @@
 export default {
   auth: false,
   // middleware: 'guest',
+  layout: "withoutFooter",
   data() {
     return {
       res: null,
@@ -222,17 +217,22 @@ export default {
       this.$refs.form.reset();
     },
 
+    socialLogin(service) {
+      window.location.href = `https://dev.happywedding.id/api/login/${service}`;
+    },
+
     async userRegister() {
       this.loading = true;
       try {
         const res = await this.$axios.post("api/register", this.form);
         this.loading = false;
         if (res.status === 200) {
-          this.res = res.data.message;
+          this.$router.push("/auth/login");
+          this.$toast.success(res.data.message).goAway(3000);
         }
       } catch (err) {
         this.loading = false;
-        console.log(err);
+        this.$toast.error(this.vErrors.email[0]).goAway(3000);
       } finally {
         this.form.password = "";
         this.confirmation = "";
@@ -243,4 +243,8 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.img {
+  background-image: url("https://images.unsplash.com/photo-1546032996-6dfacbacbf3f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=655&q=80");
+}
+</style>

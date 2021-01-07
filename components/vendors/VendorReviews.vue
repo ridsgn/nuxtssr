@@ -193,7 +193,7 @@
     </ValidationObserver>
 
     <!-- Review List -->
-    <div class="grid grid-flow-row-dense grid-cols-2 gap-6 mt-12 mb-12">
+    <div class="block lg:grid grid-flow-row-dense grid-cols-2 gap-6 mt-12 mb-12">
       <vendor-review-list
         v-for="review in publishedReview"
         :key="review.id"

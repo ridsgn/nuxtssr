@@ -40,8 +40,9 @@
           <p class="flex items-center justify-end">Quantity</p>
           <div class="relative">
             <input
-              type="number"
+              type="text"
               maxlength="3"
+              @keyup="quantity($event)"
               v-model="qty"
               class="w-full border-2 border-gray-500 border-solid rounded-lg outline-none justify-self-end p-2 bg-transparent bg-none"
             />
@@ -80,7 +81,7 @@
                 >Chat Me</t-button
               >
             </div>
-            <div class="hidden lg:flex w-2/4 font-medium" v-else>
+            <div :class="['hidden lg:flex font-medium', {'w-2/4': isVendor}]" v-else>
               <t-button
                 v-if="isVendor"
                 variant="disabledOutline"
@@ -213,6 +214,9 @@ export default {
 
       this.$router.push("/payment");
     },
+    quantity(event) {
+      event.target.value = event.target.value.replace(/\D/g,'')
+    }
   },
   mounted() {
     this.$nextTick(() => {

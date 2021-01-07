@@ -98,7 +98,7 @@
 
             <nuxt-link
               :to="{ name: 'auth-register' }"
-              class="text-xs text-gray-500 uppercase hover:underline"
+              class="text-xs text-gray-500 uppercase underline"
               >or sign up</nuxt-link
             >
 

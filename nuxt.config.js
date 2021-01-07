@@ -54,6 +54,7 @@ export default {
   // Modules (https://go.nuxtjs.dev/config-modules)
   modules: [
     // https://go.nuxtjs.dev/axios
+    '@nuxtjs/device',
     '@nuxtjs/axios',
     '@nuxtjs/toast',
     '@nuxtjs/auth-next',
@@ -131,7 +132,7 @@ export default {
         // url: 'http://localhost:8000/',
         token: {
           property: 'access_token',
-          maxAge: 30 * 60, // 30 minutes of ttl
+          maxAge: 60 * 60, // 60 minutes of ttl
           // type: 'Bearer'
         },
         refreshToken: {

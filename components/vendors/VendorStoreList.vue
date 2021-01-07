@@ -1,5 +1,5 @@
 <template>
-	<div class="">
+	<div class="mt-6">
 		<!-- image wrapper -->
 		<div class="flex items-center justify-center rounded-lg">
 			<nuxt-link :to="{ name: 'stores-vendor-slug', params: { slug: product.slug } }">

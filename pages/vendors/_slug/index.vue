@@ -1,9 +1,9 @@
 <template>
-	<div class="container mx-auto mt-32">
+	<div class="container mx-auto mt-20 lg:mt-32">
 		<!-- vendor detail card -->
 		<DetailCard :vendor="data" />
 		<!-- vendor tab nav -->
-		<tabs class="mt-8">
+		<tabs class="mt-8 mx-4 lg:mx-auto">
 			<tab title="Projects">
 				<LazyVendorProjects :projects="data.projects" />
 			</tab>

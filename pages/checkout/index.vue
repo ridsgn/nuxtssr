@@ -7,7 +7,7 @@
             <li v-if="!itemCount" class="min-w-full p-4 bg-gray-200 rounded-md text-xs text-center">Oops.., its empty here. <br> Go buy some at our <b>store</b>.</li>
             <li
               v-else
-              v-for="item in carts"
+              v-for="(item, index) in carts"
               :key="item.product.id"
               class="min-w-full p-4 bg-gray-200 rounded-md"
             >
@@ -108,7 +108,7 @@
                         </button>
 
                         <div class="flex">
-                          <button @click="min(item.product.id, $refs.quantity)">
+                          <button @click="min(index, item.product.id, $refs.quantity)">
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
                               class="icon icon-tabler icon-tabler-circle-minus"
@@ -140,7 +140,7 @@
                           />
                           <!-- <span>min</span> -->
                           <!-- </ValidationProvider> -->
-                          <button @click="plus(item.product.id, $refs.quantity)">
+                          <button @click="plus(index, item.product.id, $refs.quantity)">
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
                               class="icon icon-tabler icon-tabler-circle-plus"
@@ -425,16 +425,22 @@ export default {
         quantity: event.target.value !== "" ? event.target.value : 1,
       });
     },
-    plus(id, ref) {
+    plus(index, id, ref) {
+      let val = Number(ref[index].value) + 1;
+
+      if (val > 999) val = 999;
       this.$store.dispatch("cart/quantityUpdate", {
         productId: id,
-        quantity: Number(ref[id-1].value) + 1,
+        quantity: val,
       });
     },
-    min(id, ref) {
+    min(index, id, ref) {
+      let val = Number(ref[index].value) - 1;
+
+      if (val < 0) val = 0
       this.$store.dispatch("cart/quantityUpdate", {
         productId: id,
-        quantity: Number(ref[id-1].value) - 1,
+        quantity: val,
       });
     },
     async processOrder() {

@@ -22,6 +22,7 @@
 
 <script>
 export default {
+  auth: false,
 	layout: "landing",
 };
 </script>
