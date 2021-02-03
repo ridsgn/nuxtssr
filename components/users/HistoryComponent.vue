@@ -35,7 +35,7 @@
             <td :class="props.tdClass">
               <span> IDR {{ props.row.total_price }} </span>
             </td>
-            <td :class="props.tdClass">
+            <td :class="[props.tdClass, 'text-center']">
               <span
                 v-if="props.row.status === 'pending'"
                 class="px-5 py-2 text-xs font-bold text-yellow-900 bg-yellow-200 rounded-full d-flex"
@@ -49,16 +49,16 @@
                 {{ props.row.status }}
               </span>
             </td>
-            <td :class="props.tdClass">
+            <td :class="[props.tdClass, 'flex']">
               <t-button
                 @click="$modal.show('details', props.row.order_details)"
                 variant="cta"
-                class="float-left mr-4"
               >
                 <span class="text-xs">Details</span>
               </t-button>
               <t-button
                 :disabled="props.row.status !== 'pending'"
+                :class="['ml-4', { hidden: props.row.status !== 'pending' }]"
                 @click="$modal.show('cancel', props.row.order_id)"
                 :variant="{
                   outline: props.row.status === 'pending',
@@ -111,6 +111,7 @@
                   'Qty',
                   'Category',
                   'Type',
+                  'Resi',
                   'Action',
                 ]"
                 :data="detail.item_detail"
@@ -160,8 +161,19 @@
                         Physical Goods
                       </span>
                     </td>
-                    <td :class="[tdClass, 'text-right']">
-                      <t-dropdown>
+                    <td>
+                      <span
+                        v-if="row.product.type !== 'Service' && row.resi"
+                        class="hover:underline cursor-pointer"
+                        @click="checkShipStatus(row.resi)"
+                      >
+                        {{ row.resi }}
+                      </span>
+                    </td>
+                    <td :class="[tdClass, 'text-center']">
+                      <t-dropdown
+                        :class="{ hidden: detail.status === 'pending' }"
+                      >
                         <template slot="button">
                           <svg
                             version="1.1"
@@ -177,22 +189,34 @@
                           </svg>
                         </template>
                         <button
+                          v-if="row.product.type === 'Service'"
                           class="block w-full px-4 py-2 text-left text-gray-800 hover:text-white hover:bg-hw-teal"
                           @click="$modal.show('approve', row.id)"
                         >
                           Project Done
                         </button>
                         <button
+                          v-else
                           class="block w-full px-4 py-2 text-left text-gray-800 hover:text-white hover:bg-hw-teal"
+                          @click="$modal.show('complaint', row.id)"
                         >
                           Complaint
                         </button>
                       </t-dropdown>
                     </td>
                   </tr>
+                  <!-- <pre>{{ detail }}</pre> -->
                 </template>
               </t-table>
             </t-card>
+            <p
+              v-if="loading"
+              class="flex mt-10 w-full justify-center items-center"
+            >
+              <span class="loading"></span>
+            </p>
+            <p v-else-if="error">Error while fetching mountains 🤬</p>
+            <t-card v-else-if="status">{{ status.data }}</t-card>
           </div>
           <!-- <pre>{{ detail }}</pre> -->
           <!-- <div
@@ -217,6 +241,49 @@
           </div>
         </template>
       </t-modal>
+
+      <ValidationObserver>
+        <t-modal
+          name="complaint"
+          @before-open="complaintBeforeOpen"
+          variant="clean"
+        >
+          <template v-slot:header> Any Problem ? </template>
+          <div>
+            <v-select v-model="complaint.reason" class="mb-4 px-4 style-chooser" label="reason" :options="[1, 2, 3]" :clearable="false" placeholder="Select Reason"></v-select>
+            <v-select v-model="complaint.solution" class="mb-4 px-4 style-chooser" label="solution" :options="[1, 2, 3]" :clearable="false" placeholder="Select Solution"></v-select>
+            <ValidationProvider
+              class="flex-grow"
+              rules="required"
+              v-slot="{ errors, classes }"
+            >
+              <label
+                class="block mb-2 text-xs font-medium text-gray-600"
+                for="Description"
+                >Description</label
+              >
+              <div class="content" :class="classes">
+                <input
+                  id="Description"
+                  v-model="complaint.description"
+                  class="w-full px-3 py-2 text-xs leading-none border border-gray-300 rounded outline-none border-box focus:border-teal-500"
+                  type="text"
+                  :disabled="checkbox"
+                  :class="classes"
+                />
+                <span>{{ errors[0] }}</span>
+              </div>
+            </ValidationProvider>
+          </div>
+          <template v-slot:footer>
+            <div class="flex justify-between">
+              <t-button variant="outline" type="button">Cancel</t-button>
+              <t-button @click="processComplaint(id)">Send</t-button>
+            </div>
+          </template>
+        </t-modal>
+      </ValidationObserver>
+
       <t-modal name="cancel" @before-open="cancelBeforeOpen" variant="clean">
         <template v-slot:header> Are you sure to cancel your order ? </template>
         <p>{{ orderId }}</p>
@@ -244,6 +311,15 @@ export default {
       id: undefined,
       orderId: undefined,
       approvedModal: false,
+      loading: false,
+      error: undefined,
+      status: undefined,
+      complaint: {
+        id: undefined,
+        reason: undefined,
+        solution: undefined,
+        description: undefined,
+      },
     };
   },
 
@@ -255,6 +331,34 @@ export default {
   },
 
   methods: {
+    async checkShipStatus(resi) {
+      try {
+        this.loading = true;
+        this.status = await this.$axios.$get(
+          `api/shipping?courier=jne&awb=${resi}`
+        );
+        this.loading = false;
+      } catch (error) {
+        this.error = error;
+      }
+    },
+
+    async processComplaint(id) {
+      try {
+        this.$modal.hide("complaint");
+        await this.$axios.$post('api/complaint/store', {
+          order_detail: id,
+          vendor: 4,
+          reason: this.complaint.reason,
+          solution: this.complaint.solution,
+          description: this.complaint.description,
+        });
+        this.$toast.success("Complaint has been sent").goAway(1500);
+      } catch (error) {
+        this.error = error;
+      }
+    },
+
     async processApprove(id) {
       try {
         this.$toast.show("Processing...").goAway(1500);
@@ -282,6 +386,14 @@ export default {
       }
     },
     approveBeforeOpen({ params, cancel }) {
+      // you can add a condition to cancel the modal opening
+      if (false) {
+        cancel();
+      }
+
+      this.id = params;
+    },
+    complaintBeforeOpen({ params, cancel }) {
       // you can add a condition to cancel the modal opening
       if (false) {
         cancel();
@@ -364,4 +476,20 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.loading {
+  display: flex;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 4px solid rgba(9, 133, 81, 0.705);
+  border-radius: 50%;
+  border-top-color: #158876;
+  animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+  to {
+    -webkit-transform: rotate(360deg);
+  }
+}
+</style>

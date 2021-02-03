@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div :class="{hidden: $device.isMobile}">
+    <div class="hidden">
       <nav
         class="fixed top-0 z-50 flex items-center justify-between w-full px-4 py-3 mx-auto bg-hw-light-teal xl:px-24"
       >

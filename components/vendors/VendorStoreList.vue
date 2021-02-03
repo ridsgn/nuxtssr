@@ -5,7 +5,7 @@
 			<nuxt-link :to="{ name: 'stores-vendor-slug', params: { slug: product.slug } }">
 				<img
 					class="rounded-lg"
-					:src="product.images"
+					:src="product.image"
 					alt="store image"
 				/>
 			</nuxt-link>

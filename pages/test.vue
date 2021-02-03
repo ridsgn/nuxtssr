@@ -291,22 +291,22 @@ export default {
 			toggler: [false, false],
 		};
 	},
-	async asyncData({
-		isDev,
-		route,
-		store,
-		env,
-		params,
-		query,
-		req,
-		res,
-		redirect,
-		error,
-		$axios,
-	}) {
-		const data = await $axios.$get(`/vendor/4`);
-		return data;
-	},
+	// async asyncData({
+	// 	isDev,
+	// 	route,
+	// 	store,
+	// 	env,
+	// 	params,
+	// 	query,
+	// 	req,
+	// 	res,
+	// 	redirect,
+	// 	error,
+	// 	$axios,
+	// }) {
+	// 	const data = await $axios.$get(`/vendor/4`);
+	// 	return data;
+	// },
 };
 </script>
 

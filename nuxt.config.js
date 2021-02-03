@@ -113,7 +113,7 @@ export default {
   proxy: {
     '/api': {
       target: 'https://dev.happywedding.id',
-      // target: 'http://localhost:8000',
+      // target: 'http://ecommerce.test',
       // pathRewrite: { '^/api': '/' }
     }
   },
@@ -129,7 +129,7 @@ export default {
         // scheme: 'refresh',
         provider: 'laravel/jwt',
         url: 'https://dev.happywedding.id/',
-        // url: 'http://localhost:8000/',
+        // url: 'http://ecommerce.test/',
         token: {
           property: 'access_token',
           maxAge: 60 * 60, // 60 minutes of ttl
