@@ -11,11 +11,11 @@
             <nuxt-link
               to="#"
               class="w-10/12 font-semibold leading-tight whitespace-no-wrap truncate text-teal-500 text-md"
-              >{{ project.title }}</nuxt-link
+              >{{ project.name }}</nuxt-link
             >
             <div class="flex justify-between w-full">
               <h4 class="text-xs font-medium tracking-tight text-gray-800">
-                {{ project.name }}
+                {{ project.vendor }}
               </h4>
               <div class="text-xs font-medium text-gray-500">
                 {{ project.category }}
@@ -35,11 +35,11 @@
             <nuxt-link
               to="#"
               class="w-9/12 font-semibold leading-tight whitespace-no-wrap truncate text-teal-500 text-md"
-              >{{ project.title }}</nuxt-link
+              >{{ project.name }}</nuxt-link
             >
             <div class="flex justify-between w-full">
               <h4 class="text-xs font-medium tracking-tight text-gray-800">
-                {{ project.name }}
+                {{ project.vendor }}
               </h4>
               <div class="text-xs font-medium text-gray-500">
                 {{ project.category }}

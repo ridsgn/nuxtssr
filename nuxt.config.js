@@ -112,7 +112,7 @@ export default {
 
   proxy: {
     '/api': {
-      target: 'https://dev.happywedding.id',
+      target: 'http://dev.happywedding.id',
       // target: 'http://ecommerce.test',
       // pathRewrite: { '^/api': '/' }
     }
@@ -128,7 +128,7 @@ export default {
       'laravelJWT': {
         // scheme: 'refresh',
         provider: 'laravel/jwt',
-        url: 'https://dev.happywedding.id/',
+        url: 'http://dev.happywedding.id/',
         // url: 'http://ecommerce.test/',
         token: {
           property: 'access_token',
