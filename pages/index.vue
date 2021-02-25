@@ -36,9 +36,6 @@
 export default {
   auth: false,
   layout: "landing",
-  created() {
-    this.$auth.loggedIn ? this.$auth.refreshTokens() : this.$auth.setUser(false);
-  },
 };
 </script>
 

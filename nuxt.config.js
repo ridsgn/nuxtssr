@@ -119,6 +119,7 @@ export default {
   },
 
   auth: {
+    plugins: [ '~/plugins/auth.js' ],
     redirect: {
       login: '/auth/login',
       home: '/discovery'
