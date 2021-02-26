@@ -122,8 +122,11 @@ export default {
     plugins: [ '~/plugins/auth.js' ],
     redirect: {
       login: '/auth/login',
-      home: '/discovery'
+      logout: '/auth/login',
+      callback: '/auth/login',
+      home: '/discovery',
     },
+    rewriteRedirects: true,
     localStorage: false,
     strategies: {
       'laravelJWT': {

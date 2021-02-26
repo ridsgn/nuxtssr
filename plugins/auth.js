@@ -1,4 +1,5 @@
 export default function ({$axios, $auth}) {
+
   $axios.onError(async (error) => {
     const config = error.config;
     // Don't intercept retry request
