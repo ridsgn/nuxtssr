@@ -132,7 +132,6 @@ export default {
       try {
         await this.$auth.loginWith("laravelJWT", { data: this.form });
         // this.$router.push(this.$store.state.auth.redirect ? this.$store.state.auth.redirect : "/discovery");
-        // this.$router.push("/discovery");
         // console.log(this.$store.state.auth);
         // await this.$axios.$get(`/cart/${this.$auth.user.id}`);
       } catch (err) {
