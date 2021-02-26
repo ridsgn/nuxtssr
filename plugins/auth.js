@@ -7,6 +7,8 @@ export default function ({ $axios, $auth }) {
       return Promise.reject(error)
     }
 
+    $auth.setUser(false)
+
     // Refresh tokens before retrying current request
     await $auth.refreshTokens().catch((error) => {
       // Tokens couldn't be refreshed. Force reset.
