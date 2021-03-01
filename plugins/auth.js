@@ -25,4 +25,9 @@ export default function ({ $axios, $auth }) {
     // Retry original request
     return $axios.request(config)
   })
+
+  // $auth.onRedirect((to, from) => {
+  //   console.error(to, from)
+  //   // you can optionally change `to` by returning a new value
+  // })
 }

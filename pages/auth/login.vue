@@ -129,10 +129,11 @@ export default {
     },
 
     async userLogin() {
+      const path = this.$auth.$storage.getUniversal('redirect') || '/discovery'
       try {
         await this.$auth.loginWith("laravelJWT", { data: this.form });
-        // this.$router.push(this.$store.state.auth.redirect ? this.$store.state.auth.redirect : "/discovery");
-        // console.log(this.$store.state.auth);
+        console.log(path);
+        this.$router.push(path);
         // await this.$axios.$get(`/cart/${this.$auth.user.id}`);
       } catch (err) {
         this.$toast.error(this.vErrors.error).goAway(3000);

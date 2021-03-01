@@ -36,10 +36,6 @@
 export default {
   auth: false,
   layout: "landing",
-  created() {
-    this.$auth.refreshTokens()
-  },
-
 };
 </script>
 

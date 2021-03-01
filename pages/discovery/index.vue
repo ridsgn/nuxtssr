@@ -15,6 +15,3 @@ export default {
   name: "PageStore"
 };
 </script>
-
-<style scoped>
-</style>
