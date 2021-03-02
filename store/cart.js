@@ -5,11 +5,11 @@ const getDefaultState = () => {
     products: [],
     product: {},
     cart: [],
-    vendor: [],
-  }
-}
+    vendor: []
+  };
+};
 
-export const state = getDefaultState
+export const state = getDefaultState;
 
 // GETTER
 
@@ -21,7 +21,7 @@ export const getters = {
   //   return state.products.filter(product => product.category === "Wedding Merchandise");
   // },
   oneProduct(state) {
-    return state.product.product
+    return state.product.product;
   },
 
   // isValid(state) {
@@ -33,50 +33,52 @@ export const getters = {
   // },
 
   vendorProduct(state) {
-    return state.vendor
+    return state.vendor;
   },
   // regex(state, getters) {
   //   return getters.oneProduct.price.replace(/[IDR\s.]/g, '');
   // },
   discount(state, getters) {
-    if (!getters.oneProduct) { return }
+    if (!getters.oneProduct) {
+      return;
+    }
 
     const price = getters.oneProduct.price;
     const disc = getters.oneProduct.disc;
-    const formatter = new Intl.NumberFormat('id-ID', {
-      style: 'decimal',
-      currency: 'IDR',
-    })
+    const formatter = new Intl.NumberFormat("id-ID", {
+      style: "decimal",
+      currency: "IDR"
+    });
 
-    return disc ? price - (price * (disc / 100)) : 0;
+    return disc ? price - price * (disc / 100) : 0;
   },
   cartItemCount(state) {
     return state.cart.length;
   },
   cartTotalPrice(state) {
-    const formatter = new Intl.NumberFormat('id-ID', {
-      style: 'decimal',
-      currency: 'IDR',
-    })
+    const formatter = new Intl.NumberFormat("id-ID", {
+      style: "decimal",
+      currency: "IDR"
+    });
     let total = 0;
 
     state.cart.forEach(item => {
       if (item.afterDiscount) {
-        total += (item.afterDiscount * item.quantity)
+        total += item.afterDiscount * item.quantity;
       } else {
-        total += (item.product.price * item.quantity)
+        total += item.product.price * item.quantity;
       }
     });
 
     return total;
   }
-}
+};
 
 // MUTATION
 
 export const mutations = {
   SET_PRODUCTS(state, products) {
-    state.products = products
+    state.products = products;
   },
 
   SET_PRODUCT(state, product) {
@@ -86,7 +88,7 @@ export const mutations = {
   ADD_TO_CART(state, { product, afterDiscount, quantity, pay = null }) {
     let productInCart = state.cart.find(item => {
       return item.product.id === product.id;
-    })
+    });
 
     if (productInCart) {
       productInCart.quantity += quantity;
@@ -96,8 +98,12 @@ export const mutations = {
     state.cart.push({ product, afterDiscount, quantity, pay });
   },
 
+  RESTORE_CART(state, data) {
+    state.cart = data;
+  },
+
   VENDOR_PRODUCT(state, { product, date, price, qty, pay }) {
-    state.vendor.push({ product, date, price, qty, pay })
+    state.vendor.push({ product, date, price, qty, pay });
   },
 
   VENDOR_PRODUCT_NEGO(state, product) {
@@ -106,8 +112,8 @@ export const mutations = {
 
   UPDATE_QUANTITY(state, { productId, quantity }) {
     let productInCart = state.cart.find(item => {
-      return item.product.id === productId
-    })
+      return item.product.id === productId;
+    });
 
     if (productInCart) {
       productInCart.quantity = quantity;
@@ -117,11 +123,11 @@ export const mutations = {
   REMOVE_ITEM_CART(state, product) {
     state.cart = state.cart.filter(item => {
       return item.product.id !== product.id;
-    })
+    });
   },
 
   RESET_STATE(state) {
-    Object.assign(state, getDefaultState())
+    Object.assign(state, getDefaultState());
   },
 
   EMPTY_VENDOR(state) {
@@ -137,84 +143,100 @@ export const mutations = {
       window.location.replace(url);
     }
   }
-}
+};
 
 // ACTION
 
 export const actions = {
   async getProducts({ commit }) {
     try {
-      const products = await this.$axios.$get('api/products')
-      commit('SET_PRODUCTS', products.data.product);
+      const products = await this.$axios.$get("api/products");
+      commit("SET_PRODUCTS", products.data.product);
     } catch (e) {
       console.log(e);
     }
   },
 
   async getProduct({ commit }, { slug, vendor }) {
-    const product = await this.$axios.$get(`api/product/${slug}`)
-    await commit('CLEAR_PRODUCT', {})
-    commit('SET_PRODUCT', product.data);
+    const product = await this.$axios.$get(`api/product/${slug}`);
+    await commit("CLEAR_PRODUCT", {});
+    commit("SET_PRODUCT", product.data);
   },
 
-  async vendorProduct({ commit }, { slug } ) {
-    const product = await this.$axios.$get(`api/vendor-product/${slug}`)
-    await commit('CLEAR_PRODUCT', {})
-    commit('SET_PRODUCT', product.data);
+  async vendorProduct({ commit }, { slug }) {
+    const product = await this.$axios.$get(`api/vendor-product/${slug}`);
+    await commit("CLEAR_PRODUCT", {});
+    commit("SET_PRODUCT", product.data);
   },
 
   async storeProduct({ state }, user_id) {
-    const item = state.cart.map(product => product.product)
+    const item = state.cart.map(product => product.product);
 
-    await this.$axios.$post('api/cart', {
+    await this.$axios.$post("api/cart", {
       user_id: user_id.id,
       product_id: item.map(ids => ids.id),
       quantity: state.cart.map(quantity => quantity.quantity)
     });
   },
 
-  async processOrder({ state, commit }, { shipping, vendor, nego }) {
-    const items = vendor ? state.vendor : state.cart
-    const product = JSON.parse(JSON.stringify(items))
-    const ship = (vendor || !shipping) ? false : shipping
-
-    for (let index = 0; index < product.length; index++) {
-      product[index].price = vendor && !nego ? product[index].price : product[index].product.price;
-      product[index].qty = vendor ? product[index].qty : product[index]['quantity']
-      product[index].id_product = nego ? product[index].product.id_product : product[index].product.id
-      product[index].down_payment = product[index].product.down_payment
-      product[index].id_vendor = vendor ? product[index].product.vendor_id : null
-      product[index].disc = vendor ? null : product[index].product.disc
-
-      delete product[index].afterDiscount
-      delete product[index].quantity
-      delete product[index].product
+  async restoreCart({ commit }, data) {
+    for (let index = 0; index < data.length; index++) {
+      data[index].afterDiscount = 0;
+      data[index].pay = null;
     }
 
-    const order = await this.$axios.$post('api/order', {
+    commit("RESTORE_CART", data);
+  },
+
+  async processOrder({ state, commit }, { shipping, vendor, nego }) {
+    const items = vendor ? state.vendor : state.cart;
+    const product = JSON.parse(JSON.stringify(items));
+    const ship = vendor || !shipping ? false : shipping;
+
+    for (let index = 0; index < product.length; index++) {
+      product[index].price =
+        vendor && !nego ? product[index].price : product[index].product.price;
+      product[index].qty = vendor
+        ? product[index].qty
+        : product[index]["quantity"];
+      product[index].id_product = nego
+        ? product[index].product.id_product
+        : product[index].product.id;
+      product[index].down_payment = product[index].product.down_payment;
+      product[index].id_vendor = vendor
+        ? product[index].product.vendor_id
+        : null;
+      product[index].disc = vendor ? null : product[index].product.disc;
+
+      delete product[index].afterDiscount;
+      delete product[index].quantity;
+      delete product[index].product;
+    }
+
+    const order = await this.$axios.$post("api/order", {
       data: product,
       shipping: ship,
       vendor: vendor,
       nego: nego
-    })
+    });
 
-    const midtrans = await this.$axios.$post('api/payment/get-token', {
+    const midtrans = await this.$axios.$post("api/payment/get-token", {
       order_id: order.order_id,
       vendor: vendor,
       nego: nego
-    })
+    });
 
     snap.pay(midtrans.token, {
       onSuccess(result) {
-        console.log('success');
+        console.log("success");
         // this.app.router.push(result.finish_redirect_url)
-        commit('RESET_STATE')
+        commit("RESET_STATE");
       },
       onPending(result) {
-        console.log('pending');
+        console.log("pending");
         // console.log(result);
-        commit('REDIRECT', result.finish_redirect_url)
-        commit('RESET_STATE')
+        commit("REDIRECT", result.finish_redirect_url);
+        commit("RESET_STATE");
       }
     });
   },
@@ -228,41 +250,41 @@ export const actions = {
   // },
 
   mampus({ commit }) {
-    commit('EMPTY_VENDOR', [])
+    commit("EMPTY_VENDOR", []);
     // commit('RESET_STATE')
   },
 
   clearProduct({ commit }) {
-    commit('CLEAR_PRODUCT', {})
+    commit("CLEAR_PRODUCT", {});
   },
 
   addProductNegoVendor({ commit }, product) {
-    commit('EMPTY_VENDOR', [])
-    commit('VENDOR_PRODUCT_NEGO', product )
+    commit("EMPTY_VENDOR", []);
+    commit("VENDOR_PRODUCT_NEGO", product);
   },
 
   addProductVendor({ commit }, { date, product, price, qty, pay }) {
-    commit('EMPTY_VENDOR', [])
-    commit('VENDOR_PRODUCT', { date, product, price, qty, pay })
+    commit("EMPTY_VENDOR", []);
+    commit("VENDOR_PRODUCT", { date, product, price, qty, pay });
   },
 
   addProductToCart({ commit }, { product, afterDiscount, quantity }) {
-    commit('ADD_TO_CART', { product, afterDiscount, quantity });
+    commit("ADD_TO_CART", { product, afterDiscount, quantity });
   },
 
   quantityUpdate({ commit }, { productId, quantity, isValid }) {
-    commit('UPDATE_QUANTITY', { productId, quantity, isValid });
+    commit("UPDATE_QUANTITY", { productId, quantity, isValid });
   },
 
   removeItemFromCart({ commit }, product) {
-    commit('REMOVE_ITEM_CART', product);
-  },
-
-  checkAuth({ commit }) {
-    if (this.$auth.loggedIn) {
-      commit('RESET_STATE')
-      this.$auth.logout()
-      this.$router.push('/auth/login');
-    }
+    commit("REMOVE_ITEM_CART", product);
   }
-}
+
+  // checkAuth({ commit }) {
+  //   if (this.$auth.loggedIn) {
+  //     commit('RESET_STATE')
+  //     this.$auth.logout()
+  //     this.$router.push('/auth/login');
+  //   }
+  // }
+};

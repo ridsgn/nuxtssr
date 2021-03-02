@@ -29,5 +29,8 @@ export default function ({ $axios, $auth }) {
   // $auth.onRedirect((to, from) => {
   //   console.error(to, from)
   //   // you can optionally change `to` by returning a new value
+  //   if ($auth.loggedIn) {
+  //     console.error('/auth/login', from)
+  //   }
   // })
 }

@@ -197,7 +197,7 @@
 <script>
 export default {
   auth: false,
-  // middleware: 'guest',
+  middleware: 'guest',
   layout: "withoutFooter",
   data() {
     return {

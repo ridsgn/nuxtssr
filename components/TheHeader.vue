@@ -339,7 +339,7 @@ export default {
       if (this.isEmptyCart) {
         try {
           await this.$auth.logout();
-          location.replace("/auth/login");
+          // location.replace("/auth/login");
         } catch (e) {
           console.log(e);
         }

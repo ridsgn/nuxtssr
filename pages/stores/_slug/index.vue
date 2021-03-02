@@ -8,6 +8,7 @@
 <script>
 export default {
   name: "PageStoreDetail",
+  // middleware: 'auth',
   beforeCreate() {
     this.$store.dispatch("cart/clearProduct");
   },
@@ -26,6 +27,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" scoped>
-</style>

@@ -113,7 +113,7 @@
 <script>
 export default {
   auth: false,
-  // middleware: 'guest',
+  middleware: 'guest',
   layout: "withoutFooter",
   data() {
     return {
@@ -131,10 +131,11 @@ export default {
     async userLogin() {
       const path = this.$auth.$storage.getUniversal('redirect') || '/discovery'
       try {
-        await this.$auth.loginWith("laravelJWT", { data: this.form });
-        console.log(path);
+        await this.$auth.loginWith("laravelJWT", { data: this.form }).then(async () => {
+          const cart = await this.$axios.$get(`api/cart/${this.$auth.user.id}`)
+          this.$store.dispatch('cart/restoreCart', cart.data)
+        });
         this.$router.push(path);
-        // await this.$axios.$get(`/cart/${this.$auth.user.id}`);
       } catch (err) {
         this.$toast.error(this.vErrors.error).goAway(3000);
         console.log(err);
