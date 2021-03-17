@@ -97,11 +97,7 @@ export default {
   },
 
   async fetch() {
-    // if (this.category != null || this.location != null) {
-    // 	this.vendors = await this.$axios.$get(`api/vendors?filter[category]=${this.category}&filter[vendors_name]=&filter[location]=${this.location}`)
-    // } else {
     this.vendors = await this.$axios.$get(`api/vendors`);
-    // }
   },
   async asyncData({ $axios, error }) {
     const vendors = await $axios.$get(`api/vendors`).catch((err) => {
