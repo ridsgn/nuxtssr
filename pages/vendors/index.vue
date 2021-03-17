@@ -96,9 +96,9 @@ export default {
     };
   },
 
-  // async fetch() {
-  //   this.vendors = await this.$axios.$get(`api/vendors`);
-  // },
+  async fetch() {
+    this.vendors = await this.$axios.$get(`api/vendors`);
+  },
   async asyncData({ $axios, error }) {
     const vendors = await $axios.$get(`api/vendors`).catch((err) => {
       error({ statusCode: err, message: "Error" });
