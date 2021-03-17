@@ -203,7 +203,7 @@ export const actions = {
         ? product[index].product.id_product
         : product[index].product.id;
       product[index].down_payment = product[index].product.down_payment;
-      product[index].id_vendor = vendor
+      product[index].user_id = vendor
         ? product[index].product.vendor_id
         : null;
       product[index].disc = vendor ? null : product[index].product.disc;

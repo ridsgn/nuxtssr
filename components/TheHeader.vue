@@ -45,6 +45,7 @@
             </div>
           </div>
           <div
+            v-if="$auth.loggedIn"
             class="hidden lg:block relative ml-4"
             @mouseenter="cart = true"
             @mouseleave="cart = false"

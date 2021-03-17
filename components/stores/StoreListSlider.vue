@@ -62,12 +62,12 @@
 						</div>
 
 						<div>
-							<a
+							<nuxt-link
 								class="flex items-center text-xs text-indigo-600 btn-link hover:underline"
-								href="#"
+								:to="{ name: 'stores-slug', params: { slug: product.slug } }"
 							>
-								Details &rarr;
-							</a>
+              Details &rarr;
+							</nuxt-link>
 						</div>
 					</div>
 				</div>
