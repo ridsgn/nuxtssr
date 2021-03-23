@@ -26,7 +26,7 @@
         </div>
 
         <div
-          class="block sm:flex sm:self-start sm:flex-1 mt-4 space-y-4 sm:space-x-4 place-items-end"
+          class="block sm:flex sm:self-start sm:flex-1 mt-4 space-y-4 sm:space-y-0 sm:space-x-4 place-items-end"
         >
           <t-button class="text-xs whitespace-no-wrap w-full font-semibold"
             >Message Vendor</t-button
