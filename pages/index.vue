@@ -27,9 +27,9 @@
     </div>
 
     <div class="relative">
-      <div class="absolute center1 z-10 w-1/2">
+      <!-- <div class="absolute center1 z-10 w-1/2">
         <VendorFilter class="" theme="landing" @filter-vendor="haha" />
-      </div>
+      </div> -->
       <div class="blue-img">
         <div class="relative h-full">
           <img

@@ -239,7 +239,7 @@ export default {
       try {
         this.$modal.hide("review");
         await this.$axios.$post("/api/review", {
-          id_vendor: this.rating.id,
+          vendor_id: this.rating.id,
           title: this.rating.title,
           review: this.rating.body,
           rating: this.rating.rating,
@@ -253,19 +253,21 @@ export default {
 
   computed: {
     publishedReview() {
-      return this.reviews[0].filter((review) => {
-        return (
-          review.user_id !== this.$auth.user.id && review.status === "publish"
-        );
-      });
+      if(!this.reviews) {
+        return this.reviews[0].filter((review) => {
+          return (
+            review.user_id !== this.$auth.user.id && review.status === "publish"
+          );
+        });
+      }
     },
 
     myReview() {
-      const review = this.reviews[0].filter((review) => {
-        return review.user_id === this.$auth.user.id;
-      });
-
-      return review[0];
+      if(!this.reviews) {
+        return this.reviews[0].filter((review) => {
+          return review.user_id === this.$auth.user.id;
+        });
+      }
     },
   },
 };

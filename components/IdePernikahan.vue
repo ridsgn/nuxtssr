@@ -8,7 +8,7 @@
           >
             <div class="card__header mb-1 lg:mb-2">
               <figure
-                class="card__figure lg:h-64 md:h-36 w-full rounded-md bg-gray-500"
+                class="card__figure lg:h-64 xl:h-auto md:h-36 w-full rounded-md bg-gray-500"
               >
                 <img
                   :src="require(`~/assets/${image}`)"
@@ -70,7 +70,7 @@
                 Lorem ipsum dolor sit amet consectetur adipisicing elit.
               </nuxt-link>
               <p
-                class="card__copy text-gray-500 text-sm lg:text-lg line-clamp-4 lg:line-clamp-3"
+                class="card__copy text-gray-500 text-sm lg:text-lg line-clamp-4 lg:line-clamp-3 xl:line-clamp-2"
               >
                 Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eos ad
                 blanditiis totam labore accusamus. Eaque, modi enim error
