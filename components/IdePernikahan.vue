@@ -110,7 +110,7 @@ export default {
 .card__blog {
   border-radius: 30px 10px;
   width: 516px;
-  height: 486px;
+  height: auto;
   overflow: hidden;
 }
 

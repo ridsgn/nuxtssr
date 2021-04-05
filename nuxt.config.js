@@ -12,7 +12,7 @@ export default {
     ]
   },
 
-  loading: { color: '#38b2a7' },
+  loading: '~/components/LoadingBar.vue',
 
   router: {
     middleware: [
