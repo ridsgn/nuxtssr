@@ -1,7 +1,7 @@
 <template>
 	<div class="flex flex-col h-screen">
 		<TheHeader />
-		<nuxt class="flex-1 mb-6" />
+		<nuxt class="flex-1 mb-6" keep-alive :keep-alive-props="{ max: 10 }" />
 		<BottomNavigation class="block lg:hidden"/>
 		<TheFooter class="hidden lg:block" />
 	</div>

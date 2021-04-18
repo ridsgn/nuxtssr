@@ -312,7 +312,7 @@
             <li>
               <nuxt-link
                 class="py-2 font-medium hover:text-teal-500"
-                :to="{ name: 'events' }"
+                :to="{ name: 'blog' }"
                 >Blogs</nuxt-link
               >
             </li>
